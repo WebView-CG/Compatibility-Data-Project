@@ -18,7 +18,7 @@ Intelligent tracking prevention (ITP) was enabled by default for WKWebView on iO
 ([reference](https://webkit.org/blog/10882/app-bound-domains/)).
 This means that third party cookies cannot be used by default.
 
-Applications can add the option to opt out of ITP by providing a property to their app configuration, but users will
+Applications can add the option to opt out of ITP by providing a property to their app configuration for some but not all use cases, but users will
 still have to opt into this behavior in their app settings.
 
 TODO: Complete me!
