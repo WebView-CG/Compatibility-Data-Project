@@ -1,8 +1,14 @@
-# What is <behavior>?
-
-TODO: Complete me!
-
-# How does it work on each WebView?
+---
+title: "Template"
+description: "Generic feature/behavior description"
+category: Template
+keywords: template
+last_test_date: "2024-03-29"
+notes: "TODO Comment on how data was tested"
+links: {
+    "Useful link to docs or bugs etc": "https://caniwebview.com/features/localhost/",
+}
+---
 
 ## WebView2
 

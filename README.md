@@ -15,9 +15,9 @@ The compatibility data project has been split into two further sub-projects:
 
 TODO: Complete me!
 
-### WebView behavioral data
+### WebView behavioral "Feature" data
 
 The goal of this work stream is to collate the various behavioral differences between WebViews that cannot be captured
 in existing web compatibility data sources.
 
-You can check out the [scope and timeline](/behavioral/README.md) and document behavior using [this template](/behavioral/template.md).
+You can check out the [scope and timeline](/_features/README.md) and document behavior using [this template](/_features_/template.md).

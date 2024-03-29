@@ -1,13 +1,14 @@
 ---
-title: Update cadence
+title: "Update cadence"
+description: "This section covers how often users can expect to see each WebView provider updated. The WebView provider can either be
+distributed with the application users are using, or it can be provided by the operating system."
+category: Platform level
+keywords: updates
+last_test_date: "2024-03-29"
+notes: ""
+links: {
+}
 ---
-# What does this updates cadence section cover?
-
-This section covers how often users can expect to see each WebView provider updated. The WebView provider can either be
-distributed with the application users are using, or it can be provided by the operating system.
-
-# How does it work on each WebView?
-
 ## WebView2
 
 TODO: Complete me!

@@ -1,14 +1,14 @@
 ---
-	layout: null
+layout: null
 permalink: "/assets/js/caniemail.js"
 ---
-	{% include_relative _search.js %}
-//{% include_relative _settings.js %}
+{% include_relative _search.js %}
+{% include_relative _settings.js %}
 {% include_relative _filters.js %}
 {% include_relative _options.js %}
 {% include_relative _support.js %}
 
-class Caniwebview {
+class Caniemail {
 
 	constructor() {
 		this.search = new Search();
@@ -20,6 +20,6 @@ class Caniwebview {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-	window.caniwebview = new Caniwebview();
-	window.caniwebview.filters.onDOMContentLoaded();
+	window.caniemail = new Caniemail();
+	window.caniemail.filters.onDOMContentLoaded();
 });
