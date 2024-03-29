@@ -9,184 +9,69 @@ layout: default
 				{{ page.description | markdownify }}
 			</div>
 		</div>
-		<div class="feature-header-column">
-			{% include feature-support.html %}
-		</div>
 	</header>
-	<div class="filters">
-		<button type="button" class="filter-button filter-apply-button filter-button--active">Apply settings</button>
-		<button type="button" class="filter-button filter-unapply-button">Show all</button>
-	</div>
 	{% comment %}
-		Data details.
-		Showing the detailed support for each version of each client of each family.
+	Data details.
+	Showing the behavior description
 	{% endcomment %}
-	<div class="data-details">
-		<div class="data-family-list">
-			{% assign page-families-in-order = "" | split: '' %}
-			{% assign site-families-in-order = site.clients | sort: "display_order" %}
-			{% comment %}
-				1. We go through the `clients` collection ordered by `display_order`.
-				We add the family slug to the page family array.
-			{% endcomment %}
-			{% for family in site-families-in-order %}
-				{% assign family-key = family.slug %}
-				{% assign page-families-in-order = page-families-in-order | push: family-key %}
-			{% endfor %}
-			{% comment %}
-				2. We go through the page/feature `stats` and add all the keys.
-			{% endcomment %}
-			{% assign page-stats-keys = "" | split: '' %}
-			{% for default in page.stats %}
-				{% assign family-key = default | first %}
-				{% if page.stats[family-key].size > 0  %}
-					{% assign page-stats-keys = page-stats-keys | push: family-key %}
-				{% endif %}
-			{% endfor %}
-			{% comment %}
-				3. Previous step might introduce duplicate. So we `concat` the two previous arrays built and use the `uniq` filter to remove duplicates.
-			{% endcomment %}
-			{% assign page-families-in-order = page-families-in-order | concat: page-stats-keys | uniq %}
-			{% comment %}
-				4. Let's start the loop!
-			{% endcomment %}
-			{% for family in page-families-in-order %}
-				{% assign family-key = family %}
-				{% assign family-values = page.stats[family] %}
-			<div class="data-family data-family--{{family-key}}" id="data-{{ page.title | slugify }}-{{ family-key }}">
-				<h3 class="data-family-name">
-					<span>
-						{% assign family-page = site.clients | where:"slug", family-key | first %}
-						{% if family-page != nil and family-page != "" %}
-						<a href="/clients/{{family-key}}/">
-						{% endif %}
-						{{ site.data.nicenames.family[family-key] | default: family-key }}
-						{% if family-page != nil and family-page != "" %}
-						</a>
-						{% endif %}
-					</span>
-				</h3>
-				<div class="data-client-list">
-					{% if family-values != nil %}
-						{% for platform in family-values %}
-							{% assign platform-key = platform | first %}
-							{% assign platform-values = platform | last %}
-							<div class="data-client data-client--{{ platform-key | slugify }}">
-								<h4 class="data-platform-name">
-									{% if family-page != nil and family-page != "" %}
-									<a href="/clients/{{family-key}}/#{{ platform-key | slugify }}">
-									{% endif %}
-									{{ site.data.nicenames.platform[platform-key] | default: platform-key }}
-									{% if family-page != nil and family-page != "" %}
-									</a>
-									{% endif %}
-								</h4>
-								<div class="data-versions-list">
-								{% for version in platform-values %}
-									{% assign version-key = version | first %}
-									{% assign version-values = version | last | split: ' ' | first %}
-									{% assign version-notes = version | last | split: ' ' | shift %}
-									{% case version-values %}
-										{% when 'y' %}
-											{% assign stat-class-name = 'supported' %}
-										{% when 'n' %}
-											{% assign stat-class-name = 'unsupported' %}
-										{% when 'a' %}
-											{% assign stat-class-name = 'mitigated' %}
-										{% when 'u' %}
-											{% assign stat-class-name = 'unknown' %}
-										{% else %}
-											{% assign stat-class-name = '' %}
-									{% endcase %}
-									<div class="data-version {{ stat-class-name }}">
-										<span class="data-version-number">{{ version-key }}</span>
-										<span class="data-version-badge {{ stat-class-name }}" aria-label="{{ site.data.nicenames.support[stat-class-name] }}"></span>
-										{% if version-notes.size > 0  %}
-											<div class="data-version-notes">
-											{% for note-key in version-notes %}
-												{% assign note-key-slug = note-key | slugify %}
-												<a href="#{{ page.title | slugify }}-cite-note-{{ note-key-slug }}" title="{{ page.notes_by_num[note-key-slug] | markdownify | strip_html }}">{{ note-key | replace: '#', '' }}</a>
-											{% endfor %}
-											</div>
-										{% endif %}
-									</div>
-								{% endfor %}
-								</div>
-							</div>
-						{% endfor %}
-					{% else %}
-						{% assign family-page = site.clients | where:"slug", family-key | first %}
-						{% if family-page != nil and family-page != "" %}
-							{% for platform in family-page.platforms %}
-								{% assign platform-key = platform %}
-								<div class="data-client data-client--{{ platform-key | slugify }}">
-									<h4 class="data-platform-name">
-										{{ site.data.nicenames.platform[platform-key] | default: platform-key }}
-									</h4>
-									<div class="data-versions-list">
-										<div class="data-version unknown">
-											<span class="data-version-number">{{ "now" | date: "%Y-%m" }}</span>
-											<span class="data-version-badge unknown" aria-label="{{ site.data.nicenames.support['unknown'] }}"></span>
-										</div>
-									</div>
-								</div>
-							{% endfor %}
-						{% endif %}
-					{% endif %}
-				</div>
-			</div>
-			{% endfor %}
-		</div>
+
+	<h1 class="feature-title">How does it work on each WebView?</h1>
+
+	<div class="data-description">
+		{{ content | markdownify }}
 	</div>
 	<footer class="feature-footer">
 		{% assign has-page-notes = false %}
 		{% if page.notes != nil and page.notes != "" %}
-			{% assign has-page-notes = true %}
+		{% assign has-page-notes = true %}
 		{% endif %}
 		{% if has-page-notes == true or page.notes_by_num.size > 0 or page.links.size > 0 %}
 		<div class="data-notes">
 			{% if has-page-notes == true or page.notes_by_num.size > 0 %}
-				<h2 class="list-title">Notes</h2>
-				{% if has-page-notes == true %}
-				{{ page.notes | markdownify }}
-				{% endif %}
-				{% if page.notes_by_num.size > 0 %}
-				<ul class="data-notes-list">
+			<h2 class="list-title">Notes</h2>
+			{% if has-page-notes == true %}
+			{{ page.notes | markdownify }}
+			{% endif %}
+			{% if page.notes_by_num.size > 0 %}
+			<ul class="data-notes-list">
 				{% for note in page.notes_by_num %}
-					{% assign note-key = note | first %}
-					{% assign note-value = note | last %}
-					<li class="data-note" id="{{ page.title | slugify }}-cite-note-{{ note-key | slugify }}">
-						<span class="data-note-key">{{ note-key }}</span> {{ note-value | markdownify }}
-					</li>
+				{% assign note-key = note | first %}
+				{% assign note-value = note | last %}
+				<li class="data-note" id="{{ page.title | slugify }}-cite-note-{{ note-key | slugify }}">
+					<span class="data-note-key">{{ note-key }}</span> {{ note-value | markdownify }}
+				</li>
 				{% endfor %}
-				</ul>
-				{% endif %}
+			</ul>
+			{% endif %}
 			{% endif %}
 			{% if page.links.size > 0 %}
-				<h2 class="list-title">Resources</h2>
-				<ul class="list">
+			<h2 class="list-title">Resources</h2>
+			<ul class="list">
 				{% for link in page.links %}
-					{% assign link-title = link | first %}
-					{% assign link-url = link | last %}
-					<li>
-						<a href="{{ link-url | escape_once }}">{{ link-title | markdownify | strip_html | strip }}</a>
-					</li>
+				{% assign link-title = link | first %}
+				{% assign link-url = link | last %}
+				<li>
+					<a href="{{ link-url | escape_once }}">{{ link-title | markdownify | strip_html | strip }}</a>
+				</li>
 				{% endfor %}
-				</ul>
+			</ul>
 			{% endif %}
 		</div>
 		{% endif %}
 		<div class="data-contribute">
 			<h2 class="list-title">Know something we don't?</h2>
 			<p>
-				Is any of the above data outdated? Or do you want to add a new email client to the list? Heads on to GitHub and edit the data file!
+				Is any of the above data outdated? Or do you want to add a new email client to the list? Heads on to
+				GitHub and edit the data file!
 			</p>
 			<div class="button-group">
 				<a href="{% github_edit_link %}" class="button">Edit this page on GitHub</a>
 				<a href="{{ site.github.issues_url }}" class="button">Report an issue on GitHub</a>
 			</div>
 			<p>
-				Not comfortable with GitHub? <a href="mailto:feature@caniemail.com?subject=[caniemail]%20{{ page.id | uri_escape }}">Send us an email</a>.
+				Not comfortable with GitHub? <a
+					href="mailto:feature@caniemail.com?subject=[caniemail]%20{{ page.id | uri_escape }}">Send us an
+					email</a>.
 			</p>
 		</div>
 		<div class="data-test">
@@ -197,39 +82,37 @@ layout: default
 			</p>
 			{% endif %}
 			<p>
-				If you want to test this feature in the same conditions as we did, you can get our test code and run a test by yourself. Make sure to follow our <a href="https://github.com/hteumeuleu/caniemail/blob/master/CONTRIBUTING.md">testing recommendations</a> first.
+				If you want to test this feature in the same conditions as we did, you can get our test code and run a
+				test by yourself. Make sure to follow our <a
+					href="https://github.com/hteumeuleu/caniemail/blob/master/CONTRIBUTING.md">testing
+					recommendations</a> first.
 			</p>
 			<div class="button-group">
 				{% comment %}
-					View test code button.
+				View test code button.
 				{% endcomment %}
 				{% if page.test_url != nil and page.test_url != "" %}
 				<a href="{{ page.test_url }}" class="button">View the test code</a>
 				{% endif %}
 				{% comment %}
-					View test results button.
-					If the last_text_date is more than 30 days old, the link might have expired so we don't show anything.
+				View test results button.
+				If the last_text_date is more than 30 days old, the link might have expired so we don't show anything.
 				{% endcomment %}
-				{% if page.test_results_url != nil and page.test_results_url != "" and page.last_test_date != nil and page.last_test_date != ""  %}
-					{% assign last_test_date_timestamp = page.last_test_date | date: '%s' %}
-					{% assign now_timestamp = 'now' | date: '%s' %}
-					{% assign last_test_date_in_seconds = now_timestamp | minus: last_test_date_timestamp %}
-					{% assign last_test_date_in_days = last_test_date_in_seconds | divided_by: 3600 | divided_by: 24 %}
-					{% if last_test_date_in_days < 30  %}
-						{% assign test-results-url-provider = "" %}
-						{% if page.test_results_url contains "emailonacid.com"  %}
-							{% assign test-results-url-provider = "Email on Acid" %}
-						{% elsif page.test_results_url contains "testi.at" %}
-							{% assign test-results-url-provider = "Testi@" %}
-						{% elsif page.test_results_url contains "litmus.com" %}
-							{% assign test-results-url-provider = "Litmus" %}
-						{% endif %}
-						{% if test-results-url-provider != "" %}
-							{% assign test-results-url-provider = test-results-url-provider | prepend: " on " %}
-						{% endif %}
-						<a href="{{ page.test_results_url }}" class="button">View test results{{test-results-url-provider}}</a>
+				{% if page.test_results_url != nil and page.test_results_url != "" and page.last_test_date != nil and
+				page.last_test_date != "" %}
+				{% assign last_test_date_timestamp = page.last_test_date | date: '%s' %}
+				{% assign now_timestamp = 'now' | date: '%s' %}
+				{% assign last_test_date_in_seconds = now_timestamp | minus: last_test_date_timestamp %}
+				{% assign last_test_date_in_days = last_test_date_in_seconds | divided_by: 3600 | divided_by: 24 %}
+				{% if last_test_date_in_days < 30 %} {% assign test-results-url-provider="" %} {% if
+					page.test_results_url contains "emailonacid.com" %} {% assign
+					test-results-url-provider="Email on Acid" %} {% elsif page.test_results_url contains "testi.at" %}
+					{% assign test-results-url-provider="Testi@" %} {% elsif page.test_results_url contains "litmus.com"
+					%} {% assign test-results-url-provider="Litmus" %} {% endif %} {% if test-results-url-provider !=""
+					%} {% assign test-results-url-provider=test-results-url-provider | prepend: " on " %} {% endif %} <a
+					href="{{ page.test_results_url }}" class="button">View test results{{test-results-url-provider}}</a>
 					{% endif %}
-				{% endif %}
+					{% endif %}
 			</div>
 		</div>
 	</footer>

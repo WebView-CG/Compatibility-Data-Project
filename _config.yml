@@ -14,7 +14,7 @@ defaults:
     values:
       layout: "feature"
   - scope:
-      path: ""
+      path: "webviews"
       type: "clients"
     values:
       layout: "client"

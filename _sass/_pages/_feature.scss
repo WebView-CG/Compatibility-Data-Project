@@ -50,7 +50,7 @@
 		min-height: rem(128px);
 
 		& > .feature-header-column {
-			width: 50%;
+			width: 100%;
 
 			&:nth-child(2) {
 				display: flex;
@@ -252,6 +252,18 @@
 	-webkit-overflow-scrolling: touch;
 	scroll-behavior: smooth;
 	text-align: center;
+}
+
+.data-description {
+	position: relative;
+	min-height: rem(202.8px);
+	margin: 0 rem(-48px);
+	overflow-x: auto;
+	overflow-y: hidden;
+	background: #2a2a2e;
+	border: 1px solid #3c3c3d;
+	-webkit-overflow-scrolling: touch;
+	scroll-behavior: smooth;
 }
 
 //

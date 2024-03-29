@@ -1,9 +1,10 @@
 <div class="settings" hidden>
 	<form action="/" method="get" id="settings-form" class="settings-form">
 		<div class="settings-title">
-			WebView Clients 
+			WebViews
 			<div class="settings-title-actions">
-				<button type="button" id="settings-check-all-button" class="button" data-label-toggle="Check all" data-checked="false">Uncheck all</button>
+				<button type="button" id="settings-check-all-button" class="button" data-label-toggle="Check all"
+					data-checked="false">Uncheck all</button>
 				<div class="button-group">
 					<button type="button" id="settings-mobile-button" class="button">Mobile</button>
 					<button type="button" id="settings-desktop-button" class="button">Desktop</button>
@@ -14,18 +15,21 @@
 			<ul class="settings-list">
 				{% assign clients = site.clients | sort:"display_order" %}
 				{% for client in clients %}
-					<li class="settings-list-item">
-						<input type="checkbox" id="settings-{{ client.slug }}" name="{{ client.slug }}" value="on" />
-						<label for="settings-{{ client.slug }}">{{ site.data.nicenames.family[client.slug] | default: client.slug | escape_once }}</label>
-						<ul class="settings-child-list">
+				<li class="settings-list-item">
+					<input type="checkbox" id="settings-{{ client.slug }}" name="{{ client.slug }}" value="on" />
+					<label for="settings-{{ client.slug }}">{{ site.data.nicenames.family[client.slug] | default:
+						client.slug | escape_once }}</label>
+					<ul class="settings-child-list">
 						{% for platform in client.platforms %}
-							<li class="settings-child-list-item">
-								<input type="checkbox" id="settings-{{ client.slug }}-{{ platform }}" name="{{ client.slug }}" value="{{ platform }}" />
-								<label for="settings-{{ client.slug }}-{{ platform }}">{{ site.data.nicenames.platform[platform] | default: platform | escape_once }}</label>
-							</li>
+						<li class="settings-child-list-item">
+							<input type="checkbox" id="settings-{{ client.slug }}-{{ platform }}"
+								name="{{ client.slug }}" value="{{ platform }}" />
+							<label for="settings-{{ client.slug }}-{{ platform }}">{{
+								site.data.nicenames.platform[platform] | default: platform | escape_once }}</label>
+						</li>
 						{% endfor %}
-						</ul>
-					</li>
+					</ul>
+				</li>
 				{% endfor %}
 			</ul>
 		</div>

@@ -1,3 +1,6 @@
+---
+title: Update cadence
+---
 # What does this updates cadence section cover?
 
 This section covers how often users can expect to see each WebView provider updated. The WebView provider can either be

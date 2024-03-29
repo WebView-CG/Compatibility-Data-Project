@@ -1,9 +1,9 @@
 ---
-layout: null
+	layout: null
 permalink: "/assets/js/caniemail.js"
 ---
-{% include_relative _search.js %}
-{% include_relative _settings.js %}
+	{% include_relative _search.js %}
+//{% include_relative _settings.js %}
 {% include_relative _filters.js %}
 {% include_relative _options.js %}
 {% include_relative _support.js %}

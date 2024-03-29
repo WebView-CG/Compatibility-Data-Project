@@ -1,3 +1,6 @@
+---
+title: Cookies
+---
 # What are cookies?
 
 Cookies are small pieces of data that web servers can send to browsers to be stored persistently.
