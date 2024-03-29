@@ -1,0 +1,10 @@
+<header class="header" role="banner">
+	<div class="menu">
+		{% include navigation.html %}
+		{% include latest-post.html %}
+		<a href="/webviews/" class="tab{% if page.url == '/webviews/' %} current{% endif %}"><span
+				class="tab-longname">Compare </span>WebViews</a>
+	</div>
+	{% include search.html %}
+	{% include settings.html %}
+</header>

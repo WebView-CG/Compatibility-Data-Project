@@ -1,14 +1,14 @@
-# What is autofill?
-
-Autofill can be used by users to save and re-enter information that they commonly fill out on web pages.
-
-Some common data includes:
-
-- Location information
-- Payment details
-- Account information
-
-# How does it work on each WebView?
+---
+title: "Autofil"
+description: "Autofill can be used by users to save and re-enter information that they commonly fill out on web pages.
+Some common data includes: Location information, Payment details, Account information."
+category: Web API
+keywords: ux
+last_test_date: "2024-03-29"
+notes: "TODO Comment on how data was tested"
+links: {
+}
+---
 
 ## WebView2
 

@@ -1,0 +1,43 @@
+---
+title: To do
+layout: default
+permalink: /todo/
+---
+<div class="post">
+	<div class="post-inside">
+		<h1>To do</h1>
+		<p>
+			Can I WebView is based on contributions. Want to help? Here are a few tasks you can help with, even if you know nothing about email development.
+		</p>
+		{% comment %}
+		<h2 class="list-title">{{ site.features.size }} Features to test</h2>
+		<ol class="list">
+			{% for feature in site.features %}
+				{% assign todo-platform = feature.stats.protonmail.android %}
+				{% if todo-platform.size == nil or todo-platform.size == 0 %}
+				<li><a href="{{ feature.url }}">{{ feature.title | escape_once }}</a></li>
+				{% else %}
+					{% for version in todo-platform %}
+						{% if forloop.last == true %}
+							{% assign version-value = version | last | split: ' ' | first %}
+							{% if version-value == "u" %}
+							<li>
+							<a href="{{ feature.url }}">{{ feature.title | escape_once }}</a>
+							</li>
+							{% endif %}
+						{% endif %}
+					{% endfor %}
+				{% endif %}
+			{% endfor %}
+		</ol>
+		{% endcomment %}
+		<h2 class="list-title">Add links</h2>
+		<ul class="list">
+			{% for feature in site.features %}
+				{% if feature.links.size == nil or feature.links.size == 0 %}
+			<li><a href="{{ feature.url }}">{{ feature.title | escape_once }}</a></li>
+				{% endif %}
+			{% endfor %}
+		</ul>
+	</div>
+</div>

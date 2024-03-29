@@ -1,0 +1,39 @@
+collections:
+  posts:
+    output: true
+    permalink: /news/:year-:month-:day-:title/
+  features:
+    output: true
+  clients:
+    output: true
+
+defaults:
+  - scope:
+      path: ""
+      type: "features"
+    values:
+      layout: "feature"
+  - scope:
+      path: "webviews"
+      type: "clients"
+    values:
+      layout: "client"
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+  - scope:
+      path: ""
+    values:
+      layout: "default"
+
+permalink: /:title/
+
+plugins:
+  - jekyll-mentions
+
+exclude: [vendor, "Gemfile", "Gemfile.lock", "CONTRIBUTING.md", "LICENSE", "README.md"]
+include: ["_js"]
+
+#incremental: true

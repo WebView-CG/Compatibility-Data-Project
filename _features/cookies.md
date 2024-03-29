@@ -1,13 +1,14 @@
-# What are cookies?
-
-Cookies are small pieces of data that web servers can send to browsers to be stored persistently.
-
-They are useful for features like user login.
-
-Cookies can be used both in HTTP requests, and within JavaScript.
-
-# How does it work on each WebView?
-
+---
+title: "Cookies"
+description: "Cookies are small pieces of data that web servers can send to browsers to be stored persistently. They are useful for features like user login. Cookies can be used both in HTTP requests, and within JavaScript."
+category: Web API
+keywords: authentication
+last_test_date: "2024-03-29"
+notes: "TODO"
+links: {
+    "Blog post about WKWebView changes": "https://blog.merzlabs.com/posts/webview-history/",
+}
+---
 ## WebView2
 
 TODO: Complete me!

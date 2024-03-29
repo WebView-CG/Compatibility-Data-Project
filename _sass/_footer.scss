@@ -1,0 +1,151 @@
+// Footer
+.footer {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	margin-top: rem(80px);
+	padding: rem(32px) 0;
+	border-top: 2px solid rgba(255, 255, 255, 0.2);
+
+	a {
+		color: inherit;
+
+		&:focus,
+		&:hover {
+			color: #fff;
+		}
+	}
+
+	p:not(:last-child) {
+		margin-bottom: rem(12px);
+	}
+
+	@media only screen and (min-width: rem(960px)) {
+		flex-direction: row;
+	}
+}
+
+.footer-section {
+	padding-bottom: rem(32px);
+	max-width: rem(640px);
+
+	ul {
+		margin-bottom: rem(12px);
+		list-style: none;
+	}
+
+	@media only screen and (min-width: rem(960px)) {
+		flex-shrink: 1;
+
+		&:not(:last-child) {
+			padding-bottom: 0;
+			padding-right: rem(16px);
+		}
+	}
+}
+
+.footer-title {
+	margin-bottom: rem(12px);
+	color: #fff;
+	font-size: 1em;
+	font-weight: 300;
+}
+
+.legend-list {
+	list-style: none;
+
+	li {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+	}
+
+	span {
+		display: inline-block;
+		width: rem(24px);
+		height: rem(12px);
+		margin-right: rem(4px);
+	}
+}
+
+.footer-links {
+	@media only screen and (max-width: rem(859px)) {
+		li {
+			border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+		}
+
+		li:first-child {
+			border-top: 1px solid rgba(255, 255, 255, 0.2);
+		}
+
+		a {
+			display: block;
+			padding: rem(12px) 0;
+			line-height: rem(24px);
+		}
+	}
+}
+
+// Accessible colors
+.a11y-colors {
+	min-width: rem(200px);
+}
+
+.link-button {
+	-webkit-appearance: none;
+	background: none;
+	border: none;
+	color: inherit;
+	font: inherit;
+	text-decoration: underline;
+	cursor: pointer;
+
+	&:focus,
+	&:hover {
+		color: #fff;
+	}
+
+	&:active,
+	&:focus {
+		outline: 1px dotted currentColor;
+		outline-offset: rem(4px);
+	}
+
+	&:focus:not(:active) {
+		outline: rem(3px) solid #fff;
+		-moz-outline-radius: rem(4px);
+		outline-offset: rem(4px);
+	}
+
+	&::-moz-focus-inner {
+		border: none;
+	}
+}
+
+// Beta message
+.beta,
+.warning {
+	color: #1b1b1d;
+	background: #fbd91b;
+}
+
+.warning {
+	width: 100%;
+	margin-top: rem(32px);
+	padding: rem(1px);
+}
+
+.beta {
+	display: inline-block;
+	padding: 0 rem(4px);
+}
+
+.beta-tag {
+	display: inline-block;
+	padding: 0 rem(4px);
+	color: #000;
+	font-size: 0.5em;
+	text-transform: uppercase;
+	vertical-align: text-top;
+	background: #fbd91b;
+}

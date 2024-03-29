@@ -1,0 +1,113 @@
+---
+layout: default
+---
+<section class="feature">
+	<header class="feature-header">
+		<div class="feature-header-column">
+			<h1 class="feature-title">{{ page.title | escape_once }}</h1>
+			<div class="feature-description">
+				{{ page.description | markdownify }}
+			</div>
+		</div>
+	</header>
+	{% comment %}
+	Data details.
+	Showing the behavior description
+	{% endcomment %}
+
+	<h1 class="feature-title">How does it work on each WebView?</h1>
+
+	<div class="data-details">
+		{{ content | markdownify }}
+	</div>
+	<footer class="feature-footer">
+		{% assign has-page-notes = false %}
+		{% if page.notes != nil and page.notes != "" %}
+		{% assign has-page-notes = true %}
+		{% endif %}
+		{% if has-page-notes == true or page.notes_by_num.size > 0 or page.links.size > 0 %}
+		<div class="data-notes">
+			{% if has-page-notes == true or page.notes_by_num.size > 0 %}
+			<h2 class="list-title">Notes</h2>
+			{% if has-page-notes == true %}
+			{{ page.notes | markdownify }}
+			{% endif %}
+			{% if page.notes_by_num.size > 0 %}
+			<ul class="data-notes-list">
+				{% for note in page.notes_by_num %}
+				{% assign note-key = note | first %}
+				{% assign note-value = note | last %}
+				<li class="data-note" id="{{ page.title | slugify }}-cite-note-{{ note-key | slugify }}">
+					<span class="data-note-key">{{ note-key }}</span> {{ note-value | markdownify }}
+				</li>
+				{% endfor %}
+			</ul>
+			{% endif %}
+			{% endif %}
+			{% if page.links.size > 0 %}
+			<h2 class="list-title">Resources</h2>
+			<ul class="list">
+				{% for link in page.links %}
+				{% assign link-title = link | first %}
+				{% assign link-url = link | last %}
+				<li>
+					<a href="{{ link-url | escape_once }}">{{ link-title | markdownify | strip_html | strip }}</a>
+				</li>
+				{% endfor %}
+			</ul>
+			{% endif %}
+		</div>
+		{% endif %}
+		<div class="data-contribute">
+			<h2 class="list-title">Know something we don't?</h2>
+			<p>
+				Is any of the above data outdated? Or do you want to add a new email client to the list? Heads on to
+				GitHub and edit the data file!
+			</p>
+			<div class="button-group">
+				<a href="{% github_edit_link %}" class="button">Edit this page on GitHub</a>
+				<a href="{{ site.github.issues_url }}" class="button">Report an issue on GitHub</a>
+			</div>
+			<p>
+				Not comfortable with GitHub? <a
+					href="mailto:info@caniwebview.com?subject=[caniwebview]%20{{ page.id | uri_escape }}">Send us an
+					email</a>.
+			</p>
+		</div>
+		<div class="data-test">
+			<h2 class="list-title">Please help us keeping this data updated</h2>
+			{% if page.last_test_date != nil and page.last_test_date != "" %}
+			<p>
+				This feature was documented on <b>{{ page.last_test_date | date: '%B %d, %Y' }}</b>.
+			</p>
+			{% endif %}
+			<div class="button-group">
+				{% comment %}
+				View test code button.
+				{% endcomment %}
+				{% if page.test_url != nil and page.test_url != "" %}
+				<a href="{{ page.test_url }}" class="button">View the test code</a>
+				{% endif %}
+				{% comment %}
+				View test results button.
+				If the last_text_date is more than 30 days old, the link might have expired so we don't show anything.
+				{% endcomment %}
+				{% if page.test_results_url != nil and page.test_results_url != "" and page.last_test_date != nil and
+				page.last_test_date != "" %}
+				{% assign last_test_date_timestamp = page.last_test_date | date: '%s' %}
+				{% assign now_timestamp = 'now' | date: '%s' %}
+				{% assign last_test_date_in_seconds = now_timestamp | minus: last_test_date_timestamp %}
+				{% assign last_test_date_in_days = last_test_date_in_seconds | divided_by: 3600 | divided_by: 24 %}
+				{% if last_test_date_in_days < 30 %} {% assign test-results-url-provider="" %} {% if
+					page.test_results_url contains "emailonacid.com" %} {% assign
+					test-results-url-provider="Email on Acid" %} {% elsif page.test_results_url contains "testi.at" %}
+					{% assign test-results-url-provider="Testi@" %} {% elsif page.test_results_url contains "litmus.com"
+					%} {% assign test-results-url-provider="Litmus" %} {% endif %} {% if test-results-url-provider !=""
+					%} {% assign test-results-url-provider=test-results-url-provider | prepend: " on " %} {% endif %} <a
+					href="{{ page.test_results_url }}" class="button">View test results{{test-results-url-provider}}</a>
+					{% endif %}
+					{% endif %}
+			</div>
+		</div>
+	</footer>
+</section>
