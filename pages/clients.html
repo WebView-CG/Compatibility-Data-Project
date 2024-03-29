@@ -1,0 +1,71 @@
+---
+layout: default
+title: All webview clients tested on Can I WebView…
+permalink: /clients/
+---
+<div class="compare">
+	<form action="/" method="get" id="compare-form" class="compare-form">
+		<div class="settings-title">
+			Select webview clients to compare 
+			<div class="settings-title-actions">
+				<button type="button" id="compare-check-all-button" class="button" data-label-toggle="Uncheck all" data-checked="true">Check all</button>
+				<div class="button-group">
+					<button type="button" id="compare-mobile-button" class="button">Mobile</button>
+					<button type="button" id="compare-desktop-button" class="button">Desktop</button>
+				</div>
+			</div>
+		</div>
+		<div class="compare-options">
+			<ul class="compare-list">
+				{% assign clients = site.clients | sort:"display_order" %}
+				{% for client in clients %}
+					<li class="compare-list-item">
+						<input type="checkbox" id="compare-{{ client.slug }}" name="{{ client.slug }}" value="on" />
+						<label for="compare-{{ client.slug }}">{{ site.data.nicenames.family[client.slug] | default: client.slug | escape_once }}</label>
+						<ul class="compare-child-list">
+						{% for platform in client.platforms %}
+							<li class="compare-child-list-item">
+								<input type="checkbox" id="compare-{{ client.slug }}-{{ platform }}" name="{{ client.slug }}" value="{{ platform }}" />
+								<label for="compare-{{ client.slug }}-{{ platform }}">{{ site.data.nicenames.platform[platform] | default: platform | escape_once }}</label>
+							</li>
+						{% endfor %}
+						</ul>
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
+	</form>
+</div>
+<div class="posts">
+	<div class="post post--default">
+		<div class="post-inside">
+			<h1 class="post-title">WebView Clients</h1>
+			<p>
+				Here's an index of all the webview clients we currently test features on.
+			</p>
+			<ul class="list">
+			{% assign clients = site.clients | sort:"display_order" %}
+			{% for client in clients %}
+				<li>
+					<a href="{{ client.url }}">{{ site.data.nicenames.family[client.slug] | default: client.slug | escape_once }}</a>
+					<small>
+					{% for platform in client.platforms %}
+						{%- if forloop.first == true -%}
+							(
+						{%- endif -%}
+						<a href="{{ client.url }}#{{ platform }}">{{ site.data.nicenames.platform[platform] | default: platform | escape_once }}</a>
+						{%- if forloop.last == true -%}
+							)
+						{%- else -%}
+							,&nbsp;
+						{%- endif -%}
+					{% endfor %}
+					</small>
+				</li>
+			{% endfor %}
+			</ul>
+		</div>
+	</div>
+</div>
+<link rel="prefetch" href="/api/data-ordered.json" />
+<script src="/assets/js/compare.js" defer></script>

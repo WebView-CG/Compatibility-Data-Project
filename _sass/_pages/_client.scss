@@ -1,0 +1,30 @@
+.post--client {
+	margin-top: rem(16px);
+	scroll-margin-top: rem(16px);
+
+	ul.client-tags {
+		margin: 0;
+
+		a {
+			color: #fff;
+		}
+
+		li {
+			margin: 0 rem(4px) rem(4px) 0;
+		}
+	}
+
+	& > .post-title {
+		margin-left: 0;
+		margin-bottom: rem(32px);
+	}
+
+	.post-title .client-name {
+		color: #fff;
+	}
+
+	.list-title {
+		color: #fff;
+		border-bottom: none;
+	}
+}

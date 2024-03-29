@@ -1,0 +1,8 @@
+{% for post in site.posts limit:1 %}
+<div class="latest-post">
+	<span class="latest-post-date">{{ post.date | date: '%B %d, %Y' }}</span>
+	<a href="{{ post.url }}" class="latest-post-title">
+		{{ post.title | markdownify | remove: '<p>' | remove: '</p>' }}
+	</a>
+</div>
+{% endfor %}

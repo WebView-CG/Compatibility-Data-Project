@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Can I WebView… {{ page.title | remove: '`' | escape_once | markdownify | strip_html | strip }}</title>
+	<link rel="stylesheet" href="/assets/css/style.css" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	{%- if jekyll.environment == 'production' -%}
+	<link rel="shortcut icon" href="/assets/images/favicon.png" />
+	{%- else -%}
+	<link rel="shortcut icon" href="/assets/images/favicon-local.png" />
+	{%- endif -%}
+	<link rel="prefetch" href="/assets/js/features.json" />
+	{%- if page.collection == 'features' -%}
+	<meta property="og:title" content="Can I email… {{ page.title | escape_once | markdownify | strip_html | strip }}" />
+	<meta property="og:description" content="{% include meta-og-dynamic.html %}" />
+	<meta name="description" content="{% include meta-og-dynamic.html %}" />
+	<meta property="og:image" content="https://screenshots.caniemail.com/{{ page.slug }}.png" />
+	{%- else -%}
+	<meta property="og:title" content="Can I email…" />
+	<meta property="og:description" content="{{ page.title | remove: '`' | escape_once | markdownify | strip_html | strip }}" />
+	<meta name="description" content="{{ page.title | remove: '`' | escape_once | markdownify | strip_html | strip }}" />
+	<meta property="og:image" content="https://www.caniemail.com/assets/images/og.png" />
+	{%- endif -%}
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="{{ site.url }}{{ page.url }}" />
+	<link href="{{ site.url }}/feed.xml" rel="alternate" type="application/atom+xml" />
+	<meta name="color-scheme" content="dark" />
+	<link rel="me" href="https://mastodon.social/@caniemail" />
+</head>
+<body>
+	<div class="caniemail{{ page.name | remove: '.html' | slugify | default: 'default' | prepend: ' page--' }}">
+		{% include header.html %}
+		<main class="main" role="main">
+			{{ content }}
+		</main>
+		{% include footer.html %}
+	</div>
+	<script src="/assets/js/caniemail.js" defer></script>
+</body>
+</html>
