@@ -243,14 +243,18 @@
 
 .data-details {
 	position: relative;
-	min-height: rem(202.8px);
-	margin: 0 rem(-48px);
-	overflow-x: auto;
-	overflow-y: hidden;
-	background: #2a2a2e;
-	border: 1px solid #3c3c3d;
-	-webkit-overflow-scrolling: touch;
-	scroll-behavior: smooth;
+    min-height: 12.675rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    background: #2a2a2e;
+    border: 1px solid #3c3c3d;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    padding: 1.2rem;
+}
+
+.data-details > p {
+    margin-bottom: 1rem;
 }
 
 //
