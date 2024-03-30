@@ -32,14 +32,14 @@
 </head>
 
 <body>
-	<div class="caniemail{{ page.name | remove: '.html' | slugify | default: 'default' | prepend: ' page--' }}">
+	<div class="caniwebview{{ page.name | remove: '.html' | slugify | default: 'default' | prepend: ' page--' }}">
 		{% include header.html %}
 		<main class="main" role="main">
 			{{ content }}
 		</main>
 		{% include footer.html %}
 	</div>
-	<script src="/assets/js/caniemail.js" defer></script>
+	<script src="/assets/js/caniwebview.js" defer></script>
 </body>
 
 </html>
