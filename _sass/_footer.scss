@@ -4,8 +4,11 @@
 	flex-direction: column;
 	justify-content: space-between;
 	margin-top: rem(80px);
-	padding: rem(32px) 0;
 	border-top: 2px solid rgba(255, 255, 255, 0.2);
+
+	padding: 2em;
+	font-size: 0.85em;
+	line-height: 1.8rem;
 
 	a {
 		color: inherit;

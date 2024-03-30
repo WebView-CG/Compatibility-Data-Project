@@ -1,10 +1,13 @@
 <header class="header" role="banner">
 	<div class="menu">
+		<img src="/assets/images/w3-community-logo.png" class="w3-community-logo" />
 		{% include navigation.html %}
 		{% include latest-post.html %}
 		<a href="/webviews/" class="tab{% if page.url == '/webviews/' %} current{% endif %}"><span
 				class="tab-longname">Compare </span>WebViews</a>
 	</div>
-	{% include search.html %}
-	{% include settings.html %}
+	<section class="search-wrapper">
+		{% include search.html %}
+		{% include settings.html %}
+	</section>
 </header>

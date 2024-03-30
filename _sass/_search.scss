@@ -128,7 +128,7 @@
 
 	&:active,
 	&:focus {
-		background: $color-blue-dark;
+		background: $color-blue-darker;
 	}
 
 	&::-webkit-search-cancel-button {
@@ -143,7 +143,7 @@
 		margin-right: 0;
 		order: 1;
 		min-height: rem(36px);
-		background: $color-blue-dark;
+		background: $color-blue-darker;
 	}
 }
 
