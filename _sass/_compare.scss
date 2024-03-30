@@ -4,7 +4,6 @@
 	overflow: hidden;
 	margin: 0 0 rem(16px);
 	color: #fff;
-	background: $color-blue;
 
 	input[type="checkbox"] {
 		position: absolute;
@@ -20,13 +19,14 @@
 		& + label {
 			display: flex;
 			line-height: 1.25;
+			align-items: center;
 
 			&::before {
 				content: '';
 				display: inline-flex;
 				align-items: center;
 				justify-content: center;
-				margin-right: rem(4px);
+				margin-right: rem(9px);
 				flex-grow: 0;
 				flex-shrink: 0;
 				width: rem(16px);
@@ -58,11 +58,12 @@
 }
 
 .compare-title {
-	position: sticky;
-	left: 0;
-	display: inline-block;
 	padding: 1rem;
-	font-size: rem(24px);
+	font-size: 1.5rem;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 
 	@media only screen and (max-width: rem(800px)) {
 		font-size: rem(20px);
@@ -102,9 +103,11 @@
 .compare-list-item {
 	flex-shrink: 0;
 	flex-grow: 0;
-	width: rem(152px);
-	padding: rem(16px);
+	min-width: 9.5rem;
+	max-width: 12rem;
+	padding: 0.8rem;
 	border-top: 1px solid rgba(255, 255, 255, 0.25);
+	font-size: 1rem;
 
 	&:not(:last-child) {
 		border-right: 1px solid rgba(255, 255, 255, 0.25);

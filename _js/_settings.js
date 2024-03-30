@@ -205,8 +205,12 @@ class Settings {
 	}
 
 	toggle() {
-
-		this.panel.toggleAttribute('hidden');
+		if (this.panel.classList.contains('hidden')) {
+			this.panel.classList.remove('hidden');
+		} else {
+			this.panel.classList.add('hidden');
+		}
+		// this.panel.toggleAttribute('hidden');
 		document.body.classList.toggle('settings-opened');
 	}
 
