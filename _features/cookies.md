@@ -1,7 +1,7 @@
 ---
 title: "Cookies"
 description: "Cookies are small pieces of data that web servers can send to browsers to be stored persistently. They are useful for features like user login. Cookies can be used both in HTTP requests, and within JavaScript."
-category: Web API
+category: webapi
 keywords: authentication
 last_test_date: "2024-03-29"
 notes: "TODO"

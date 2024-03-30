@@ -10,10 +10,12 @@ platform:
   windows: "Windows"
   macos: "macOS"
 support:
-  supported: "Supported"
+  supported: "Supported & Documented"
   mitigated: "Partially supported"
   unsupported: "Not supported"
   unknown: "Support unknown"
   mixed: "Mixed support"
 category:
   others: "Others"
+  webviewapi: "WebView API"
+  webapi: "Web API"
