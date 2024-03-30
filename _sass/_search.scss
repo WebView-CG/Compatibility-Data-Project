@@ -22,11 +22,9 @@
 
 	.search-form {
 		display: grid;
-		grid-template-columns: 1fr minmax(0, 2fr) 1fr;
 
 		@media only screen and (max-width: rem(800px)) {
 			align-items: center;
-			grid-template-columns: auto auto auto;
 		}
 	}
 }
@@ -143,7 +141,6 @@
 		margin-right: 0;
 		order: 1;
 		min-height: rem(36px);
-		background: $color-blue-darker;
 	}
 }
 
