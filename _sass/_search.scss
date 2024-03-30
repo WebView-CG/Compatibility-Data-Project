@@ -146,7 +146,7 @@
 
 .search--loading .search-input-container {
 	&::before {
-		background-image: url(/assets/images/favicon.png);
+		background-image: url(/assets/images/favicon.ico);
 		background-size: cover;
 		transform: scale(1);
 		animation: spin linear 1s infinite;

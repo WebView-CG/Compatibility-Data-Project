@@ -8,6 +8,29 @@ notes: "TODO"
 links: {
     "Blog post about WKWebView changes": "https://blog.merzlabs.com/posts/webview-history/",
 }
+stats: {
+    wkwebview: {
+		macos: {
+			"*": "a"
+		},
+		ios: {
+			"*": "a"
+		},
+        ipados: {
+            "*": "a"
+        }
+	},
+    androidwebview: {
+        android: {
+            "*": "y"
+        }
+    },
+    webview2: {
+        windows: {
+            "*", "u"
+        }
+    }
+}
 ---
 ## WebView2
 

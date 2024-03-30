@@ -8,6 +8,29 @@ notes: "TODO Comment on how data was tested"
 links: {
     "Useful link to docs or bugs etc": "https://caniwebview.com/features/localhost/",
 }
+stats: {
+    wkwebview: {
+		macos: {
+			"*": "u"
+		},
+		ios: {
+			"*": "u"
+		},
+        ipados: {
+            "*": "u"
+        }
+	},
+    androidwebview: {
+        android: {
+            "*": "u"
+        }
+    },
+    webview2: {
+        windows: {
+            "*", "u"
+        }
+    }
+}
 ---
 
 ## WebView2

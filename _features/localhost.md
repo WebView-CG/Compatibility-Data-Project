@@ -11,6 +11,29 @@ links: {
     "WKURLSchemehandler": "https://developer.apple.com/documentation/webkit/wkurlschemehandler",
     "WebViewAssetLoader": "https://developer.android.com/reference/androidx/webkit/WebViewAssetLoader"
 }
+stats: {
+    wkwebview: {
+		macos: {
+			"*": "y"
+		},
+		ios: {
+			"*": "y"
+		},
+        ipados: {
+            "*": "y"
+        }
+	},
+    androidwebview: {
+        android: {
+            "*": "y"
+        }
+    },
+    webview2: {
+        windows: {
+            "*", "u"
+        }
+    }
+}
 ---
 
 ## WebView2

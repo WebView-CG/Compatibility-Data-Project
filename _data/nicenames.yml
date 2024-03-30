@@ -1,0 +1,19 @@
+family:
+  androidwebview: "Android WebView"
+  wkwebview: "WKWebView"
+  uiwebview: "UIWebView"
+  webview2: "WebView2"
+platform:
+  ios: "iOS"
+  ipados: "iPadOS"
+  android: "Android"
+  windows: "Windows"
+  macos: "macOS"
+support:
+  supported: "Supported"
+  mitigated: "Partially supported"
+  unsupported: "Not supported"
+  unknown: "Support unknown"
+  mixed: "Mixed support"
+category:
+  others: "Others"
