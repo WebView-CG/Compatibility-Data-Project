@@ -8,6 +8,29 @@ last_test_date: "2024-03-29"
 notes: "TODO Comment on how data was tested"
 links: {
 }
+stats: {
+    wkwebview: {
+		macos: {
+			"*": "u"
+		},
+		ios: {
+			"*": "u"
+		},
+        ipados: {
+            "*": "u"
+        }
+	},
+    androidwebview: {
+        android: {
+            "*": "y"
+        }
+    },
+    webview2: {
+        windows: {
+            "*", "u"
+        }
+    }
+}
 ---
 
 ## WebView2
