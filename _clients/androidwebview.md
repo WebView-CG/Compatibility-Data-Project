@@ -2,4 +2,4 @@
 platforms: [android]
 display_order: 2
 ---
-This is Android WebView. TODO description
+Android WebView is the default WebView implementation for the Android operating system.

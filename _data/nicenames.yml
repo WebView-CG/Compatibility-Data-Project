@@ -10,10 +10,10 @@ platform:
   windows: "Windows"
   macos: "macOS"
 support:
-  supported: "Supported & Documented"
-  mitigated: "Partially supported"
+  supported: "Documented and supported"
+  mitigated: "Supported with limitations"
   unsupported: "Not supported"
-  unknown: "Support unknown"
+  unknown: "Documentation missing"
   mixed: "Mixed support"
 category:
   others: "Others"
