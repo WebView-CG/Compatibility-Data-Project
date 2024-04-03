@@ -27,14 +27,14 @@ stats: {
     },
     webview2: {
         windows: {
-            "*": "u"
+            "*": "y"
         }
     }
 }
 ---
 ## WebView2
 
-TODO: Complete me!
+Applications can access, modify, delete, or copy the cookies of their WebView2 instance via the `CoreWebView2.CookieManager` property. By default, WebView2 has [Tracking Prevention](https://learn.microsoft.com/microsoft-edge/web-platform/tracking-prevention) set to "Balanced" by default and can be modified using the `CoreWebView2EnvironmentOptions.EnableTrackingPrevention` property.
 
 ## WKWebView
 

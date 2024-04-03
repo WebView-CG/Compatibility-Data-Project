@@ -34,7 +34,9 @@ stats: {
 ---
 ## WebView2
 
-TODO: Complete me!
+WebView2 has two options for updating - Evergreen Runtime or Fixed Runtime. Evergreen runtime is automatically included in recent versions of Windows, and developers can also include a small installer alongside theirs to be confident it's available. This version is updated automatically with major releases every four weeks, roughly following Chromium's releases. When using a fixed runtime, the application developer distributes the WebView2 components with their app and chooses when to update to a newer version. Details on the type of runtimes can be found [here](https://learn.microsoft.com/microsoft-edge/webview2/concepts/distribution), and details on evergreen updates can be found [here](https://learn.microsoft.com/deployedge/microsoft-edge-relnote-stable-channel).
+
+SDK updates are also every four weeks, and their details are [here](https://learn.microsoft.com/microsoft-edge/webview2/release-notes/about)
 
 ## WKWebView
 
