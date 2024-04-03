@@ -27,7 +27,7 @@ stats: {
     },
     webview2: {
         windows: {
-            "*": "u"
+            "*": "y"
         }
     }
 }
@@ -35,7 +35,7 @@ stats: {
 
 ## WebView2
 
-TODO: Complete me!
+Will autofill any fields that Microsoft Edge will, such as names, street, email addresses, phone numbers, passwords, etc. Developers can control this in their application using the `CoreWebView2Settings.IsGeneralAutofillEnabled` and `CoreWebView2Settings.IsPasswordAutosaveEnabled` properties.
 
 ## WKWebView
 
