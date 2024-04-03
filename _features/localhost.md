@@ -8,6 +8,7 @@ keywords: hybrid
 last_test_date: "2024-03-29"
 notes: "Behavior description based on experiene with the Apache Cordova app framework"
 links: {
+    "Usage & Challenges report": "https://webview-cg.github.io/usage-and-challenges/#the-origin-in-a-webview-for-locally-hosted-content",
     "WKURLSchemehandler": "https://developer.apple.com/documentation/webkit/wkurlschemehandler",
     "WebViewAssetLoader": "https://developer.android.com/reference/androidx/webkit/WebViewAssetLoader"
 }
@@ -30,7 +31,7 @@ stats: {
     },
     webview2: {
         windows: {
-            "*", "u"
+            "*": "u"
         }
     }
 }

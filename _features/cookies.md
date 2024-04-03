@@ -27,7 +27,7 @@ stats: {
     },
     webview2: {
         windows: {
-            "*", "u"
+            "*": "u"
         }
     }
 }
@@ -44,6 +44,8 @@ This means that third party cookies cannot be used by default.
 
 Applications can add the option to opt out of ITP by providing a property to their app configuration for some but not all use cases, but users will
 still have to opt into this behavior in their app settings.
+
+Different WebViews or the native app can also share cookies by using HTTPCookieStorage.
 
 TODO: Complete me!
 

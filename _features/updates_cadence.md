@@ -27,7 +27,7 @@ stats: {
     },
     webview2: {
         windows: {
-            "*", "u"
+            "*": "u"
         }
     }
 }
