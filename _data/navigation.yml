@@ -4,3 +4,5 @@
   link: /features/
 - name: News
   link: /news/
+- name: Community
+  link: https://github.com/WebView-CG/Compatibility-Data-Project/discussions
