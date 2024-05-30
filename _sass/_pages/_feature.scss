@@ -317,13 +317,15 @@
  * Data
  */
 // Family
-// (ie Outlook, Gmail, …)
+// (ie WKWebView, WebView2, …)
 .data-family-list {
 	display: inline-flex;
-	flex-direction: row;
+	flex-direction: column;
+	gap: rem(16px);
 	justify-content: flex-start;
 	padding-left: rem(16px);
 	padding-right: rem(16px);
+	width: 100%;
 }
 
 .data-family {
@@ -332,17 +334,6 @@
 	flex-direction: column;
 	flex-grow: 1;
 	padding: rem(32px) rem(4px);
-	border-left: 1px solid #454548;
-	max-width: max-content;
-
-	&[hidden] + &:not([hidden]),
-	&:first-child {
-		border-left: none;
-	}
-
-	&:not([hidden]) ~ &:not([hidden]) {
-		border-left: 1px solid #454548;
-	}
 
 	&.selected::before {
 		content: '';
@@ -360,14 +351,14 @@
 
 .data-family-name {
 	display: flex;
-	justify-content: center;
-	align-items: center;
+	justify-content: flex-start;
+	align-items: flex-start;
 	margin: 0 rem(4px);
 	padding: 0 rem(16px);
 	color: rgba(255, 255, 255, 0.85);
-	font-size: rem(16px);
+	font-size: rem(32px);
 	min-height: rem(48px);
-	text-align: center;
+	text-align: left;
 
 	span {
 		position: -webkit-sticky;
@@ -384,6 +375,11 @@
 			}
 		}
 	}
+}
+
+.data-family-description {
+	padding: rem(16px);
+	font-size: rem(20px);
 }
 
 .data-family--thunderbird .data-family-name {

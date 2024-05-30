@@ -9,6 +9,11 @@ notes: "TODO Comment on how data was tested"
 links: {
     "Useful link to docs or bugs etc": "https://caniwebview.com/features/localhost/",
 }
+behaviour: {
+    wkwebview: "",
+    androidwebview: "",
+    webview2: ""
+}
 stats: {
     wkwebview: {
 		macos: {
@@ -33,17 +38,3 @@ stats: {
     }
 }
 ---
-
-## WebView2
-
-TODO: Complete me!
-
-## WKWebView
-
-TODO: Complete me!
-
-## Android WebView
-
-TODO: Complete me!
-
-## TODO: Any others?

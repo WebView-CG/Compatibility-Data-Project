@@ -9,6 +9,11 @@ notes: ""
 links: {
     "Usage & Challenges report": "https://webview-cg.github.io/usage-and-challenges/#inject-custom-js-scripts",
 }
+behaviour: {
+    wkwebview: "",
+    androidwebview: "",
+    webview2: ""
+}
 stats: {
     wkwebview: {
 		macos: {
@@ -33,13 +38,3 @@ stats: {
     }
 }
 ---
-
-# Android WebView
-
-TODO
-
-# WKWebView
-
-TODO
-
-# WebView2

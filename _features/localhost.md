@@ -12,6 +12,11 @@ links: {
     "WKURLSchemehandler": "https://developer.apple.com/documentation/webkit/wkurlschemehandler",
     "WebViewAssetLoader": "https://developer.android.com/reference/androidx/webkit/WebViewAssetLoader"
 }
+behaviour: {
+    wkwebview: "",
+    androidwebview: "",
+    webview2: "WebView2 has a variety of ways to work with local content - intercepting web resources as they're requested, mapping a hostname to a folder on the user's filesystem, or registering a custom URL scheme. You can find details on all of these in WebView2's documentation for [working with local content in WebView2 apps](https://learn.microsoft.com/microsoft-edge/webview2/concepts/working-with-local-content)."
+}
 stats: {
     wkwebview: {
 		macos: {
@@ -36,16 +41,3 @@ stats: {
     }
 }
 ---
-## WebView2
-
-WebView2 has a variety of ways to work with local content - intercepting web resources as they're requested, mapping a hostname to a folder on the user's filesystem, or registering a custom URL scheme. You can find details on all of these in WebView2's documentation for [working with local content in WebView2 apps](https://learn.microsoft.com/microsoft-edge/webview2/concepts/working-with-local-content).
-
-## WKWebView
-
-TODO: Complete me!
-
-## Android WebView
-
-TODO: Complete me!
-
-## TODO: Any others?
