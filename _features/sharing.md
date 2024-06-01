@@ -8,6 +8,11 @@ notes: ""
 links: {
     "Usage & Challenges report": "https://webview-cg.github.io/usage-and-challenges/#requests-responses-sharing-and-proxy-between-native-and-webview",
 }
+behaviour: {
+    wkwebview: "",
+    androidwebview: "[shouldInterceptRequest](https://developer.android.com/reference/android/webkit/WebViewClient#shouldInterceptRequest(android.webkit.WebView,%20android.webkit.WebResourceRequest)) in Android WebView provides developers with optional network interception capability. ",
+    webview2: ""
+}
 stats: {
     wkwebview: {
 		macos: {
@@ -32,7 +37,3 @@ stats: {
     }
 }
 ---
-
-# Android WebView
-
-[shouldInterceptRequest](https://developer.android.com/reference/android/webkit/WebViewClient#shouldInterceptRequest(android.webkit.WebView,%20android.webkit.WebResourceRequest)) in Android WebView provides developers with optional network interception capability. 

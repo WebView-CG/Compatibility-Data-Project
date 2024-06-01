@@ -15,11 +15,7 @@ layout: default
 	Showing the behavior description
 	{% endcomment %}
 
-	<h1 class="feature-title">How does it work on each WebView?</h1>
-
 	<div class="data-details">
-		{{ content | markdownify }}
-
 		<div class="data-family-list">
 			{% assign page-families-in-order = "" | split: '' %}
 			{% assign site-families-in-order = site.clients | sort: "display_order" %}
@@ -52,6 +48,7 @@ layout: default
 			{% endcomment %}
 			{% for family in page-families-in-order %}
 			{% assign family-key = family %}
+			{% assign description = page.behaviour[family] %}
 			{% assign family-values = page.stats[family] %}
 			<div class="data-family data-family--{{family-key}}" id="data-{{ page.title | slugify }}-{{ family-key }}">
 				<h3 class="data-family-name">
@@ -83,37 +80,37 @@ layout: default
 						</h4>
 						<div class="data-versions-list">
 							{% for version in platform-values %}
-							{% assign version-key = version | first %}
-							{% assign version-values = version | last | split: ' ' | first %}
-							{% assign version-notes = version | last | split: ' ' | shift %}
-							{% case version-values %}
-							{% when 'y' %}
-							{% assign stat-class-name = 'supported' %}
-							{% when 'n' %}
-							{% assign stat-class-name = 'unsupported' %}
-							{% when 'a' %}
-							{% assign stat-class-name = 'mitigated' %}
-							{% when 'u' %}
-							{% assign stat-class-name = 'unknown' %}
-							{% else %}
-							{% assign stat-class-name = '' %}
-							{% endcase %}
-							<div class="data-version {{ stat-class-name }}">
-								<span class="data-version-number">{{ version-key }}</span>
-								<span class="data-version-badge {{ stat-class-name }}"
-									aria-label="{{ site.data.nicenames.support[stat-class-name] }}"></span>
-								{% if version-notes.size > 0 %}
-								<div class="data-version-notes">
-									{% for note-key in version-notes %}
-									{% assign note-key-slug = note-key | slugify %}
-									<a href="#{{ page.title | slugify }}-cite-note-{{ note-key-slug }}"
-										title="{{ page.notes_by_num[note-key-slug] | markdownify | strip_html }}">{{
-										note-key |
-										replace: '#', '' }}</a>
-									{% endfor %}
+									{% assign version-key = version | first %}
+									{% assign version-values = version | last | split: ' ' | first %}
+									{% assign version-notes = version | last | split: ' ' | shift %}
+								{% case version-values %}
+									{% when 'y' %}
+										{% assign stat-class-name = 'supported' %}
+									{% when 'n' %}
+										{% assign stat-class-name = 'unsupported' %}
+									{% when 'a' %}
+										{% assign stat-class-name = 'mitigated' %}
+									{% when 'u' %}
+										{% assign stat-class-name = 'unknown' %}
+									{% else %}
+										{% assign stat-class-name = '' %}
+								{% endcase %}
+								<div class="data-version {{ stat-class-name }}">
+									<span class="data-version-number">{{ version-key }}</span>
+									<span class="data-version-badge {{ stat-class-name }}"
+										aria-label="{{ site.data.nicenames.support[stat-class-name] }}"></span>
+									{% if version-notes.size > 0 %}
+									<div class="data-version-notes">
+										{% for note-key in version-notes %}
+										{% assign note-key-slug = note-key | slugify %}
+										<a href="#{{ page.title | slugify }}-cite-note-{{ note-key-slug }}"
+											title="{{ page.notes_by_num[note-key-slug] | markdownify | strip_html }}">{{
+											note-key |
+											replace: '#', '' }}</a>
+										{% endfor %}
+									</div>
+									{% endif %}
 								</div>
-								{% endif %}
-							</div>
 							{% endfor %}
 						</div>
 					</div>
@@ -121,23 +118,26 @@ layout: default
 					{% else %}
 					{% assign family-page = site.clients | where:"slug", family-key | first %}
 					{% if family-page != nil and family-page != "" %}
-					{% for platform in family-page.platforms %}
-					{% assign platform-key = platform %}
-					<div class="data-client data-client--{{ platform-key | slugify }}">
-						<h4 class="data-platform-name">
-							{{ site.data.nicenames.platform[platform-key] | default: platform-key }}
-						</h4>
-						<div class="data-versions-list">
-							<div class="data-version unknown">
-								<span class="data-version-number">{{ "now" | date: "%Y-%m" }}</span>
-								<span class="data-version-badge unknown"
-									aria-label="{{ site.data.nicenames.support['unknown'] }}"></span>
+						{% for platform in family-page.platforms %}
+							{% assign platform-key = platform %}
+							<div class="data-client data-client--{{ platform-key | slugify }}">
+								<h4 class="data-platform-name">
+									{{ site.data.nicenames.platform[platform-key] | default: platform-key }}
+								</h4>
+								<div class="data-versions-list">
+									<div class="data-version unknown">
+										<span class="data-version-number">{{ "now" | date: "%Y-%m" }}</span>
+										<span class="data-version-badge unknown"
+											aria-label="{{ site.data.nicenames.support['unknown'] }}"></span>
+									</div>
+								</div>
 							</div>
-						</div>
-					</div>
-					{% endfor %}
+						{% endfor %}
 					{% endif %}
 					{% endif %}
+				</div>
+				<div class="data-family-description">
+					{{description | markdownify}}
 				</div>
 			</div>
 			{% endfor %}
