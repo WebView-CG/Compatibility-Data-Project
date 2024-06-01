@@ -8,6 +8,10 @@
 	background-color: #005A9C;
 	padding: 10px;
 
+	@media screen and (max-width: $width-mobile) {
+		padding: 0;
+	}
+
 	@media only screen and (max-width: rem(480px)) {
 		margin-bottom: calc(1rem + 13.3333vw);
 	}
@@ -16,7 +20,11 @@
 header > .search-wrapper {
 	width: 100%;
 	margin: 0 auto;
-	padding: 0 4rem;
+	padding: 0 $padding-desktop;
+
+	@media screen and (max-width: $width-mobile) {
+		padding: 0 $padding-mobile;
+	}
 }
 
 .menu > img.w3-community-logo {

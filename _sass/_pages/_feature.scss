@@ -251,6 +251,10 @@
     -webkit-overflow-scrolling: touch;
     scroll-behavior: smooth;
     padding: 1.2rem;
+
+	@media screen and (max-width: $width-mobile) {
+		padding: 0;
+	}
 }
 
 .data-details > p {
