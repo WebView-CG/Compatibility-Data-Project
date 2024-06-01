@@ -1,0 +1,78 @@
+---
+layout: post
+title: What is a WebView?
+permalink: /about/
+---
+<div class="post">
+	<section class="informative">
+		<h2>WebViews</h2>
+		<p>A <b>native application</b> (or native app) is an application designed to run on a particular operating
+			system.
+			It is
+			written in native code and leverages native APIs exposed by the operating system. Typical examples include
+			an
+			iOS
+			application written in Swift or Objective-C and that uses the iOS SDK, or an Android application written in
+			Kotlin, Java or C++ using
+			the
+			Android SDK. Native applications do not require a dedicated runtime to run as they interface with the
+			operating system directly.</p>
+
+		<p>A <b>web application</b> (or web app) is an application written using Web technologies (URLs, HTML, CSS,
+			JavaScript APIs). Web applications typically run in a web browser runtime. All systems and devices that can
+			render Web content have at least one <b>system-wide Web browser</b> application, which is either
+			pre-installed
+			on the device or that users can install.</p>
+
+		<p><b>WebViews</b> are software components provided in an SDK that can be used to render Web content directly
+			within a native application without having to switch to the system-wide Web browser. WebViews are
+			used
+			in a wide range of scenarios. They all share the same architecture: a native application embeds and
+			interacts
+			with one or more WebViews to render Web content within the WebView.</p>
+
+		<section class="informative">
+			<h3>Types of WebViews</h3>
+			<p>WebViews can differ based on the following properties:</p>
+			<p>
+			<ul>
+				<li><b>UX flexibility</b>:
+					Whether
+					the native application has full control over the UX provided by the WebView or whether the
+					WebView
+					imposes
+					the UX with limited customization and control from the native application.</li>
+				<li><b>Access to the web content</b>: Whether
+					the
+					native application has the ability to read and modify the web content rendered in the WebView. The
+					native
+					application can leverage this to establish a communication link between the native code and the Web
+					code, and
+					in particular to expose native APIs to the Web content, making it possible for the Web content to
+					make
+					native
+					calls.</li>
+				<li><b>State sharing</b>: Whether the WebView shares state such as
+					cookies and cache with the system-wide web browser, or is completely isolated.</li>
+			</ul>
+			</p>
+			<p>However, in practice, WebViews are classified into one of two categories with fixed properties:</p>
+			<dl>
+				<dt><b>Browser-like</b> WebViews</dt>
+				<dd>These WebViews are straightforward to embed with a simpler API surface mostly targeted at loading
+					the
+					web
+					page. They are generally not flexible, do not provide access to the web content, but share
+					state
+					with the system-wide web browser.</dd>
+				<dt><b>Fully-fledged</b> WebViews</dt>
+				<dd>These WebViews are used for creating richer experiences and feature powerful integration primitives.
+					They
+					have full UX flexibility when integrated within an application, provide the ability to access the
+					web
+					content (native and web parts of the application can communicate), and do not share state with the
+					system-wide web browser.</dd>
+			</dl>
+		</section>
+	</section>
+</div>

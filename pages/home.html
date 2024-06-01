@@ -3,8 +3,12 @@ title: Documentation for WebView capatibilities, limitations and features
 layout: default
 permalink: /
 ---
+<h3>
+	<a href=" /about" class="about-button">What is a WebView?</a>
+</h3>
 <div class="homepage">
 	<div class="block">
+
 		<h1 class="list-title"><a href="/features/">Latest features</a></h1>
 		<ol class="list">
 			{% assign latest-features = site.features | sort:"last_test_date" | reverse %}
@@ -22,7 +26,7 @@ permalink: /
 			</li>
 			{% endfor %}
 		</ol>
-		<!-- <a href="/features/" class="button">View all features</a> -->
+		<a href="/features/" class="button">View all features</a>
 	</div>
 	<div class="block">
 		<h1 class="list-title"><a href="/news/">Latest news</a></h1>
