@@ -20,7 +20,7 @@ jobs:
           python-version: "3.10"
       - name: Update version
         run: |
-          python ./tool/update_bcd_version.py
+          python tools/update_bcd_version.py
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add bcd_version
