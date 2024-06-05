@@ -1,5 +1,5 @@
 ---
-	layout: null
+layout: null
 permalink: "/assets/js/compare.js"
 ---
 	class Compare {
