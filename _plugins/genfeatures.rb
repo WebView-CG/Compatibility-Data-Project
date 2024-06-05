@@ -6,7 +6,8 @@ module SamplePlugin
       safe true
   
       def generate(site)
-        bcd = HTTParty.get("http://unpkg.com/@mdn/browser-compat-data@5.5.31/data.json").body
+        version = File.read("bcd_version")
+        bcd = HTTParty.get("http://unpkg.com/@mdn/browser-compat-data@#{version}/data.json").body
         parsed_bcd = JSON.parse(bcd)
 
         def getVersions(feature, platform)

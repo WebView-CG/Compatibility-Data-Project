@@ -1,0 +1,24 @@
+name: Update the bcd version
+
+on:
+  schedule:
+    - cron: "25 12 * * *"    # Test run at 12:25 UTC
+
+jobs:
+  getdataandrefreshmap:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Setup python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.10
+      - name: Update version
+        run: |
+          python ./tool/update_bcd_version.py
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add bcd_version
+          git commit -m "Update bcd version"
+          git push

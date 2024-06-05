@@ -49,5 +49,5 @@ plugins:
 sass:
   style: compact
 
-exclude: [vendor, "tools", "Gemfile", "Gemfile.lock", "CONTRIBUTING.md", "LICENSE", "README.md"]
+exclude: [vendor, "tools/update_bcd_version.py", "Gemfile", "Gemfile.lock", "CONTRIBUTING.md", "LICENSE", "README.md", "bcd_version"]
 include: ["_js"]
