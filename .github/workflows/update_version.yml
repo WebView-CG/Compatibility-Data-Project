@@ -10,7 +10,7 @@ permissions:
   contents: write
 
 jobs:
-  update bcd:
+  update_bcd:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
