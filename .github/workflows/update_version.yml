@@ -2,10 +2,13 @@ name: Update the bcd version
 
 on:
   schedule:
-    - cron: "25 12 * * *"    # Test run at 12:25 UTC
+    - cron: "36 12 * * *"    # Test run at 12:36 UTC
+
+permissions:
+  contents: write
 
 jobs:
-  getdataandrefreshmap:
+  update:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -20,5 +23,5 @@ jobs:
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add bcd_version
-          git commit -m "Update bcd version"
+          git diff --quiet && git diff --staged --quiet || git commit -m "Update bcd version"
           git push
