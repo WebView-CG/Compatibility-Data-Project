@@ -2,7 +2,7 @@ name: Update the bcd version
 
 on:
   schedule:
-    - cron: "36 12 * * *"    # Test run at 12:36 UTC
+    - cron: "0 14 * * *"    # Test run at 14:00 UTC
 
 permissions:
   contents: write
