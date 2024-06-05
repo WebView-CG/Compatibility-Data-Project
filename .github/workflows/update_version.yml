@@ -2,14 +2,15 @@ name: Update the bcd version
 
 on:
   workflow_dispatch:
+
   schedule:
-    - cron: "0 14 * * *"    # Test run at 14:00 UTC
+    - cron: '30 14 * * *'    # Test run at 14:30 UTC
 
 permissions:
   contents: write
 
 jobs:
-  update:
+  update bcd:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
