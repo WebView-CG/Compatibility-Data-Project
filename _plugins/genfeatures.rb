@@ -9,9 +9,24 @@ module SamplePlugin
         bcd = HTTParty.get("http://unpkg.com/@mdn/browser-compat-data@5.5.31/data.json").body
         parsed_bcd = JSON.parse(bcd)
 
-        def checkForSupport(feature, platform)
-          return feature['__compat']["support"][platform].kind_of?(Array) || feature['__compat']["support"][platform]["version_added"].class == FalseClass ? 'y'
-          : 'n'
+        def getVersions(feature, platform)
+          if (feature['__compat']["support"][platform].kind_of?(Array)) then
+            return feature['__compat']["support"][platform].map { |version|
+              [version["version_added"], "y"]
+            }.to_h
+          end
+
+          version = feature['__compat']["support"][platform]["version_added"]
+         
+          if version.class == FalseClass then
+            return {
+              "*" => "n"
+            }
+          end
+          
+          return {
+            version => "y"
+          }
         end
 
         parsed_bcd['api'].keys.each do |title|
@@ -26,8 +41,9 @@ module SamplePlugin
 
           doc.data['title'] = title.gsub('-', ' ')
           doc.data['slug'] = slug
-          doc.data['description'] = feature["__compat"].key?("mdn_url") ? "Read more about this API on [mdn](#{feature["__compat"]["mdn_url"]})."
-          : "TODO"
+          doc.data['description'] = feature["__compat"].key?("mdn_url") ?
+            "Read more about this API on [mdn](#{feature["__compat"]["mdn_url"]})."
+            : "TODO"
           doc.data['category'] = 'webapi'
           doc.data['keywords'] = 'todo'
           doc.data['last_test_date'] = parsed_bcd['__meta']['timestamp']
@@ -51,9 +67,7 @@ module SamplePlugin
               }
             },
             "androidwebview" => {
-              "android" => {
-                "*" => checkForSupport(feature, "webview_android")
-              }
+              "android" => getVersions(feature, "webview_android")
             },
             "webview2" => {
               "windows" => {
