@@ -50,11 +50,6 @@ module SamplePlugin
           doc.data['last_test_date'] = parsed_bcd['__meta']['timestamp']
           doc.data['notes'] = 'Data retrieve from BCD.'
           doc.data['links'] = []
-          doc.data['behavior'] = {
-            "wkwebview" => "",
-            "androidwebview" => "",
-            "webview2" => ""
-          }
           doc.data['stats'] = {
             "wkwebview" => {
               "macos" => {

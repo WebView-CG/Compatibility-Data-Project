@@ -330,6 +330,12 @@
 	padding-left: rem(16px);
 	padding-right: rem(16px);
 	width: 100%;
+
+	&.no-behaviour {
+		@media screen and (min-width: $width-mobile) {
+			flex-direction: row;
+		}
+	}
 }
 
 .data-family {

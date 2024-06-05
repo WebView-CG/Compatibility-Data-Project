@@ -16,7 +16,7 @@ layout: default
 	{% endcomment %}
 
 	<div class="data-details">
-		<div class="data-family-list">
+		<div class="data-family-list {% if page.behaviour == nil %} no-behaviour {% endif %}">
 			{% assign page-families-in-order = "" | split: '' %}
 			{% assign site-families-in-order = site.clients | sort: "display_order" %}
 			{% comment %}
@@ -48,7 +48,6 @@ layout: default
 			{% endcomment %}
 			{% for family in page-families-in-order %}
 			{% assign family-key = family %}
-			{% assign description = page.behaviour[family] %}
 			{% assign family-values = page.stats[family] %}
 			<div class="data-family data-family--{{family-key}}" id="data-{{ page.title | slugify }}-{{ family-key }}">
 				<h3 class="data-family-name">
@@ -136,9 +135,12 @@ layout: default
 					{% endif %}
 					{% endif %}
 				</div>
-				<div class="data-family-description">
-					{{description | markdownify}}
-				</div>
+				{% if page.behaviour %}
+					{% assign description = page.behaviour[family] %}
+					<div class="data-family-description">
+						{{description | markdownify}}
+					</div>
+				{% endif %}
 			</div>
 			{% endfor %}
 		</div>
