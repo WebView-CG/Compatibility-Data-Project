@@ -13,9 +13,25 @@ import urllib.request, json
 CDN_URL = "https://unpkg.com/@mdn/browser-compat-data/data.json"
 VERSION_FILE = "bcd_version"
 
+# We are going to respect semantic versioning and only
+# auto update the version if it is a patch increase.
+# This will help us avoid accidentally breaking the site
+# without any human intervention.
+def onlyPatchIncrease(prevVersion, nextVersion):
+    prevVersion = prevVersion.split(".")
+    nextVersion = nextVersion.split(".")
+
+    return (len(prevVersion) == 3 and
+            len(nextVersion) == 3 and
+            prevVersion[0] == nextVersion[0] and
+            prevVersion[1] == nextVersion[1])
+
 with urllib.request.urlopen(CDN_URL) as raw:
     data = json.load(raw)
     version = data["__meta"]["version"]
 
-    with open(VERSION_FILE, "w") as file:
-        file.write(version)
+    with open(VERSION_FILE, "r+") as file:
+        if (onlyPatchIncrease(file.read(), version)):
+            file.seek(0)
+            file.write(version)
+            file.truncate()
