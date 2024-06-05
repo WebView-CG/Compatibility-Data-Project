@@ -4,6 +4,9 @@ collections:
     permalink: /news/:year-:month-:day-:title/
   features:
     output: true
+  genfeatures:
+    output: true
+    permalink: /features/:name/
   clients:
     output: true
 
@@ -11,6 +14,11 @@ defaults:
   - scope:
       path: ""
       type: "features"
+    values:
+      layout: "feature"
+  - scope:
+      path: ""
+      type: "genfeatures"
     values:
       layout: "feature"
   - scope:
@@ -32,8 +40,11 @@ permalink: /:title/
 
 plugins:
   - jekyll-mentions
+  - jekyll-github-metadata
+  - jekyll-default-layout
 
-exclude: [vendor, "Gemfile", "Gemfile.lock", "CONTRIBUTING.md", "LICENSE", "README.md"]
+sass:
+  style: compact
+
+exclude: [vendor, "tools", "Gemfile", "Gemfile.lock", "CONTRIBUTING.md", "LICENSE", "README.md"]
 include: ["_js"]
-
-#incremental: true
