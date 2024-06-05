@@ -1,3 +1,6 @@
+title: CanIWebView
+repository: WebView-CG/Compatibility-Data-Project
+
 collections:
   posts:
     output: true
