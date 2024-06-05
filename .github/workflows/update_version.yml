@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
   schedule:
-    - cron: '30 14 * * *'    # Test run at 14:30 UTC
+    - cron: '0 0 * * 6'    # Run at 00:00 UTC every Saturday
 
 permissions:
   contents: write
