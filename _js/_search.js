@@ -27,9 +27,9 @@ class Search {
 					if(!this.data) {
 						this.loadJSONFile();
 					}
-	
+
 					this.query();
-	
+
 					if(this.term) {
 						this.updateURL();
 					}
@@ -100,7 +100,7 @@ class Search {
 				this.term = this.term.replace(new RegExp('attribute$'), '').trim();
 			}
 
-			
+
 			if(this.term.includes('+')) {
 
 				let terms = this.term.split('+');
@@ -265,8 +265,14 @@ class Search {
 							featureContainer.querySelector('.data-details').appendChild(window.caniwebview.settings.getEmptyDataMessageElement());
 						}
 						featureContainer.querySelector('.feature-footer').innerHTML = div.querySelector('.feature-footer').innerHTML;
-						featureContainer.querySelector('.feature-header-column:nth-child(1)').innerHTML += div.querySelector('.feature-description').outerHTML;
-						featureContainer.querySelector('.feature-header-column:nth-child(2)').innerHTML = div.querySelector('.feature-header-column:nth-child(2)').innerHTML;
+						const featureDescription = div.querySelector('.feature-description');
+						if (featureDescription != null) {
+							featureContainer.querySelector('.feature-header-column:nth-child(1)').innerHTML += featureDescription.outerHTML;
+						}
+						const featureHeader = div.querySelector('.feature-header-column:nth-child(2)');
+						if (featureHeader != null) {
+							featureContainer.querySelector('.feature-header-column:nth-child(2)').innerHTML = featureHeader.innerHTML;
+						}
 					}
 				})
 				.catch(error => {
