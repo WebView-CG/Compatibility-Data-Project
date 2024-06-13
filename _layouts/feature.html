@@ -19,24 +19,24 @@ layout: default
 
 	<div class="data-details">
 		<div class="data-family-list {% if page.behaviour == nil %} no-behaviour {% endif %}">
-			{% assign page-families-in-order = "" | split: '' %}
-			{% assign site-families-in-order = site.clients | sort: "display_order" %}
+			{% assign page-families-in-order = "" | split: '' -%}
+			{% assign site-families-in-order = site.clients | sort: "display_order" -%}
 			{% comment %}
 			1. We go through the `clients` collection ordered by `display_order`.
 			We add the family slug to the page family array.
 			{% endcomment %}
 			{% for family in site-families-in-order %}
-			{% assign family-key = family.slug %}
-			{% assign page-families-in-order = page-families-in-order | push: family-key %}
+			{% assign family-key = family.slug -%}
+			{% assign page-families-in-order = page-families-in-order | push: family-key -%}
 			{% endfor %}
 			{% comment %}
 			2. We go through the page/feature `stats` and add all the keys.
 			{% endcomment %}
-			{% assign page-stats-keys = "" | split: '' %}
+			{% assign page-stats-keys = "" | split: '' -%}
 			{% for default in page.stats %}
-			{% assign family-key = default | first %}
+			{% assign family-key = default | first -%}
 			{% if page.stats[family-key].size > 0 %}
-			{% assign page-stats-keys = page-stats-keys | push: family-key %}
+			{% assign page-stats-keys = page-stats-keys | push: family-key -%}
 			{% endif %}
 			{% endfor %}
 			{% comment %}
@@ -44,17 +44,17 @@ layout: default
 			filter
 			to remove duplicates.
 			{% endcomment %}
-			{% assign page-families-in-order = page-families-in-order | concat: page-stats-keys | uniq %}
+			{% assign page-families-in-order = page-families-in-order | concat: page-stats-keys | uniq -%}
 			{% comment %}
 			4. Let's start the loop!
 			{% endcomment %}
 			{% for family in page-families-in-order %}
-			{% assign family-key = family %}
-			{% assign family-values = page.stats[family] %}
+			{% assign family-key = family -%}
+			{% assign family-values = page.stats[family] -%}
 			<div class="data-family data-family--{{family-key}}" id="data-{{ page.title | slugify }}-{{ family-key }}">
 				<h3 class="data-family-name">
 					<span>
-						{% assign family-page = site.clients | where:"slug", family-key | first %}
+						{% assign family-page = site.clients | where:"slug", family-key | first -%}
 						{% if family-page != nil and family-page != "" %}
 						<a href="/clients/{{family-key}}/">
 							{% endif %}
@@ -67,8 +67,8 @@ layout: default
 				<div class="data-client-list">
 					{% if family-values != nil %}
 					{% for platform in family-values %}
-					{% assign platform-key = platform | first %}
-					{% assign platform-values = platform | last %}
+					{% assign platform-key = platform | first -%}
+					{% assign platform-values = platform | last -%}
 					<div class="data-client data-client--{{ platform-key | slugify }}">
 						<h4 class="data-platform-name">
 							{% if family-page != nil and family-page != "" %}
@@ -81,20 +81,20 @@ layout: default
 						</h4>
 						<div class="data-versions-list">
 							{% for version in platform-values %}
-									{% assign version-key = version | first %}
-									{% assign version-values = version | last | split: ' ' | first %}
-									{% assign version-notes = version | last | split: ' ' | shift %}
+									{% assign version-key = version | first -%}
+									{% assign version-values = version | last | split: ' ' | first -%}
+									{% assign version-notes = version | last | split: ' ' | shift -%}
 								{% case version-values %}
 									{% when 'y' %}
-										{% assign stat-class-name = 'supported' %}
+										{% assign stat-class-name = 'supported' -%}
 									{% when 'n' %}
-										{% assign stat-class-name = 'unsupported' %}
+										{% assign stat-class-name = 'unsupported' -%}
 									{% when 'a' %}
-										{% assign stat-class-name = 'mitigated' %}
+										{% assign stat-class-name = 'mitigated' -%}
 									{% when 'u' %}
-										{% assign stat-class-name = 'unknown' %}
+										{% assign stat-class-name = 'unknown' -%}
 									{% else %}
-										{% assign stat-class-name = '' %}
+										{% assign stat-class-name = '' -%}
 								{% endcase %}
 								<div class="data-version {{ stat-class-name }}">
 									<span class="data-version-number">{{ version-key }}</span>
@@ -103,7 +103,7 @@ layout: default
 									{% if version-notes.size > 0 %}
 									<div class="data-version-notes">
 										{% for note-key in version-notes %}
-										{% assign note-key-slug = note-key | slugify %}
+										{% assign note-key-slug = note-key | slugify -%}
 										<a href="#{{ page.title | slugify }}-cite-note-{{ note-key-slug }}"
 											title="{{ page.notes_by_num[note-key-slug] | markdownify | strip_html }}">{{
 											note-key |
@@ -117,10 +117,10 @@ layout: default
 					</div>
 					{% endfor %}
 					{% else %}
-					{% assign family-page = site.clients | where:"slug", family-key | first %}
+					{% assign family-page = site.clients | where:"slug", family-key | first -%}
 					{% if family-page != nil and family-page != "" %}
 						{% for platform in family-page.platforms %}
-							{% assign platform-key = platform %}
+							{% assign platform-key = platform -%}
 							<div class="data-client data-client--{{ platform-key | slugify }}">
 								<h4 class="data-platform-name">
 									{{ site.data.nicenames.platform[platform-key] | default: platform-key }}
@@ -150,9 +150,9 @@ layout: default
 		</div>
 	</div>
 	<footer class="feature-footer">
-		{% assign has-page-notes = false %}
+		{% assign has-page-notes = false -%}
 		{% if page.notes != nil and page.notes != "" %}
-		{% assign has-page-notes = true %}
+		{% assign has-page-notes = true -%}
 		{% endif %}
 		{% if has-page-notes == true or page.notes_by_num.size > 0 or page.links.size > 0 %}
 		<div class="data-notes">
@@ -177,8 +177,8 @@ layout: default
 			<h2 class="list-title">Resources</h2>
 			<ul class="list">
 				{% for link in page.links %}
-				{% assign link-title = link | first %}
-				{% assign link-url = link | last %}
+				{% assign link-title = link | first -%}
+				{% assign link-url = link | last -%}
 				<li>
 					<a href="{{ link-url | escape_once }}">{{ link-title | markdownify | strip_html | strip }}</a>
 				</li>
@@ -223,16 +223,16 @@ layout: default
 				{% endcomment %}
 				{% if page.test_results_url != nil and page.test_results_url != "" and page.last_test_date != nil and
 				page.last_test_date != "" %}
-				{% assign last_test_date_timestamp = page.last_test_date | date: '%s' %}
-				{% assign now_timestamp = 'now' | date: '%s' %}
-				{% assign last_test_date_in_seconds = now_timestamp | minus: last_test_date_timestamp %}
-				{% assign last_test_date_in_days = last_test_date_in_seconds | divided_by: 3600 | divided_by: 24 %}
+				{% assign last_test_date_timestamp = page.last_test_date | date: '%s' -%}
+				{% assign now_timestamp = 'now' | date: '%s' -%}
+				{% assign last_test_date_in_seconds = now_timestamp | minus: last_test_date_timestamp -%}
+				{% assign last_test_date_in_days = last_test_date_in_seconds | divided_by: 3600 | divided_by: 24 -%}
 				{% if last_test_date_in_days < 30 %} {% assign test-results-url-provider="" %} {% if
 					page.test_results_url contains "emailonacid.com" %} {% assign
 					test-results-url-provider="Email on Acid" %} {% elsif page.test_results_url contains "testi.at" %}
 					{% assign test-results-url-provider="Testi@" %} {% elsif page.test_results_url contains "litmus.com"
-					%} {% assign test-results-url-provider="Litmus" %} {% endif %} {% if test-results-url-provider !=""
-					%} {% assign test-results-url-provider=test-results-url-provider | prepend: " on " %} {% endif %} <a
+					-%} {% assign test-results-url-provider="Litmus" -%} {% endif %} {% if test-results-url-provider !=""
+					%} {% assign test-results-url-provider=test-results-url-provider | prepend: " on " -%} {% endif %} <a
 					href="{{ page.test_results_url }}" class="button">View test results{{test-results-url-provider}}</a>
 					{% endif %}
 					{% endif %}

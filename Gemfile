@@ -5,6 +5,7 @@ gem "webrick", "~> 1.7"
 gem "kramdown", ">= 2.3.1"
 gem "kramdown-parser-gfm"
 gem "jekyll-mentions"
+gem "jekyll-minifier"
 gem "jekyll-github-metadata"
 gem "jekyll-default-layout"
 gem 'ffi', '~> 1.9', '>= 1.9.10'

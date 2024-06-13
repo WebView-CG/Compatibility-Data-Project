@@ -2,13 +2,5 @@
 layout: null
 permalink: /assets/js/features.json
 ---
-[
-	{% assign features = site.genfeatures | concat: site.features | sort:'id' %}
-	{% for feature in features %}
-		{
-			"slug": {{ feature.slug | jsonify }},
-			"title": {{ feature.title | strip_newlines | remove_chars | escape_once | jsonify }},
-			"keywords" : {{ feature.keywords | default:"" | jsonify }}
-		} {% unless forloop.last %},{% endunless %}
-	{% endfor %}
-]
+{% assign features = site.genfeatures | concat: site.features | sort:'id' | map_features -%}
+{{ features | jsonify }}

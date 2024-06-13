@@ -45,6 +45,7 @@ plugins:
   - jekyll-mentions
   - jekyll-github-metadata
   - jekyll-default-layout
+  - jekyll-minifier
 
 sass:
   style: compact
