@@ -10,6 +10,8 @@ class Search {
 		this.origin = document.location.href;
 		this.timer = null;
 		this.timerDelay = 300;
+		this.resultCount = 0;
+		document.querySelector('[role=main] .search-results');
 
 		if(this.input != null) {
 
@@ -207,9 +209,25 @@ class Search {
 	buildResultsContainer() {
 
 		if(document.querySelector('[role=main] .search-results') == null) {
+			this.resultCount = 0;
+
 			let container = document.createElement('div');
 			container.classList.add('search-results');
 			container.id = 'search-results';
+
+			this.searchMoreButton = document.createElement('button');
+			this.searchMoreButton.textContent = "Show more results";
+			this.searchMoreButton.id = "search-more";
+
+			this.searchMoreButton.addEventListener('click', () => {
+				if (!this.showingAllResults()) {
+					const PAGINATION_AMOUNT = 10;
+
+					this.buildResults(Math.min(this.resultCount + PAGINATION_AMOUNT, this.results.length));
+				}
+			});
+
+			document.querySelector('[role=main]').prepend(this.searchMoreButton);
 			document.querySelector('[role=main]').prepend(container);
 		}
 	}
@@ -218,10 +236,12 @@ class Search {
 
 		if(document.querySelector('[role=main] .search-results') != null) {
 			document.querySelector('[role=main] .search-results').remove();
+			document.querySelector('#search-more').remove();
 		}
 	}
 
-	buildResults() {
+	buildResults(maxCount = 10) {
+		this.resultCount = maxCount;
 
 		const container = document.querySelector('[role=main] .search-results');
 		container.querySelectorAll('section').forEach(section => {
@@ -230,7 +250,11 @@ class Search {
 			}
 		});
 
-		this.results.forEach(feature => {
+		for (let i = 0; i < this.results.length; i++) {
+			if (i >= maxCount) break;
+
+			const feature = this.results[i];
+
 			if(container.querySelector(`[data-slug="${feature.slug}"]`) == null) {
 				const featureURL = `/features/${feature.slug}/`;
 				let div = document.createElement('div');
@@ -279,7 +303,10 @@ class Search {
 					console.error(error);
 				});
 			}
-		});
+		}
+
+		this.searchMoreButton.className = !this.showingAllResults() ?
+			"show-more-visible" : "invisible";
 	}
 
 	updateURL() {
@@ -289,5 +316,9 @@ class Search {
 	updateTitle() {
 
 		document.querySelector('title').innerHTML = `Can I WebView&hellip; "${this.term}" search results`;
+	}
+
+	showingAllResults() {
+		return this.resultCount >= this.results.length;
 	}
 }

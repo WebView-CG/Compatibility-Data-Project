@@ -718,6 +718,30 @@
 	}
 }
 
+.show-more-visible {
+	padding: 0.5em;
+	min-height: rem(40px);
+	color: #fff;
+	font-weight: 300;
+	font-size: rem(20px);
+	text-decoration: none;
+	white-space: nowrap;
+	display: block;
+	text-transform: capitalize;
+	background-color: $color-blue-darker;
+	cursor: pointer;
+
+	border: none;
+
+	&:hover {
+		filter: brightness(120%);
+	}
+}
+
+.invisible {
+	display: none;
+}
+
 .feature--placeholder {
 	.data {
 		min-height: rem(168px);
