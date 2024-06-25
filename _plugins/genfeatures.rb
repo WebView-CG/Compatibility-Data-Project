@@ -94,6 +94,8 @@ module SamplePlugin
 		generate_from_section(site, parsed_bcd['html']['manifest'], timestamp, "HTML manifest: ")
 		generate_from_section(site, parsed_bcd['css']['selectors'], timestamp, "CSS selector: ")
 		generate_from_section(site, parsed_bcd['css']['properties'], timestamp, "CSS property: ")
+		generate_from_section(site, parsed_bcd['http']['headers'], timestamp, "HTTP header: ")
+		generate_from_section(site, parsed_bcd['http']['status'], timestamp, "HTTP status: ")
       end
     end
 
