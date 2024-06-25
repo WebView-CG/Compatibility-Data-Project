@@ -36,7 +36,7 @@ module SamplePlugin
 			feature = section[title]
 
 			title = "#{appended_title}#{title}"
-			slug = title.downcase.strip.gsub(/[\_|\s]/, '-').gsub(':', '')
+			slug = "mdn-#{title.downcase.strip.gsub('-', '').gsub(/[\_|\s]/, '-').gsub(':', '')}"
 			path = site.in_source_dir("_genfeatures/#{slug}.md")
 			doc = Jekyll::Document.new(path, {
 				:site => site,
@@ -45,7 +45,7 @@ module SamplePlugin
 
 			data_source = "Support data provided by: [![BCD logo](/assets/images/mdn-bcd.svg)](https://github.com/mdn/browser-compat-data)"
 
-			doc.data['title'] = title.gsub('-', ' ')
+			doc.data['title'] = title
 			doc.data['slug'] = slug
 			doc.data['category'] = 'webapi'
 			doc.data['keywords'] = 'todo'
@@ -92,6 +92,8 @@ module SamplePlugin
 		generate_from_section(site, parsed_bcd['html']['elements'], timestamp, "HTML element: ")
 		generate_from_section(site, parsed_bcd['html']['global_attributes'], timestamp, "HTML attribute: ")
 		generate_from_section(site, parsed_bcd['html']['manifest'], timestamp, "HTML manifest: ")
+		generate_from_section(site, parsed_bcd['css']['selectors'], timestamp, "CSS selector: ")
+		generate_from_section(site, parsed_bcd['css']['properties'], timestamp, "CSS property: ")
       end
     end
 
