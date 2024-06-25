@@ -1,7 +1,7 @@
 <div class="search" role="search">
 	<form action="/search/" method="get" class="search-form">
 		<label for="search" class="search-label">Can I WebView</label>
-		<span class="search-input-container"><input type="search" class="search-input" id="search" name="s" spellcheck="false" value="" placeholder="Capabilities, Features, &hellip;" {% if page.url == "/" %}autofocus{% endif %} /></span>
+		<span class="search-input-container"><input autofocus type="search" class="search-input" id="search" name="s" spellcheck="false" value="" placeholder="Capabilities, Features, &hellip;" {% if page.url == "/" %}autofocus{% endif %} /></span>
 		<span class="search-question-mark" aria-hidden="true">?</span>
 		<span class="search-actions">
 			<noscript>
