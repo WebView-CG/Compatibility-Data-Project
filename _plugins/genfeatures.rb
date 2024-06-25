@@ -26,6 +26,12 @@ module SamplePlugin
 		  }
 		end
 
+		if version.class == TrueClass then
+		  return {
+			"*" => "y"
+		  }
+		end
+
 		return {
 		  version => "y"
 		}
