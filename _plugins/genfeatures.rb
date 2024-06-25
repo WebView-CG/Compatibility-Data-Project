@@ -96,6 +96,7 @@ module SamplePlugin
 		generate_from_section(site, parsed_bcd['css']['properties'], timestamp, "CSS property: ")
 		generate_from_section(site, parsed_bcd['http']['headers'], timestamp, "HTTP header: ")
 		generate_from_section(site, parsed_bcd['http']['status'], timestamp, "HTTP status: ")
+		generate_from_section(site, parsed_bcd['javascript']['builtins'], timestamp, "JavaScript built-in: ")
       end
     end
 
