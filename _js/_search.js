@@ -62,6 +62,7 @@ class Search {
 				this.cat = null;
 				this.query();
 				this.updateURL();
+				this.updateTitle();
 			};
 		}
 	}
@@ -332,7 +333,14 @@ class Search {
 	}
 
 	updateTitle() {
-		document.querySelector('title').innerHTML = `Can I WebView&hellip; "${this.term}" search results`;
+		let title = "Can I WebView&hellip;";
+		if (this.term != null) {
+			title += ` "${this.term}"`;
+		} else if (this.cat != null) {
+			title += ` "${this.cat}"`;
+		}
+
+		document.querySelector('title').innerHTML = title + " search results";
 	}
 
 	showingAllResults() {
