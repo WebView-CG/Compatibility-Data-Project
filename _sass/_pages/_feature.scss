@@ -1,7 +1,7 @@
 .feature {
 	position: relative;
 	padding: rem(16px) rem(32px) 0;
-	background-color: #2a2a2e;
+	background-color: $feature-color;
 }
 
 .feature-title {
@@ -166,7 +166,7 @@
 		font-size: rem(12px);
 		line-height: 1.25;
 		color: rgba(255, 255, 255, 0.85);
-		background: #2a2a2e;
+		background: $feature-color;
 		border: 1px solid #3c3c3d;
 		border-radius: rem(4px);
 		box-shadow: -2px -2px 4px rgba(0,0,0,0.5);

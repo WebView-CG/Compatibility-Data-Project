@@ -18,3 +18,7 @@ category:
   others: "Others"
   webviewapi: "WebView API"
   webapi: "Web API"
+  css: "CSS"
+  html: "HTML5"
+  js: "JavaScript API"
+  http: HTTP

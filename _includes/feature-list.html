@@ -1,0 +1,22 @@
+{% assign maximumFeaturesLength = 20 %}
+{% for category in include.features %}
+	{% assign categoryName = site.data.nicenames.category[category.name] | default: category.name %}
+	<h2 class="list-title" id="title-{{ category.name | slugify }}">
+		<a href="/search/?cat={{category.name}}">
+			{{ categoryName }}
+		</a>
+	</h2>
+	<ul class="list list--features">
+		{% assign features = category.items | sort:'id' %}
+		{% for feature in features limit: maximumFeaturesLength %}
+			<li><a href="{{ feature.url }}">{{ feature.title | escape_once }}</a></li>
+		{% endfor %}
+		{% if features.size > maximumFeaturesLength %}
+		<li>
+			<a href="/search/?cat={{category.name}}">
+				All {{ categoryName }} features
+			</a>
+		</li>
+		{% endif %}
+	</ul>
+{% endfor %}

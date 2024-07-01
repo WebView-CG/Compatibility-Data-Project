@@ -3,13 +3,16 @@ layout: default
 title: All HTML and CSS features on Can I WebView…
 permalink: /features/
 ---
-{% assign features-by-category = site.features | group_by:"category" %}
-{% for category in features-by-category %}
-	<h1 class="list-title" id="title-{{ category.name | slugify }}">{{ site.data.nicenames.category[category.name] | default: category.name }}</h1>
-	<ul class="list list--features">
-		{% assign features = category.items | sort:'id' %}
-		{% for feature in features %}
-			<li><a href="{{ feature.url }}">{{ feature.title | escape_once }}</a></li>
-		{% endfor %}
-	</ul>
-{% endfor %}
+
+<div class="post">
+	<div class="post-feature">
+		<h1 class="post-title">Behavioural</h1>
+		{% assign features-by-category = site.features | group_by:"category" %}
+		{% include feature-list.html features=features-by-category %}
+	</div>
+	<div class="post-feature">
+		<h1 class="post-title">Web Platform</h1>
+		{% assign features-by-category = site.genfeatures | group_by:"category" %}
+		{% include feature-list.html features=features-by-category %}
+	</div>
+</div>

@@ -37,7 +37,7 @@ module SamplePlugin
 		}
 	  end
 
-	  def generate_from_section(site, section, timestamp, appended_title = "")
+	  def generate_from_section(site, section, timestamp, category, appended_title = "")
 		section.keys.each do |title|
 			feature = section[title]
 
@@ -53,7 +53,7 @@ module SamplePlugin
 
 			doc.data['title'] = title
 			doc.data['slug'] = slug
-			doc.data['category'] = 'webapi'
+			doc.data['category'] = category
 			doc.data['keywords'] = 'todo'
 			doc.data['last_test_date'] = timestamp
 			doc.data['notes'] = data_source
@@ -94,15 +94,25 @@ module SamplePlugin
 
 		timestamp = parsed_bcd['__meta']['timestamp']
 
-		generate_from_section(site, parsed_bcd['api'], timestamp)
-		generate_from_section(site, parsed_bcd['html']['elements'], timestamp, "HTML element: ")
-		generate_from_section(site, parsed_bcd['html']['global_attributes'], timestamp, "HTML attribute: ")
-		generate_from_section(site, parsed_bcd['html']['manifest'], timestamp, "HTML manifest: ")
-		generate_from_section(site, parsed_bcd['css']['selectors'], timestamp, "CSS selector: ")
-		generate_from_section(site, parsed_bcd['css']['properties'], timestamp, "CSS property: ")
-		generate_from_section(site, parsed_bcd['http']['headers'], timestamp, "HTTP header: ")
-		generate_from_section(site, parsed_bcd['http']['status'], timestamp, "HTTP status code: ")
-		generate_from_section(site, parsed_bcd['javascript']['builtins'], timestamp, "JavaScript built-in: ")
+		generate_from_section(site, parsed_bcd['api'],
+				timestamp, "js")
+		generate_from_section(site, parsed_bcd['javascript']['builtins'],
+				timestamp, "js", "JavaScript built-in: ")
+		generate_from_section(site, parsed_bcd['html']['elements'],
+				timestamp, "html", "HTML element: ")
+		generate_from_section(site, parsed_bcd['html']['global_attributes'],
+				timestamp, "html", "HTML attribute: ")
+		generate_from_section(site, parsed_bcd['html']['manifest'],
+				timestamp, "html", "HTML manifest: ")
+		generate_from_section(site, parsed_bcd['css']['selectors'],
+				timestamp, "css", "CSS selector: ")
+		generate_from_section(site, parsed_bcd['css']['properties'],
+				timestamp, "css", "CSS property: ")
+		generate_from_section(site, parsed_bcd['http']['headers'],
+				timestamp, "http", "HTTP header: ")
+		generate_from_section(site, parsed_bcd['http']['status'],
+				timestamp, "http", "HTTP status code: ")
+
       end
     end
 

@@ -9,6 +9,16 @@
 	margin: 0 auto;
 }
 
+.post-feature {
+	margin: rem(24px);
+	margin-bottom: rem(48px);
+
+	@media screen and (max-width: $width-mobile) {
+		margin: 0;
+		margin-bottom: rem(48px);
+	}
+}
+
 .post-date {
 	color: #fff;
 }

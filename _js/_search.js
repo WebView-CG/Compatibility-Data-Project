@@ -1,9 +1,9 @@
 class Search {
 
 	constructor() {
-
 		this.data = null;
 		this.term = null;
+		this.cat = null;
 		this.results = null;
 		this.input = document.querySelector('.search-input');
 		this.form = document.querySelector('.search');
@@ -40,22 +40,33 @@ class Search {
 			});
 
 			const url = new URL(document.location.href);
-			if(url.searchParams.get('s') != null) {
-
+			this.cat = url.searchParams.get('cat');
+			this.term = url.searchParams.get('s');
+			if(this.cat != null || this.term != null) {
 				if(!this.data) {
 					this.loadJSONFile();
 				}
-				this.input.value = url.searchParams.get('s');
-				this.term = url.searchParams.get('s');
+				this.input.value = this.term;
 				this.query();
 			}
+		}
 
-
+		// We can only load categories from a page navigation so we
+		// only have to check to display this on a page load.
+		if (this.cat != null) {
+			const categoryButton = document.querySelector(".search-category-button");
+			categoryButton.querySelector("#cat").innerText = `Category: ${this.cat}`;
+			categoryButton.style.display = "unset";
+			categoryButton.onclick = () => {
+				categoryButton.style.display = "";
+				this.cat = null;
+				this.query();
+				this.updateURL();
+			};
 		}
 	}
 
 	loadJSONFile() {
-
 		if(!this.data) {
 			fetch('/assets/js/features.json')
 			.then(response => {
@@ -63,7 +74,7 @@ class Search {
 			})
 			.then(json => {
 				this.data = json;
-				if(this.term) {
+				if(this.term || this.cat) {
 					this.query();
 				}
 			})
@@ -74,11 +85,6 @@ class Search {
 	}
 
 	query() {
-
-		//if(!this.data) {
-		//	this.form.classList.add('search--loading');
-		//}
-
 		if(!this.term) {
 			this.form.classList.remove('search--loading');
 			this.removeResultsMessage();
@@ -87,62 +93,66 @@ class Search {
 			history.replaceState({id:'search'}, 'search', `${this.origin}`);
 		}
 
-		if(this.data && this.term) {
-
+		if(this.data && (this.term || this.cat)) {
 			const previousResultsLength = this.results ? this.results.length : -1;
+			const categoryFiltered = this.data.filter(feature => {
+				if (this.cat == null) return true;
+
+				return feature.category.includes(this.cat);
+			});
 			this.results = [];
 
-			if(this.term.startsWith('<') && this.term.endsWith('>')) {
-				this.term = this.term.substr(1, this.term.length - 2);
-			}
-			if(this.term.endsWith('element')) {
-				this.term = this.term.replace(new RegExp('element$'), '').trim();
-			}
-			if(this.term.endsWith('attribute')) {
-				this.term = this.term.replace(new RegExp('attribute$'), '').trim();
-			}
+			if (this.term) {
+				if(this.term.startsWith('<') && this.term.endsWith('>')) {
+					this.term = this.term.substr(1, this.term.length - 2);
+				}
+				if(this.term.endsWith('element')) {
+					this.term = this.term.replace(new RegExp('element$'), '').trim();
+				}
+				if(this.term.endsWith('attribute')) {
+					this.term = this.term.replace(new RegExp('attribute$'), '').trim();
+				}
 
+				if(this.term.includes('+')) {
+					let terms = this.term.split('+');
+					terms.forEach(item => {
+						if(item != '') {
+							let itemResults = categoryFiltered.filter(feature => this.results.filter(result => result.title == feature.title).length == 0 && (feature.slug.toLowerCase() === item.toLowerCase().trim() || feature.title.toLowerCase().includes(item.toLowerCase().trim()) || feature.keywords.toLowerCase().includes(item.toLowerCase().trim())));
+							this.results = [...this.results, ...itemResults];
+						}
+					});
+				} else if(this.term.includes(' vs ')) {
 
-			if(this.term.includes('+')) {
-
-				let terms = this.term.split('+');
-				terms.forEach(item => {
-					if(item != '') {
-						let itemResults = this.data.filter(feature => this.results.filter(result => result.title == feature.title).length == 0 && (feature.slug.toLowerCase() === item.toLowerCase().trim() || feature.title.toLowerCase().includes(item.toLowerCase().trim()) || feature.keywords.toLowerCase().includes(item.toLowerCase().trim())));
-						this.results = [...this.results, ...itemResults];
-					}
-				});
-			}
-			else if(this.term.includes(' vs ')) {
-
-				let terms = this.term.split('vs');
-				terms.forEach(item => {
-					if(item != '') {
-						let itemResults = this.data.filter(feature => this.results.filter(result => result.title == feature.title).length == 0 && (feature.slug.toLowerCase() === item.toLowerCase().trim() || feature.title.toLowerCase().includes(item.toLowerCase().trim()) || feature.keywords.toLowerCase().includes(item.toLowerCase().trim())));
-						this.results = [...this.results, ...itemResults];
-					}
-				});
-			}
-			else {
-				this.results = this.data.filter(feature => feature.slug.toLowerCase() === this.term.toLowerCase() || feature.title.toLowerCase().includes(this.term.toLowerCase()) || feature.keywords.toLowerCase().includes(this.term.toLowerCase()));
+					let terms = this.term.split('vs');
+					terms.forEach(item => {
+						if(item != '') {
+							let itemResults = categoryFiltered.filter(feature => this.results.filter(result => result.title == feature.title).length == 0 && (feature.slug.toLowerCase() === item.toLowerCase().trim() || feature.title.toLowerCase().includes(item.toLowerCase().trim()) || feature.keywords.toLowerCase().includes(item.toLowerCase().trim())));
+							this.results = [...this.results, ...itemResults];
+						}
+					});
+				} else {
+					this.results = categoryFiltered.filter(feature => feature.slug.toLowerCase() === this.term.toLowerCase() || feature.title.toLowerCase().includes(this.term.toLowerCase()) || feature.keywords.toLowerCase().includes(this.term.toLowerCase()));
+				}
+			} else {
+				this.results = categoryFiltered;
 			}
 
 			this.form.classList.remove('search--loading');
 
-			if(this.results.length != 0 && this.results.length != previousResultsLength) {
-				this.buildResultsMessage(this.results.length);
-			}
+				if(this.results.length != 0 && this.results.length != previousResultsLength) {
+					this.buildResultsMessage(this.results.length);
+				}
 
-			if(this.results.length == 0) {
-				this.removeResultsContainer();
-				this.buildResultsMessage(this.results.length);
-			}
-			else {
-				this.buildResultsContainer();
-				this.buildResults();
-			}
+				if(this.results.length == 0) {
+					this.removeResultsContainer();
+					this.buildResultsMessage(this.results.length);
+				}
+				else {
+					this.buildResultsContainer();
+					this.buildResults();
+				}
 
-			this.updateTitle();
+				this.updateTitle();
 		}
 	}
 
@@ -169,7 +179,7 @@ class Search {
 		} else if (n == 1) {
 			message = '1 result found.';
 		} else {
-			if(this.term.includes('+')) {
+			if(this.term?.includes('+')) {
 				const icon = `<span class="icon icon--notebook" aria-hidden="hidden"></span>`;
 				message = icon + `<b>Secret Recipe</b> with `;
 				let index = 0;
@@ -184,7 +194,7 @@ class Search {
 					index++;
 				});
 				message += `.`;
-			} else if(this.term.includes(' vs ')) {
+			} else if(this.term?.includes(' vs ')) {
 				const icon = `<span class="icon icon--shout" aria-hidden="hidden"></span>`;
 				message = icon + `<b>Versus</b> with `;
 				let index = 0;
@@ -310,11 +320,18 @@ class Search {
 	}
 
 	updateURL() {
-		history.replaceState({id:'search'}, 'search', `${document.location.origin}/search/?s=${encodeURIComponent(this.term)}`);
+		const params = new URLSearchParams();
+		if (this.term != null) {
+			params.append("s", this.term);
+		}
+		if (this.cat != null) {
+			params.append("cat", this.cat);
+		}
+		history.replaceState({id:'search'}, 'search',
+			`${document.location.origin}/search/?${params.toString()}`);
 	}
 
 	updateTitle() {
-
 		document.querySelector('title').innerHTML = `Can I WebView&hellip; "${this.term}" search results`;
 	}
 
