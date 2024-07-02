@@ -6,7 +6,7 @@ class Settings {
 		this.button = document.querySelector('.settings-button');
 		this.panel = document.querySelector('.settings');
 
-		if(this.panel && this.button) {
+		if (this.panel && this.button) {
 			this.init();
 		}
 	}
@@ -25,21 +25,21 @@ class Settings {
 	setInitialValues() {
 
 		const settingsString = this.getLocalStorage();
-		if(settingsString && settingsString !== '') {
+		if (settingsString && settingsString !== '') {
 			const settings = settingsString.split('&');
-			if(settings.length > 0) {
+			if (settings.length > 0) {
 				settings.forEach(setting => {
 					const keyValuePair = setting.split('=');
 					const key = keyValuePair[0];
 					const value = keyValuePair[1];
-					if(value.toLowerCase() == 'on') {
+					if (value.toLowerCase() == 'on') {
 						const checkbox = this.panel.querySelector(`input[type="checkbox"][name="${key}"]`);
-						if(checkbox) {
+						if (checkbox) {
 							checkbox.checked = true;
 						}
 					} else {
 						const checkbox = this.panel.querySelector(`input[type="checkbox"][name="${key}"][value="${value}"]`);
-						if(checkbox) {
+						if (checkbox) {
 							checkbox.checked = true;
 						}
 					}
@@ -47,10 +47,10 @@ class Settings {
 			}
 			// Indeterminate status
 			const uncheckedParentCheckboxes = this.panel.querySelectorAll('.settings-list-item > input[type="checkbox"]:not(:checked)');
-			if(uncheckedParentCheckboxes.length > 0) {
+			if (uncheckedParentCheckboxes.length > 0) {
 				uncheckedParentCheckboxes.forEach(checkbox => {
 					const checkedChildrenCheckboxes = checkbox.parentNode.querySelectorAll('.settings-child-list-item input[type="checkbox"]:checked');
-					if(checkedChildrenCheckboxes.length > 0) {
+					if (checkedChildrenCheckboxes.length > 0) {
 						checkbox.indeterminate = true;
 					}
 				});
@@ -121,9 +121,9 @@ class Settings {
 			familyCheckboxes.forEach(checkbox => {
 				const childCheckboxesAll = checkbox.parentNode.querySelectorAll('.settings-child-list-item > input[type="checkbox"]');
 				const childCheckboxesChecked = checkbox.parentNode.querySelectorAll('.settings-child-list-item > input[type="checkbox"]:checked');
-				if(childCheckboxesChecked.length === 0) {
+				if (childCheckboxesChecked.length === 0) {
 					checkbox.checked = false;
-				} else if(childCheckboxesChecked.length === childCheckboxesAll.length) {
+				} else if (childCheckboxesChecked.length === childCheckboxesAll.length) {
 					checkbox.checked = true;
 				} else {
 					checkbox.indeterminate = true;
@@ -147,9 +147,9 @@ class Settings {
 			familyCheckboxes.forEach(checkbox => {
 				const childCheckboxesAll = checkbox.parentNode.querySelectorAll('.settings-child-list-item > input[type="checkbox"]');
 				const childCheckboxesChecked = checkbox.parentNode.querySelectorAll('.settings-child-list-item > input[type="checkbox"]:checked');
-				if(childCheckboxesChecked.length === 0) {
+				if (childCheckboxesChecked.length === 0) {
 					checkbox.checked = false;
-				} else if(childCheckboxesChecked.length === childCheckboxesAll.length) {
+				} else if (childCheckboxesChecked.length === childCheckboxesAll.length) {
 					checkbox.checked = true;
 				} else {
 					checkbox.indeterminate = true;
@@ -165,19 +165,19 @@ class Settings {
 		const checkboxes = this.panel.querySelectorAll('input[type="checkbox"]');
 		checkboxes.forEach(checkbox => {
 			checkbox.addEventListener('click', e => {
-				if(checkbox.parentNode.className == 'settings-list-item') {
+				if (checkbox.parentNode.className == 'settings-list-item') {
 					const childCheckboxes = checkbox.parentNode.querySelectorAll('.settings-child-list-item input[type="checkbox"]');
-					if(childCheckboxes.length > 0) {
+					if (childCheckboxes.length > 0) {
 						const checkboxStatus = checkbox.checked;
 						childCheckboxes.forEach(childCheckbox => {
 							childCheckbox.checked = checkboxStatus;
 						});
 					}
-				} else if(checkbox.parentNode.className == 'settings-child-list-item') {
+				} else if (checkbox.parentNode.className == 'settings-child-list-item') {
 					const parentCheckbox = checkbox.parentNode.parentNode.parentNode.querySelector('input[type="checkbox"]');
 					const siblingCheckboxes = parentCheckbox.parentNode.querySelectorAll('.settings-child-list-item input[type="checkbox"]');
-					if(parentCheckbox.checked == true) {
-						if(siblingCheckboxes.length == 1) {
+					if (parentCheckbox.checked == true) {
+						if (siblingCheckboxes.length == 1) {
 							parentCheckbox.indeterminate = false;
 						} else {
 							parentCheckbox.indeterminate = true;
@@ -186,11 +186,11 @@ class Settings {
 					} else {
 						let checkboxesStatusIsTheSame = true;
 						siblingCheckboxes.forEach(siblingCheckbox => {
-							if(siblingCheckbox.checked != checkbox.checked) {
+							if (siblingCheckbox.checked != checkbox.checked) {
 								checkboxesStatusIsTheSame = false;
 							}
 						});
-						if(checkboxesStatusIsTheSame) {
+						if (checkboxesStatusIsTheSame) {
 							parentCheckbox.checked = checkbox.checked;
 							parentCheckbox.indeterminate = false;
 						} else {
@@ -220,7 +220,7 @@ class Settings {
 		const formData = new FormData(form);
 		let formDataString = '';
 		for (var key of formData.entries()) {
-			if(formDataString !== '') {
+			if (formDataString !== '') {
 				formDataString += '&';
 			}
 			formDataString += key[0] + '=' + key[1];
@@ -242,7 +242,7 @@ class Settings {
 	unapply() {
 
 		const hiddenElements = document.querySelectorAll('.data-family[hidden], .data-client[hidden]');
-		if(hiddenElements && hiddenElements.length > 0) {
+		if (hiddenElements && hiddenElements.length > 0) {
 			hiddenElements.forEach(item => {
 				item.removeAttribute('hidden');
 			});
@@ -259,12 +259,12 @@ class Settings {
 		let css = '';
 		let cssSelectors = new Array();
 		const checkboxes = this.panel.querySelectorAll('input[type="checkbox"]:not(:checked)')
-		if(checkboxes && checkboxes.length > 0) {
+		if (checkboxes && checkboxes.length > 0) {
 			checkboxes.forEach(checkbox => {
 				const key = checkbox.name;
 				const value = checkbox.value;
-				if(value.toLowerCase() === 'on') {
-					if(!checkbox.indeterminate) {
+				if (value.toLowerCase() === 'on') {
+					if (!checkbox.indeterminate) {
 						cssSelectors.push(`.data-family--${key}`);
 					}
 				} else {
@@ -276,7 +276,7 @@ class Settings {
 			css += '{display:none}';
 		}
 		this.unapply();
-		if(cssSelectors.length > 0) {
+		if (cssSelectors.length > 0) {
 			document.querySelectorAll(cssSelectors).forEach(item => {
 				item.setAttribute('hidden', '');
 			});
@@ -291,12 +291,12 @@ class Settings {
 		this.setUncheckedVariable();
 		this.toggleEmptyMessage();
 
-		if(window.caniwebview && window.caniwebview.filters) {
+		if (window.caniwebview && window.caniwebview.filters) {
 			window.caniwebview.filters.setCurrentValue('apply');
 			window.caniwebview.filters.showOrHide();
 		}
 
-		if(window.caniwebview && window.caniwebview.support) {
+		if (window.caniwebview && window.caniwebview.support) {
 			window.caniwebview.support.update();
 		}
 	}
@@ -332,12 +332,12 @@ class Settings {
 	}
 
 	toggleEmptyMessage() {
-		if(this.unchecked) {
+		if (this.unchecked) {
 			const dataContainers = document.querySelectorAll('.data-details');
 			let emptyDataMessage = this.getEmptyDataMessageElement();
 			dataContainers.forEach(dataContainer => {
 				const existingEmptyDataMessage = dataContainer.querySelector('.empty-message');
-				if(existingEmptyDataMessage === null) {
+				if (existingEmptyDataMessage === null) {
 					dataContainer.appendChild(emptyDataMessage.cloneNode(true));
 				} else {
 					existingEmptyDataMessage.removeAttribute('hidden');
@@ -355,15 +355,15 @@ class Settings {
 		this.emptyMessages = [
 			{
 				"emoji": "&#128123;",
-				"text": "Boo! You woke up the <b>Email Ghost</b>!<br>Check some webview clients again or it might haunt you forever!"
+				"text": "Boo! You woke up the <b>WebView Ghost</b>!<br>Check some webview clients again or it might haunt you forever!"
 			},
 			{
 				"emoji": "&#x1F996;",
-				"text": "Rawr! You brought back the <b>Emailosaurus Rex</b>!<br>Check some webview clients again or it might run after you!"
+				"text": "Rawr! You brought back the <b>WebViewsaurus Rex</b>!<br>Check some webview clients again or it might run after you!"
 			},
 			{
 				"emoji": "&#x1F41D;",
-				"text": "Bzzz! You attracted the <b>Email Bee</b>!<br>Check some webview clients again or it might sting you!"
+				"text": "Bzzz! You attracted the <b>WebView Bee</b>!<br>Check some webview clients again or it might sting you!"
 			},
 		];
 	}
