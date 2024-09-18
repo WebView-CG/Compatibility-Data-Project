@@ -65,9 +65,7 @@ module SamplePlugin
 					"macos" => {
 					"*" => "u"
 					},
-					"ios" => {
-					"*" => "u"
-					},
+					"ios" => getVersions(feature, "webview_ios"),
 					"ipados" => {
 					"*" => "u"
 					}
