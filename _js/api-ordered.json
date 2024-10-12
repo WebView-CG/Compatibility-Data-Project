@@ -42,7 +42,8 @@ permalink: "/api/data-ordered.json"
 			"notes":{{ feature.notes | jsonify}},
 			"notes_by_num":{{ feature.notes_by_num | jsonify}}
 		},{% endfor %}
-		{% for feature in site.genfeatures %}
+		{% assign webfeatures = site.genfeatures | concat: site.features | sort:'id' | map_features -%}
+		{% for feature in webfeatures %}
 		{
 			"slug":{{ feature.slug | jsonify }},
 			"title":{{ feature.title | jsonify }},
