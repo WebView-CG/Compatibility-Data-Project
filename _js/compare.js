@@ -292,9 +292,9 @@ permalink: "/assets/js/compare.js"
 		buildResults() {
 
 			let features = this.buildFeaturesBySupportObject();
+			this.buildResultsAsTable(features.m, 'Mixed support');
 			this.buildResultsAsTags(features.y, 'Supported', 'supported');
 			this.buildResultsAsTags(features.a, 'Partial support', 'mitigated');
-			this.buildResultsAsTable(features.m, 'Mixed support');
 			this.buildResultsAsTags(features.n, 'Not supported', 'unsupported');
 			this.buildResultsAsTags(features.u, 'Support unknown', 'unknown');
 		}
