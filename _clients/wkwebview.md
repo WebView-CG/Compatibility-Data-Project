@@ -1,6 +1,7 @@
 ---
 platforms: [macos, ios, ipados]
 display_order: 1
+upstream: safari_ios
 ---
 WKWebView is the default WebView for iOS based operating systems.
 

@@ -154,10 +154,50 @@ permalink: "/assets/js/compare.js"
 		}
 
 		addEventToDevicesButtons() {
-			const mobilePlatforms = ['mobile-webmail', 'webmail', 'ios', 'android', 'outlook-com'];
-			const desktopPlatforms = ['desktop-app', 'desktop-webmail', 'webmail', 'windows', 'macos', 'windows-mail', 'outlook-com'];
+			const mobilePlatforms = ['ios', 'android'];
+			const desktopPlatforms = ['windows', 'macos'];
+			const android = ['androidwebview', 'chrome_android'];
+			const ios = ['wkwebview', 'safari_ios'];
+			let androidButton = this.panel.querySelector('#compare-android-button');
+			let iosButton = this.panel.querySelector('#compare-ios-button');
 			let mobileButton = this.panel.querySelector('#compare-mobile-button');
 			let desktopButton = this.panel.querySelector('#compare-desktop-button');
+
+			androidButton.addEventListener('click', e => {
+				e.preventDefault();
+				// Set the state of the family's checkboxes
+				const familyCheckboxes = this.panel.querySelectorAll('.compare-list-item > input[type="checkbox"]');
+				familyCheckboxes.forEach(checkbox => {
+					let is_selected = android.indexOf(checkbox.name) > -1;
+					
+					checkbox.checked = is_selected;
+					const childCheckboxesAll = checkbox.parentNode.querySelectorAll('.compare-child-list-item > input[type="checkbox"]');
+					childCheckboxesAll.forEach(childCheckbox => {
+						childCheckbox.checked = is_selected;
+					});
+				});
+				// Save settings
+				this.refresh();
+				this.setLocalStorage();
+			});
+
+			iosButton.addEventListener('click', e => {
+				e.preventDefault();
+				// Set the state of the family's checkboxes
+				const familyCheckboxes = this.panel.querySelectorAll('.compare-list-item > input[type="checkbox"]');
+				familyCheckboxes.forEach(checkbox => {
+					let is_selected = ios.indexOf(checkbox.name) > -1;
+
+					checkbox.checked = is_selected;
+					const childCheckboxesAll = checkbox.parentNode.querySelectorAll('.compare-child-list-item > input[type="checkbox"]');
+					childCheckboxesAll.forEach(childCheckbox => {
+						childCheckbox.checked = is_selected;
+					});
+				});
+				// Save settings
+				this.refresh();
+				this.setLocalStorage();
+			});
 
 			mobileButton.addEventListener('click', e => {
 

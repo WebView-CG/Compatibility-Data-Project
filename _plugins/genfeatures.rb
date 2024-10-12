@@ -79,7 +79,13 @@ module SamplePlugin
 					"windows" => {
 					"*" => "u"
 					}
-				}
+				},
+				"chrome_android" => {
+					"android" => getVersions(feature, "chrome_android")
+				},
+				"safari_ios" => {
+					"ios" => getVersions(feature, "safari_ios")
+				},
 			}
 
 			site.collections['genfeatures'].docs << doc
