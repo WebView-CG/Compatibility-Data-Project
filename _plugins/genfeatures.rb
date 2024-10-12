@@ -14,7 +14,11 @@ module SamplePlugin
 
 		if (feature['__compat']["support"][platform].kind_of?(Array)) then
 		  return feature['__compat']["support"][platform].map { |version|
-			[version["version_added"], "y"]
+		  if version["version_added"].kind_of?(String) then
+				[version["version_added"], "y"]
+		  else
+				["unknown", "y"]
+		  end
 		  }.to_h
 		end
 
@@ -31,6 +35,12 @@ module SamplePlugin
 			"*" => "y"
 		  }
 		end
+
+		if version.nil? || version.empty?  then
+			puts "Version is nil"
+			version = "unkonwn"
+		end
+		puts "Version: #{version}"
 
 		return {
 		  version => "y"

@@ -7,6 +7,9 @@ module Jekyll
 				"title" => feature["title"].strip,
 				"keywords" => feature["keywords"],
 				"category" => feature["category"],
+				"stats" => feature["stats"],
+				"links" => feature["links"],
+				"notes" => feature["notes"],
 			}
 		}
 	  end
