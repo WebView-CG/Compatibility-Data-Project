@@ -37,10 +37,8 @@ module SamplePlugin
 		end
 
 		if version.nil? || version.empty?  then
-			puts "Version is nil"
 			version = "unkonwn"
 		end
-		puts "Version: #{version}"
 
 		return {
 		  version => "y"
