@@ -4,7 +4,7 @@ family:
   uiwebview: "UIWebView"
   webview2: "WebView2"
   chrome_android: "Chrome on Android (for reference)"
-  safari_ios: "Safari on iOS (for reference)"
+  safari_ios: "Safari (for reference)"
 platform:
   ios: "iOS"
   ipados: "iPadOS"
