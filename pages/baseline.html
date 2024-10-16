@@ -1,0 +1,46 @@
+---
+title: Baseline results for WebViews
+layout: default
+permalink: /baseline
+---
+
+<div style="text-align:center">
+	⚠️ This page is under construction ⚠️
+</div>
+
+<div class="baseline">
+	<table>
+		<thead>
+			<th>
+				Feature
+			</th>
+			<th>
+				Description
+			</th>
+			<th>
+				Is baseline
+			</th>
+			<th>
+				Is baseline with WebView
+			</th>
+		</thead>
+		<tbody>
+			{% for baselinefeature in site.data.baseline %}
+				<tr>
+					<td>
+						{{ baselinefeature.name | xml_escape }}
+					</td>
+					<td>
+						{{ baselinefeature.description | xml_escape }}
+					</td>
+					<td>
+						{{ baselinefeature.supported.baseline }}
+					</td>
+					<td>
+						{{ baselinefeature.supported.webviewBaseline }}
+					</td>
+				</tr>
+			{%  endfor %}
+		</tbody>
+	</table>
+</div>
