@@ -4,6 +4,18 @@ The WebView Compatibility Data Project is an initiative driven by the [WebView C
 to [make machine-readable data more readily available for documentation platforms and other tools
 ](https://github.com/WebView-CG/charter/blob/04422d7cb3ecc80a7d0f6755135995a74deab64b/charter.md?plain=1#L26).
 
+## Development
+
+Prerequisites:
+- Node
+- Jekyll
+
+Setup:
+- `npm install`.
+
+Run the project:
+- `bundle exec jekyll serve --baseurl=""`.
+
 ## Sub-projects
 
 The compatibility data project has been split into two further sub-projects:
@@ -13,7 +25,10 @@ The compatibility data project has been split into two further sub-projects:
 
 ### Web platform compatibility data
 
-TODO: Complete me!
+This is our effort to improve existing web platform compat data for WebViews.
+We are currently focused on improving support in
+[BCD](https://github.com/mdn/browser-compat-data) and
+[web features](https://github.com/web-platform-dx/web-features/tree/main).
 
 ### WebView behavioral "Feature" data
 
