@@ -7,7 +7,7 @@ collections:
     permalink: /news/:year-:month-:day-:title/
   features:
     output: true
-  genfeatures:
+  bcd:
     output: true
     permalink: /features/:name/
   clients:
@@ -21,7 +21,7 @@ defaults:
       layout: "feature"
   - scope:
       path: ""
-      type: "genfeatures"
+      type: "bcd"
     values:
       layout: "feature"
   - scope:
@@ -49,5 +49,5 @@ plugins:
 sass:
   style: compact
 
-exclude: [vendor, "tools/update_bcd_version.py", "Gemfile", "Gemfile.lock", "CONTRIBUTING.md", "LICENSE", "README.md", "bcd_version"]
+exclude: [vendor, "tools/update_bcd_version.py", "Gemfile", "Gemfile.lock", "CONTRIBUTING.md", "LICENSE", "README.md", "bcd_version", ".github"]
 include: ["_js"]

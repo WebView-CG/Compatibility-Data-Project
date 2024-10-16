@@ -1,7 +1,7 @@
 require 'httparty'
 require 'json'
 
-module SamplePlugin
+module Bcd
     class GenfeaturesGenerator < Jekyll::Generator
       safe true
 
@@ -51,10 +51,10 @@ module SamplePlugin
 
 			title = "#{appended_title}#{title}"
 			slug = "mdn-#{title.downcase.strip.gsub('-', '').gsub(/[\_|\s]/, '-').gsub(':', '')}"
-			path = site.in_source_dir("_genfeatures/#{slug}.md")
+			path = site.in_source_dir("_bcd/#{slug}.md")
 			doc = Jekyll::Document.new(path, {
 				:site => site,
-				:collection => site.collections['genfeatures'],
+				:collection => site.collections['bcd'],
 			})
 
 			data_source = "Support data provided by: [![BCD logo](/assets/images/mdn-bcd.svg)](https://github.com/mdn/browser-compat-data)"
@@ -94,7 +94,7 @@ module SamplePlugin
 				},
 			}
 
-			site.collections['genfeatures'].docs << doc
+			site.collections['bcd'].docs << doc
 		end
 
 	  end
@@ -124,7 +124,6 @@ module SamplePlugin
 				timestamp, "http", "HTTP header: ")
 		generate_from_section(site, parsed_bcd['http']['status'],
 				timestamp, "http", "HTTP status code: ")
-
       end
     end
 

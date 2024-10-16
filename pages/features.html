@@ -12,7 +12,7 @@ permalink: /features/
 	</div>
 	<div class="post-feature">
 		<h1 class="post-title">Web Platform</h1>
-		{% assign features-by-category = site.genfeatures | group_by:"category" %}
+		{% assign features-by-category = site.bcd | group_by:"category" %}
 		{% include feature-list.html features=features-by-category %}
 	</div>
 </div>
