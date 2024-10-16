@@ -154,60 +154,41 @@ permalink: "/assets/js/compare.js"
 		}
 
 		addEventToDevicesButtons() {
-			const mobilePlatforms = ['mobile-webmail', 'webmail', 'ios', 'android', 'outlook-com'];
-			const desktopPlatforms = ['desktop-app', 'desktop-webmail', 'webmail', 'windows', 'macos', 'windows-mail', 'outlook-com'];
-			let mobileButton = this.panel.querySelector('#compare-mobile-button');
-			let desktopButton = this.panel.querySelector('#compare-desktop-button');
+			const android = ['androidwebview', 'chrome_android'];
+			const ios = ['wkwebview', 'safari_ios'];
+			const androidButton = this.panel.querySelector('#compare-android-button');
+			const iosButton = this.panel.querySelector('#compare-ios-button');
 
-			mobileButton.addEventListener('click', e => {
-
+			androidButton.addEventListener('click', e => {
 				e.preventDefault();
-				// Check the mobile clients checkboxes
-				const checkboxes = this.panel.querySelectorAll('input[type="checkbox"]');
-				checkboxes.forEach(checkbox => {
-					const checkValue = mobilePlatforms.indexOf(checkbox.value) > -1 ? true : false;
-					checkbox.checked = checkValue;
-					checkbox.indeterminate = false;
-				});
 				// Set the state of the family's checkboxes
 				const familyCheckboxes = this.panel.querySelectorAll('.compare-list-item > input[type="checkbox"]');
 				familyCheckboxes.forEach(checkbox => {
+					let is_selected = android.indexOf(checkbox.name) > -1;
+					
+					checkbox.checked = is_selected;
 					const childCheckboxesAll = checkbox.parentNode.querySelectorAll('.compare-child-list-item > input[type="checkbox"]');
-					const childCheckboxesChecked = checkbox.parentNode.querySelectorAll('.compare-child-list-item > input[type="checkbox"]:checked');
-					if (childCheckboxesChecked.length === 0) {
-						checkbox.checked = false;
-					} else if (childCheckboxesChecked.length === childCheckboxesAll.length) {
-						checkbox.checked = true;
-					} else {
-						checkbox.indeterminate = true;
-					}
+					childCheckboxesAll.forEach(childCheckbox => {
+						childCheckbox.checked = is_selected;
+					});
 				});
 				// Save settings
 				this.refresh();
 				this.setLocalStorage();
 			});
 
-			desktopButton.addEventListener('click', e => {
-
+			iosButton.addEventListener('click', e => {
 				e.preventDefault();
-				const checkboxes = this.panel.querySelectorAll('input[type="checkbox"]');
-				checkboxes.forEach(checkbox => {
-					const checkValue = desktopPlatforms.indexOf(checkbox.value) > -1 ? true : false;
-					checkbox.checked = checkValue;
-					checkbox.indeterminate = false;
-				});
 				// Set the state of the family's checkboxes
 				const familyCheckboxes = this.panel.querySelectorAll('.compare-list-item > input[type="checkbox"]');
 				familyCheckboxes.forEach(checkbox => {
+					let is_selected = ios.indexOf(checkbox.name) > -1;
+
+					checkbox.checked = is_selected;
 					const childCheckboxesAll = checkbox.parentNode.querySelectorAll('.compare-child-list-item > input[type="checkbox"]');
-					const childCheckboxesChecked = checkbox.parentNode.querySelectorAll('.compare-child-list-item > input[type="checkbox"]:checked');
-					if (childCheckboxesChecked.length === 0) {
-						checkbox.checked = false;
-					} else if (childCheckboxesChecked.length === childCheckboxesAll.length) {
-						checkbox.checked = true;
-					} else {
-						checkbox.indeterminate = true;
-					}
+					childCheckboxesAll.forEach(childCheckbox => {
+						childCheckbox.checked = is_selected;
+					});
 				});
 				// Save settings
 				this.refresh();
@@ -252,9 +233,9 @@ permalink: "/assets/js/compare.js"
 		buildResults() {
 
 			let features = this.buildFeaturesBySupportObject();
+			this.buildResultsAsTable(features.m, 'Mixed support');
 			this.buildResultsAsTags(features.y, 'Supported', 'supported');
 			this.buildResultsAsTags(features.a, 'Partial support', 'mitigated');
-			this.buildResultsAsTable(features.m, 'Mixed support');
 			this.buildResultsAsTags(features.n, 'Not supported', 'unsupported');
 			this.buildResultsAsTags(features.u, 'Support unknown', 'unknown');
 		}
@@ -308,7 +289,6 @@ permalink: "/assets/js/compare.js"
 									const lastVersion = versions[versions.length - 1];
 									const lastVersionKey = Object.keys(lastVersion)[0];
 									const lastVersionValue = lastVersion[lastVersionKey];
-									console.log(versions, lastVersionKey, lastVersionValue);
 									if (lastVersionValue) {
 										supportValue = lastVersionValue.charAt(0);
 									}

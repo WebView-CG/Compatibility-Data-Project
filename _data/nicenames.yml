@@ -3,6 +3,8 @@ family:
   wkwebview: "WKWebView"
   uiwebview: "UIWebView"
   webview2: "WebView2"
+  chrome_android: "Chrome Browser"
+  safari_ios: "Safari Browser"
 platform:
   ios: "iOS"
   ipados: "iPadOS"

@@ -6,7 +6,9 @@ permalink: "/api/data-ordered.json"
 	"api_version":"1.0.4-ordered",
 	"last_update_date":{{site.time | jsonify}},
 	"nicenames":{{site.data.nicenames | jsonify}},
-	"data":[{% for feature in site.features %}
+	"data":[
+		{% assign allfeatures = site.genfeatures | concat: site.features | sort:'id' | map_features -%}
+		{% for feature in allfeatures %}
 		{
 			"slug":{{ feature.slug | jsonify }},
 			"title":{{ feature.title | jsonify }},

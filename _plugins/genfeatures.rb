@@ -14,7 +14,11 @@ module SamplePlugin
 
 		if (feature['__compat']["support"][platform].kind_of?(Array)) then
 		  return feature['__compat']["support"][platform].map { |version|
-			[version["version_added"], "y"]
+		  if version["version_added"].kind_of?(String) then
+				[version["version_added"], "y"]
+		  else
+				["unknown", "y"]
+		  end
 		  }.to_h
 		end
 
@@ -30,6 +34,10 @@ module SamplePlugin
 		  return {
 			"*" => "y"
 		  }
+		end
+
+		if version.nil? || version.empty?  then
+			version = "unkonwn"
 		end
 
 		return {
@@ -77,7 +85,13 @@ module SamplePlugin
 					"windows" => {
 					"*" => "u"
 					}
-				}
+				},
+				"chrome_android" => {
+					"android" => getVersions(feature, "chrome_android")
+				},
+				"safari_ios" => {
+					"ios" => getVersions(feature, "safari_ios")
+				},
 			}
 
 			site.collections['genfeatures'].docs << doc
