@@ -4,8 +4,10 @@ layout: embed
 <main class="main">
 	<div class="feature-header">
 		<div class="feature-header-column">
-			<h1 class="feature-title"><a href="https://www.caniemail.com/features/{{ page.slug | escape_once }}"
-					target="_blank" rel="noopener">{{ page.title | escape_once }}</a></h1>
+			<h1 class="feature-title">
+				<a href="https://www.caniemail.com/features/{{ page.slug | escape_once }}"
+					target="_blank" rel="noopener">{{ page.title | xml_escape }}</a>
+			</h1>
 			<span class="feature-category">{{ page.category | escape_once }}</span>
 		</div>
 	</div>
@@ -42,7 +44,7 @@ layout: embed
 			{% for family in page-families-in-order %}
 			{% assign family-key = family %}
 			{% assign family-values = page.stats[family] %}
-			<div class="data-family data-family--{{family-key}}" id="data-{{ page.title | slugify }}-{{ family-key }}">
+			<div class="data-family data-family--{{family-key}}" id="data-{{ page.slug }}-{{ family-key }}">
 				<h3 class="data-family-name">
 					<span>
 						{% assign family-page = site.clients | where:"slug", client-family | first %}

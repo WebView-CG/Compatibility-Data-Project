@@ -2,5 +2,5 @@
 layout: null
 permalink: /assets/js/features.json
 ---
-{% assign features = site.bcd | concat: site.features | sort:'id' | map_features -%}
+{% assign features = site.generated_features | concat: site.features | sort:'id' | map_features -%}
 {{ features | jsonify }}

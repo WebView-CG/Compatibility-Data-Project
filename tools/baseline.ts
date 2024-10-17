@@ -2,29 +2,12 @@ import { computeBaseline, coreBrowserSet } from "compute-baseline";
 import { Compat } from 'compute-baseline/browser-compat-data';
 import { features } from "web-features";
 import { readFileSync } from 'fs';
-import { writeFile } from 'fs/promises';
 import fetch from 'node-fetch';
+import { stdout } from "process";
 
 const bcdVersion = readFileSync("bcd_version").toString();
 
 type WebViewStatus = boolean | "high" | "low" | "unknown";
-type ReleaseVersion = number | "unknown";
-
-const getYml = (
-	name: string,
-	description: string,
-	baseline: boolean | "high" | "low",
-	webviewBaseline: WebViewStatus,
-	ios: ReleaseVersion,
-	android: ReleaseVersion) =>
-	`- name: "${name.replaceAll('"', "'")}"
-  description: "${description.replaceAll('"', "'")}"
-  supported:
-    Baseline: ${baseline}
-    "WebView Baseline": ${webviewBaseline}
-    WKWebView: ${ios}
-    Android WebView: ${android}
-`;
 
 // First pull the bcd data from the CDN so that we can fix our
 // results to our hard coded bcd version rather than the data in the
@@ -38,19 +21,37 @@ fetch(`http://unpkg.com/@mdn/browser-compat-data@${bcdVersion}/data.json`)
 		// the baseline status. We can be a bit cheeky here and just
 		// grab the publicly exposed list reference to add the webviews
 		// in bcd to that definition.
-		// Currently making this a WebView specific baseline by clearing
-		// other browsers but we can revisit this choice.
-		coreBrowserSet.splice(0, coreBrowserSet.length);
 		coreBrowserSet.push("webview_ios");
 		coreBrowserSet.push("webview_android");
 
-		let baseline = "";
+		const baseline = [];
 
 		for (const key in features) {
 			const feature = features[key];
 			let webviewBaseline: WebViewStatus = "unknown";
-			let ios: ReleaseVersion = "unknown";
-			let android: ReleaseVersion = "unknown";
+			const stats = {
+				wkwebview: {
+					macos: {
+						"*": "u"
+					},
+					ios: {
+						"*": "u"
+					},
+					ipados: {
+						"*": "u"
+					}
+				},
+				androidwebview: {
+					android: {
+						"*": "u"
+					}
+				},
+				webview2: {
+					windows: {
+						"*": "u"
+					}
+				}
+			};
 
 			try {
 				const computedStatus = JSON.parse(
@@ -60,9 +61,21 @@ fetch(`http://unpkg.com/@mdn/browser-compat-data@${bcdVersion}/data.json`)
 					}, compat).toJSON()
 				);
 				webviewBaseline = computedStatus.baseline;
-
-				ios = computedStatus.support.webview_ios ?? false;
-				android = computedStatus.support.webview_android ?? false;
+				const setVersion = (platform, sub, support) => {
+					if (support) {
+						stats[platform][sub] = {
+							[support]: 'y'
+						};
+					} else {
+						stats[platform][sub] = {
+							'*': 'n'
+						}
+					}
+				}
+				setVersion('wkwebview', 'ios',
+					computedStatus.support.webview_ios);
+				setVersion('androidwebview', 'android',
+					computedStatus.support.webview_android);
 			} catch (e) {
 				// For cases where we couldn't comput this, we will
 				// fall back to "unknown".
@@ -71,14 +84,22 @@ fetch(`http://unpkg.com/@mdn/browser-compat-data@${bcdVersion}/data.json`)
 				console.warn("[Baseline] Failed to generate", key);
 			}
 
-			baseline += getYml(
-				feature.name,
-				feature.description,
-				feature.status.baseline,
-				webviewBaseline,
-				ios,
-				android);
+			baseline.push({
+				title: feature.name,
+				slug: 'baseline-' + key,
+				description: feature.description,
+				category: 'TODO',
+				keywords: 'todo',
+				last_test_date: '2024-01-01',
+				stats,
+				links: {},
+				baseline: {
+					webviewBaseline,
+					baseline: feature.status.baseline,
+				}
+			});
 		}
 
-		writeFile(`_data/baseline.yml`, baseline);
+		// Return the results back to the caller jekyll plugin
+		stdout.write(JSON.stringify(baseline));
 	});

@@ -10,6 +10,7 @@ module Jekyll
 				"stats" => feature["stats"],
 				"links" => feature["links"],
 				"notes" => feature["notes"],
+				"baseline" => feature["baseline"],
 			}
 		}
 	  end

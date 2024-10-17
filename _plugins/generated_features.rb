@@ -1,8 +1,8 @@
 require 'httparty'
 require 'json'
 
-module Bcd
-    class GenfeaturesGenerator < Jekyll::Generator
+module Generated
+    class FeaturesGenerator < Jekyll::Generator
       safe true
 
 	  def getVersions(feature, platform)
@@ -45,16 +45,16 @@ module Bcd
 		}
 	  end
 
-	  def generate_from_section(site, section, timestamp, category, appended_title = "")
+	  def generate_bcd_from_section(site, section, timestamp, category, appended_title = "")
 		section.keys.each do |title|
 			feature = section[title]
 
 			title = "#{appended_title}#{title}"
 			slug = "mdn-#{title.downcase.strip.gsub('-', '').gsub(/[\_|\s]/, '-').gsub(':', '')}"
-			path = site.in_source_dir("_bcd/#{slug}.md")
+			path = site.in_source_dir("_generated_features/#{slug}.md")
 			doc = Jekyll::Document.new(path, {
 				:site => site,
-				:collection => site.collections['bcd'],
+				:collection => site.collections['generated_features'],
 			})
 
 			data_source = "Support data provided by: [![BCD logo](/assets/images/mdn-bcd.svg)](https://github.com/mdn/browser-compat-data)"
@@ -94,36 +94,72 @@ module Bcd
 				},
 			}
 
-			site.collections['bcd'].docs << doc
+			site.collections['generated_features'].docs << doc
 		end
-
 	  end
 
-      def generate(site)
-        version = File.read("bcd_version")
+	  def generate_bcd(site)
+		version = File.read("bcd_version")
         bcd = HTTParty.get("http://unpkg.com/@mdn/browser-compat-data@#{version}/data.json").body
         parsed_bcd = JSON.parse(bcd)
 
 		timestamp = parsed_bcd['__meta']['timestamp']
 
-		generate_from_section(site, parsed_bcd['api'],
+		generate_bcd_from_section(site, parsed_bcd['api'],
 				timestamp, "js")
-		generate_from_section(site, parsed_bcd['javascript']['builtins'],
+		generate_bcd_from_section(site, parsed_bcd['javascript']['builtins'],
 				timestamp, "js", "JavaScript built-in: ")
-		generate_from_section(site, parsed_bcd['html']['elements'],
+		generate_bcd_from_section(site, parsed_bcd['html']['elements'],
 				timestamp, "html", "HTML element: ")
-		generate_from_section(site, parsed_bcd['html']['global_attributes'],
+		generate_bcd_from_section(site, parsed_bcd['html']['global_attributes'],
 				timestamp, "html", "HTML attribute: ")
-		generate_from_section(site, parsed_bcd['html']['manifest'],
+		generate_bcd_from_section(site, parsed_bcd['html']['manifest'],
 				timestamp, "html", "HTML manifest: ")
-		generate_from_section(site, parsed_bcd['css']['selectors'],
+		generate_bcd_from_section(site, parsed_bcd['css']['selectors'],
 				timestamp, "css", "CSS selector: ")
-		generate_from_section(site, parsed_bcd['css']['properties'],
+		generate_bcd_from_section(site, parsed_bcd['css']['properties'],
 				timestamp, "css", "CSS property: ")
-		generate_from_section(site, parsed_bcd['http']['headers'],
+		generate_bcd_from_section(site, parsed_bcd['http']['headers'],
 				timestamp, "http", "HTTP header: ")
-		generate_from_section(site, parsed_bcd['http']['status'],
+		generate_bcd_from_section(site, parsed_bcd['http']['status'],
 				timestamp, "http", "HTTP status code: ")
+	  end
+
+	  def generate_baseline(site)
+		# The web features "computeBaseline" code is distributed via npm
+		# so it's easier to run this generation code in node
+		# and then process the results back in this plugin for jekyll
+		script_out = `npx tsx tools/baseline`
+
+		baseline = JSON.parse(script_out)
+		baseline.each do |feature|
+			path = site.in_source_dir("_generated_features/#{feature['slug']}.md")
+			doc = Jekyll::Document.new(path, {
+				:site => site,
+				:collection => site.collections['generated_features'],
+			})
+
+			# TODO:
+			data_source = "Support data provided by: [![BCD logo](/assets/images/mdn-bcd.svg)](https://github.com/mdn/browser-compat-data)"
+
+			doc.data['title'] = feature['title']
+			doc.data['description'] = feature['description']
+			doc.data['slug'] = feature['slug']
+			doc.data['category'] = feature['category']
+			doc.data['keywords'] = 'todo'
+			doc.data['last_test_date'] = feature['last_test_date']
+			doc.data['notes'] = data_source
+			doc.data['links'] = feature['links']
+			doc.data['stats'] = feature['stats']
+			doc.data['baseline'] = feature['baseline']
+
+			site.collections['generated_features'].docs << doc
+		end
+	  end
+
+      def generate(site)
+        generate_bcd(site)
+		generate_baseline(site)
       end
     end
 

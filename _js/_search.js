@@ -272,7 +272,14 @@ class Search {
 				div.innerHTML = `<section class="feature feature--placeholder" data-slug="${feature.slug}">
 						<header class="feature-header">
 							<div class="feature-header-column">
-								<h1 class="feature-title"><a href="${featureURL}">${feature.title}<span class="feature-permalink" aria-hidden="true">#</span></a></h1>
+								<h1 class="feature-title"><a href="${featureURL}">
+									${feature.title.replace(/&/g, "&amp;")
+									.replace(/</g, "&lt;")
+									.replace(/>/g, "&gt;")
+									.replace(/"/g, "&quot;")
+									.replace(/'/g, "&#039;")}
+								<span class="feature-permalink" aria-hidden="true">#</span></a></h1>
+								<span class="baseline"></span>
 							</div>
 							<div class="feature-header-column">
 							</div>
@@ -281,6 +288,19 @@ class Search {
 						<footer class="feature-footer"></footer>
 					</section>`;
 				container.appendChild(div.firstChild);
+
+				if (feature.baseline && feature.baseline.baseline) {
+					const baseline = container.lastChild.querySelector('.baseline');
+					baseline.innerHTML = `
+					<a href="https://developer.mozilla.org/en-US/docs/Glossary/Baseline/Compatibility">
+						<img width="35" height="20" src="/assets/images/baseline.svg" alt="baseline logo">
+						<strong>
+							Widely available ${!feature.baseline.webviewBaseline ? 'in browsers' : ''}
+						</strong>
+					</a>
+
+					${!feature.baseline.webviewBaseline ? 'but not in WebViews' : ''}`;
+				}
 
 				const featureContainer = container.querySelector(`[data-slug="${feature.slug}"]`);
 				featureContainer.classList.add('loading');

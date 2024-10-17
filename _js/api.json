@@ -7,7 +7,7 @@ permalink: "/api/data.json"
 	"last_update_date":{{site.time | jsonify}},
 	"nicenames":{{site.data.nicenames | jsonify}},
 	"data":[
-		{% assign allfeatures = site.bcd | concat: site.features | sort:'id' | map_features -%}
+		{% assign allfeatures = site.generated_features | concat: site.features | sort:'id' | map_features -%}
 		{% for feature in allfeatures %}
 		{
 			"slug":{{ feature.slug | jsonify }},

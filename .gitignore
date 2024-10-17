@@ -2,8 +2,5 @@
 .DS_Store
 .jekyll-metadata
 _site
-# We generate this data file via a plugin
-# before generating the rest of the sites
-_data/baseline.yml
 Gemfile.lock
 node_modules

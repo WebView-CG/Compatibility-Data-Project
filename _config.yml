@@ -7,7 +7,7 @@ collections:
     permalink: /news/:year-:month-:day-:title/
   features:
     output: true
-  bcd:
+  generated_features:
     output: true
     permalink: /features/:name/
   clients:
@@ -21,7 +21,7 @@ defaults:
       layout: "feature"
   - scope:
       path: ""
-      type: "bcd"
+      type: "generated_features"
     values:
       layout: "feature"
   - scope:
