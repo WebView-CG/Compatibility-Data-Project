@@ -1,6 +1,7 @@
 ---
 platforms: [windows]
 display_order: 3
+webview: true
 ---
 Default WebView implementation on Windows
 

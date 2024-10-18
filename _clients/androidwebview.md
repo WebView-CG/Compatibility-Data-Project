@@ -2,6 +2,7 @@
 platforms: [android]
 display_order: 2
 upstream: chrome_android
+webview: true
 ---
 Android WebView is the default WebView implementation for the Android operating system.
 

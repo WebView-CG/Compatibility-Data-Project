@@ -27,6 +27,9 @@ class Settings {
 		const settingsString = this.getLocalStorage();
 		if (settingsString && settingsString !== '') {
 			const settings = settingsString.split('&');
+			this.panel.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+				checkbox.checked = false;
+			});
 			if (settings.length > 0) {
 				settings.forEach(setting => {
 					const keyValuePair = setting.split('=');
@@ -56,10 +59,6 @@ class Settings {
 				});
 			}
 		} else {
-			const checkboxes = this.panel.querySelectorAll('input[type="checkbox"]');
-			checkboxes.forEach(checkbox => {
-				checkbox.checked = true;
-			});
 			this.save();
 		}
 		this.setUncheckedVariable();
