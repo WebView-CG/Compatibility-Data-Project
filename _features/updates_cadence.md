@@ -23,16 +23,16 @@ SDK updates are also every four weeks, and their details are [here](https://lear
 }
 stats: {
     wkwebview: {
-		macos: {
-			"*": "u"
-		},
-		ios: {
-			"*": "u"
-		},
+        macos: {
+            "*": "u"
+        },
+        ios: {
+            "*": "u"
+        },
         ipados: {
             "*": "u"
         }
-	},
+    },
     androidwebview: {
         android: {
             "*": "y"
@@ -41,6 +41,16 @@ stats: {
     webview2: {
         windows: {
             "*": "y"
+        }
+    },
+    chrome_android: {
+        android: {
+            "*": "u"
+        }
+    },
+    safari_ios: {
+        ios: {
+            "*": "u"
         }
     }
 }

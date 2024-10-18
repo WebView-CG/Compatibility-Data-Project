@@ -17,16 +17,16 @@ may need to be auto filled, and is responsible for sending autofill requests to 
 }
 stats: {
     wkwebview: {
-		macos: {
-			"*": "u"
-		},
-		ios: {
-			"*": "u"
-		},
+        macos: {
+            "*": "u"
+        },
+        ios: {
+            "*": "u"
+        },
         ipados: {
             "*": "u"
         }
-	},
+    },
     androidwebview: {
         android: {
             "*": "y"
@@ -35,6 +35,16 @@ stats: {
     webview2: {
         windows: {
             "*": "y"
+        }
+    },
+    chrome_android: {
+        android: {
+            "*": "u"
+        }
+    },
+    safari_ios: {
+        ios: {
+            "*": "u"
         }
     }
 }

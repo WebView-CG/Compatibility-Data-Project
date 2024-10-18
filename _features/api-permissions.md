@@ -21,16 +21,16 @@ behaviour: {
 }
 stats: {
     wkwebview: {
-		macos: {
-			"*": "a"
-		},
-		ios: {
-			"*": "a"
-		},
+        macos: {
+            "*": "a"
+        },
+        ios: {
+            "*": "a"
+        },
         ipados: {
             "*": "a"
         }
-	},
+    },
     androidwebview: {
         android: {
             "*": "a"
@@ -39,6 +39,16 @@ stats: {
     webview2: {
         windows: {
             "*": "a"
+        }
+    },
+    chrome_android: {
+        android: {
+            "*": "u"
+        }
+    },
+    safari_ios: {
+        ios: {
+            "*": "u"
         }
     }
 }

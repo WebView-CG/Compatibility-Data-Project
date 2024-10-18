@@ -51,6 +51,16 @@ fetch(`http://unpkg.com/@mdn/browser-compat-data@${bcdVersion}/data.json`)
 					windows: {
 						"*": "u"
 					}
+				},
+				chrome_android: {
+					android: {
+						"*": "u"
+					}
+				},
+				safari_ios: {
+					ios: {
+						"*": "u"
+					}
 				}
 			};
 
@@ -77,6 +87,10 @@ fetch(`http://unpkg.com/@mdn/browser-compat-data@${bcdVersion}/data.json`)
 					computedStatus.support.webview_ios);
 				setVersion('androidwebview', 'android',
 					computedStatus.support.webview_android);
+				setVersion('chrome_android', 'android',
+					feature.status.support.chrome_android);
+				setVersion('safari_ios', 'ios',
+					feature.status.support.safari_ios);
 			} catch (e) {
 				// For cases where we couldn't comput this, we will
 				// fall back to "unknown".
