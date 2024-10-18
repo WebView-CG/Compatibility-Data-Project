@@ -1,5 +1,5 @@
 ---
-title:  "Web features are now available"
+title:  "Baseline for WebViews now supported"
 date: 2024-10-18
 ---
 We are now show [web features](https://caniwebview.com/search/?cat=web_feature) in the search results. In addition to this, we will also report if those features are [widely available in browsers](https://developer.mozilla.org/en-US/docs/Glossary/Baseline/Compatibility), and if the same applies to WebViews.
