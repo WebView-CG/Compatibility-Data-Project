@@ -25,6 +25,7 @@ fetch(`http://unpkg.com/@mdn/browser-compat-data@${bcdVersion}/data.json`)
 		coreBrowserSet.push("webview_android");
 
 		const baseline = [];
+		const failed = [];
 
 		for (const key in features) {
 			const feature = features[key];
@@ -81,7 +82,7 @@ fetch(`http://unpkg.com/@mdn/browser-compat-data@${bcdVersion}/data.json`)
 				// fall back to "unknown".
 				// We should hunt down these cases and bring the
 				// list of impacted features down.
-				console.warn("[Baseline] Failed to generate", key);
+				failed.push(key);
 			}
 
 			baseline.push({
@@ -98,6 +99,10 @@ fetch(`http://unpkg.com/@mdn/browser-compat-data@${bcdVersion}/data.json`)
 					baseline: feature.status.baseline,
 				}
 			});
+		}
+
+		if (failed.length) {
+			console.warn("[Baseline] Failed to generate", failed.join(', '));
 		}
 
 		// Return the results back to the caller jekyll plugin
