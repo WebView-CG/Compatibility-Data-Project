@@ -102,7 +102,7 @@ fetch(`http://unpkg.com/@mdn/browser-compat-data@${bcdVersion}/data.json`)
 			baseline.push({
 				title: feature.name,
 				slug: 'web-feature-' + key,
-				description: feature.description,
+				description: feature.description_html,
 				category: 'web_feature',
 				keywords: '',
 				last_test_date: '2024-01-01',
