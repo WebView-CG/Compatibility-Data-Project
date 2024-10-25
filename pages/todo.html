@@ -10,9 +10,10 @@ permalink: /todo/
 			Can I WebView is based on contributions. Want to help? Here are a few tasks you can help with, even if you know nothing about email development.
 		</p>
 		{% comment %}
-		<h2 class="list-title">{{ site.features.size }} Features to test</h2>
+		<h2 class="list-title">{{ site.features.size | plus: site.generated_features.size }} Features to test</h2>
 		<ol class="list">
-			{% for feature in site.features %}
+			{% assign features = site.features | concat: site.generated_features%}
+			{% for feature in features %}
 				{% assign todo-platform = feature.stats.protonmail.android %}
 				{% if todo-platform.size == nil or todo-platform.size == 0 %}
 				<li><a href="{{ feature.url }}">{{ feature.title | escape_once }}</a></li>
@@ -33,7 +34,8 @@ permalink: /todo/
 		{% endcomment %}
 		<h2 class="list-title">Add links</h2>
 		<ul class="list">
-			{% for feature in site.features %}
+			{% assign features = site.features | concat: site.generated_features %}
+			{% for feature in features %}
 				{% if feature.links.size == nil or feature.links.size == 0 %}
 			<li><a href="{{ feature.url }}">{{ feature.title | escape_once }}</a></li>
 				{% endif %}

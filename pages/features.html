@@ -7,7 +7,7 @@ permalink: /features/
 <div class="post">
 	<div class="post-feature">
 		<h1 class="post-title">Behavioural</h1>
-		{% assign features-by-category = site.features | group_by:"category" %}
+		{% assign features-by-category = site.features | concat: site.generated_features | group_by:"category" %}
 		{% include feature-list.html features=features-by-category %}
 	</div>
 	<div class="post-feature">

@@ -28,7 +28,8 @@ layout: default
 		{% comment %}
 			2. We go through every feature for that family/platform.
 		{% endcomment %}
-		{% for feature in site.features %}
+		{% assign features = site.features | concat: site.generated_features %}
+		{% for feature in features %}
 			{% assign family-values = feature.stats[page.slug] %}
 			{% assign platform-values = family-values[platform-slug] %}
 			{% if platform-values != nil and platform-values != "" %}

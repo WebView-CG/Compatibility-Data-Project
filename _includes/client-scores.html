@@ -10,7 +10,8 @@ Building an array of the global score pour each client family.
 {% comment %}
 1. We go through each existing feature.
 {% endcomment %}
-{% for feature in site.features %}
+{% assign features = site.features | concat: site.generated_features %}
+{% for feature in features %}
 {% assign feature-stats = feature.stats %}
 {% comment %}
 2. We go through each family of the current feature.
@@ -147,7 +148,7 @@ append:client-scores-families[i] %}
 {% endcomment %}
 <ul class="scoreboard">
 	{% assign client-scores-limit = include.limit | default: 999 %}
-	{% assign number-of-features = site.features.size | times: 1 %}
+	{% assign number-of-features = site.features.size | plus: site.generated_features.size | times: 1 %}
 	{% assign half-number-of-features = number-of-features | divided_by: 2 %}
 	{% for client in client-scores-families limit:client-scores-limit %}
 	{% assign i = forloop.index | minus:1 %}

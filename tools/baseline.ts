@@ -30,6 +30,8 @@ fetch(`http://unpkg.com/@mdn/browser-compat-data@${bcdVersion}/data.json`)
 		for (const key in features) {
 			const feature = features[key];
 			let webviewBaseline: WebViewStatus = "unknown";
+			// Default to today if unknown because that's when we "worked it out"
+			let last_test_date = new Date().toISOString().split('T')[0];
 			const stats = {
 				wkwebview: {
 					macos: {
@@ -65,12 +67,12 @@ fetch(`http://unpkg.com/@mdn/browser-compat-data@${bcdVersion}/data.json`)
 			};
 
 			try {
-				const computedStatus = JSON.parse(
-					computeBaseline({
-						compatKeys: feature.compat_features as [string, ...string[]],
-						checkAncestors: true,
-					}, compat).toJSON()
-				);
+				const computed = computeBaseline({
+					compatKeys: feature.compat_features as [string, ...string[]],
+					checkAncestors: true,
+				}, compat);
+				last_test_date = computed.baseline_low_date;
+				const computedStatus = JSON.parse(computed.toJSON());
 				webviewBaseline = computedStatus.baseline;
 				const setVersion = (platform, sub, support) => {
 					if (support) {
@@ -83,6 +85,7 @@ fetch(`http://unpkg.com/@mdn/browser-compat-data@${bcdVersion}/data.json`)
 						}
 					}
 				}
+
 				setVersion('wkwebview', 'ios',
 					computedStatus.support.webview_ios);
 				setVersion('androidwebview', 'android',
@@ -105,7 +108,7 @@ fetch(`http://unpkg.com/@mdn/browser-compat-data@${bcdVersion}/data.json`)
 				description: feature.description_html,
 				category: 'web_feature',
 				keywords: '',
-				last_test_date: '2024-01-01',
+				last_test_date,
 				stats,
 				links: {},
 				baseline: {

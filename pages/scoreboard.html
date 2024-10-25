@@ -7,7 +7,7 @@ permalink: /scoreboard/
 	<div class="scoreboard-intro">
 		<h1>WebView Client Support Scoreboard</h1>
 		<p>
-			This page ranks WebViews based on their support among the <b>{{ site.features.size | default: "many" }}</b>
+			This page ranks WebViews based on their support among the <b>{{ site.features.size | plus: site.generated_features.size | default: "many" }}</b>
 			capabilities and features listed on Can I WebView.
 		</p>
 		<p>

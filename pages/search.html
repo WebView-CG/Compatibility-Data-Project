@@ -14,7 +14,7 @@ permalink: /search/
 		This is the search page. Try using the search text box above. Or browse the following list of all the features available.
 	</div>
 </div>
-{% assign features-by-category = site.features | group_by:"category" %}
+{% assign features-by-category = site.features | concat: site.generated_features | group_by:"category" %}
 {% for category in features-by-category %}
 	<h2 class="list-title">{{ site.data.nicenames.category[category.name] | default: category.name }}</h2>
 	<ul class="list list--features">

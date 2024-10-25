@@ -11,7 +11,7 @@ permalink: /
 
 		<h1 class="list-title"><a href="/features/">Latest features</a></h1>
 		<ol class="list">
-			{% assign latest-features = site.features | sort:"last_test_date" | reverse %}
+			{% assign latest-features = site.features | concat: site.generated_features | sort:"last_test_date" | reverse %}
 			{% for feature in latest-features limit:5 %}
 			{% assign feature-category = '' %}
 			{% if feature.category == 'html' or feature.category == 'css' %}

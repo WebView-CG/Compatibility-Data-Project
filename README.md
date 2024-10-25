@@ -11,10 +11,11 @@ Prerequisites:
 - Jekyll
 
 Setup:
-- `npm install`.
+- `npm install`
+- `bundle install`
 
 Run the project:
-- `bundle exec jekyll serve --baseurl=""`.
+- `bundle exec jekyll serve --baseurl=""`
 
 ## Sub-projects
 
