@@ -39,6 +39,20 @@ permalink: /clients/
 			</ul>
 		</div>
 	</form>
+	<!-- Bit hacky for the moment, the compare.js creates a FormData object base off
+	 the form in buildResultsAsTable and this messes it up if it is part of that form so
+	 simply hiding this for the moment -->
+	<div class="settings-title">
+		Filter by category
+	</div>
+	<div class="compare-options">
+		<select name="category-filter" id="category-filter" multiple>
+			<option value="filter-category-all" selected="selected">All</option>
+			{% for category in site.data.nicenames.category %}
+				<option value="filter-category-{{ category[0] }}">{{ category[1] }}</option>
+			{% endfor %}
+		</select>
+	</div>
 </div>
 <div class="posts">
 	<div class="post post--default">

@@ -8,6 +8,7 @@ permalink: "/assets/js/compare.js"
 			this.data = null;
 			this.nicenames = null;
 			this.resultsContainer = null;
+			this.selectedCategories = ['all'];
 			this.panel = document.querySelector('.compare');
 			this.form = document.getElementById('compare-form');
 
@@ -22,6 +23,7 @@ permalink: "/assets/js/compare.js"
 			this.addEventToResetButton();
 			this.addEventToDevicesButtons();
 			this.addEventToCheckboxes();
+			this.addCategoryFilter();
 
 			if (!this.data) {
 				this.loadJSONFile();
@@ -196,6 +198,20 @@ permalink: "/assets/js/compare.js"
 			});
 		}
 
+		addCategoryFilter() {
+			const categorySelect = document.querySelector('#category-filter');
+			categorySelect.addEventListener('change', (e) => {
+				this.selectedCategories = Array.from(e.target.options)
+					.filter(opt => opt.selected)
+					.map(opt => opt.value.slice("filter-category-".length));
+
+				// We don't bother saving for this for the moment.
+				// Just hacking this on to make it easier to compare
+				// baseline results ultimately.
+				this.refresh();
+			});
+		}
+
 		loadJSONFile() {
 
 			if (!this.data) {
@@ -269,6 +285,13 @@ permalink: "/assets/js/compare.js"
 
 				let tbody = document.createElement('tbody');
 				featuresArray.forEach(feature => {
+					// The "All" category selected by default should let you filter to everything
+					// so we check against both that and the items category.
+					// If neither is selected, we should filter out the feature.
+					if (!['all', feature.category].some(c => this.selectedCategories.includes(c))) {
+						return;
+					}
+
 					let tr = document.createElement('tr');
 					let th = document.createElement('th');
 					th.setAttribute('scope', 'row');
