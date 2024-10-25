@@ -157,7 +157,7 @@ permalink: "/assets/js/compare.js"
 			const android = ['androidwebview', 'chrome_android'];
 			const ios = ['wkwebview', 'safari_ios'];
 			const androidButton = this.panel.querySelector('#compare-android-button');
-			const iosButton = this.panel.querySelector('#compare-ios-button');
+			const iosButton = this.panel.querySelector('#compare-apple-button');
 
 			androidButton.addEventListener('click', e => {
 				e.preventDefault();
