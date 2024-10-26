@@ -11,6 +11,7 @@ module Jekyll
 				"links" => feature["links"],
 				"notes" => feature["notes"],
 				"baseline" => feature["baseline"],
+				"url" => "/features/#{feature["slug"]}",
 			}
 		}
 	  end
