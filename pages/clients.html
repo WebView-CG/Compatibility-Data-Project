@@ -4,86 +4,131 @@ title: All WebViews tested on Can I WebView…
 permalink: /clients/
 ---
 <div class="compare">
-	<form action="/" method="get" id="compare-form" class="compare-form">
-		<div class="settings-title">
-			Select WebViews or upstream browsers to compare
-			<div class="settings-title-actions">
-				<button type="button" id="compare-check-all-button" class="button" data-label-toggle="Uncheck all"
-					data-checked="true">Check all</button>
+	<div class="filter">
+		<!-- Bit hacky for the moment, the compare.js creates a FormData object base off
+		 the form in buildResultsAsTable and this messes it up if it is part of that form so
+		 simply hiding this for the moment -->
+		 <div class="compare-title">
+			<div class="compare-title-actions compare-right">
 				<div class="button-group">
+					<button type="button" id="compare-check-all-button" class="button" data-label-toggle="Uncheck all"
+					data-checked="true">Check all</button>
 					<button type="button" id="compare-android-button" class="button">Android</button>
 					<button type="button" id="compare-apple-button" class="button">Apple</button>
 				</div>
 			</div>
+
+			<legend>
+				Category
+			</legend>
 		</div>
-		<div class="compare-options">
+		<div class="compare-options category">
 			<ul class="compare-list">
-				{% assign clients = site.clients | sort:"display_order" %}
-				{% for client in clients %}
-				<li class="compare-list-item">
-					<input type="checkbox" id="compare-{{ client.slug }}" name="{{ client.slug }}" value="on" />
-					<label for="compare-{{ client.slug }}">{{ site.data.nicenames.family[client.slug] | default:
-						client.slug | escape_once }}</label>
-					<ul class="compare-child-list">
-						{% for platform in client.platforms %}
-						<li class="compare-child-list-item">
-							<input type="checkbox" id="compare-{{ client.slug }}-{{ platform }}"
-								name="{{ client.slug }}" value="{{ platform }}" />
-							<label for="compare-{{ client.slug }}-{{ platform }}">{{
-								site.data.nicenames.platform[platform] | default: platform | escape_once }}</label>
-						</li>
-						{% endfor %}
-					</ul>
-				</li>
+				{% for category in site.data.nicenames.category %}
+					<li class="compare-list-item">
+						<div class="compare-child-list-item">
+							<input class="category-filter" type="checkbox" name="filter-category-{{ category[0] }}" id="filter-category-{{ category[0] }}" checked>
+							<label for="filter-category-{{ category[0] }}">{{ category[1] }}</label>
+						</div>
+					</li>
 				{% endfor %}
 			</ul>
 		</div>
-	</form>
-	<!-- Bit hacky for the moment, the compare.js creates a FormData object base off
-	 the form in buildResultsAsTable and this messes it up if it is part of that form so
-	 simply hiding this for the moment -->
-	<div class="settings-title">
-		Filter by category
+
+		<form action="/" method="get" id="compare-form" class="compare-form">
+			<div class="compare-title">
+				<legend>
+					WebView
+				</legend>
+			</div>
+			<div class="compare-options">
+				<ul class="compare-list">
+					{% assign clients = site.clients | sort:"display_order" %}
+					{% for client in clients %}
+					{% if client.webview %}
+						<li class="compare-list-item">
+							<input type="checkbox" id="compare-{{ client.slug }}" name="{{ client.slug }}" value="on" />
+							<label for="compare-{{ client.slug }}">{{ site.data.nicenames.family[client.slug] | default:
+								client.slug | escape_once }}</label>
+							<ul class="compare-child-list">
+								{% for platform in client.platforms %}
+									<li class="compare-child-list-item">
+										<input type="checkbox" id="compare-{{ client.slug }}-{{ platform }}"
+											name="{{ client.slug }}" value="{{ platform }}" />
+										<label for="compare-{{ client.slug }}-{{ platform }}">{{
+											site.data.nicenames.platform[platform] | default: platform | escape_once }}</label>
+									</li>
+								{% endfor %}
+							</ul>
+						</li>
+					{% endif %}
+					{% endfor %}
+				</ul>
+			</div>
+
+			<div class="compare-title">
+				<legend>
+					Upstream browser
+				</legend>
+			</div>
+			<div class="compare-options">
+				<ul class="compare-list">
+					{% assign clients = site.clients | sort:"display_order" %}
+					{% for client in clients %}
+					{% unless client.webview %}
+						<li class="compare-list-item">
+							<input type="checkbox" id="compare-{{ client.slug }}" name="{{ client.slug }}" value="on" />
+							<label for="compare-{{ client.slug }}">{{ site.data.nicenames.family[client.slug] | default:
+								client.slug | escape_once }}</label>
+							<ul class="compare-child-list">
+								{% for platform in client.platforms %}
+									<li class="compare-child-list-item">
+										<input type="checkbox" id="compare-{{ client.slug }}-{{ platform }}"
+											name="{{ client.slug }}" value="{{ platform }}" />
+										<label for="compare-{{ client.slug }}-{{ platform }}">{{
+											site.data.nicenames.platform[platform] | default: platform | escape_once }}</label>
+									</li>
+								{% endfor %}
+							</ul>
+						</li>
+					{% endunless %}
+					{% endfor %}
+				</ul>
+			</div>
+		</form>
 	</div>
-	<div class="compare-options">
-		<select name="category-filter" id="category-filter" multiple>
-			<option value="filter-category-all" selected="selected">All</option>
-			{% for category in site.data.nicenames.category %}
-				<option value="filter-category-{{ category[0] }}">{{ category[1] }}</option>
-			{% endfor %}
-		</select>
-	</div>
-</div>
-<div class="posts">
-	<div class="post post--default">
-		<div class="post-inside">
-			<h1 class="post-title">WebViews</h1>
-			<p>
-				Here's an index of all the WebViews we currently test features on.
-			</p>
-			<ul class="list">
-				{% assign clients = site.clients | sort:"display_order" %}
-				{% for client in clients %}
-				<li>
-					<a href="{{ client.url }}">{{ site.data.nicenames.family[client.slug] | default: client.slug |
-						escape_once }}</a>
-					<small>
-						{% for platform in client.platforms %}
-						{%- if forloop.first == true -%}
-						(
-						{%- endif -%}
-						<a href="{{ client.url }}#{{ platform }}">{{ site.data.nicenames.platform[platform] | default:
-							platform | escape_once }}</a>
-						{%- if forloop.last == true -%}
-						)
-						{%- else -%}
-						,&nbsp;
-						{%- endif -%}
-						{% endfor %}
-					</small>
-				</li>
-				{% endfor %}
-			</ul>
+
+	<div class="posts">
+		<div class="post post--default">
+			<div class="post-inside">
+				<h1 class="post-title">WebViews</h1>
+				<p>
+					Here's an index of all the WebViews we currently test features on.
+				</p>
+				<ul class="list">
+					{% assign clients = site.clients | sort:"display_order" %}
+					{% for client in clients %}
+					<li>
+						<a href="{{ client.url }}">{{ site.data.nicenames.family[client.slug] | default: client.slug |
+							escape_once }}</a>
+						<small>
+							{% for platform in client.platforms %}
+							{%- if forloop.first == true -%}
+							(
+							{%- endif -%}
+							<a href="{{ client.url }}#{{ platform }}">{{ site.data.nicenames.platform[platform] | default:
+								platform | escape_once }}</a>
+							{%- if forloop.last == true -%}
+							)
+							{%- else -%}
+							,&nbsp;
+							{%- endif -%}
+							{% endfor %}
+						</small>
+					</li>
+					{% endfor %}
+				</ul>
+			</div>
 		</div>
 	</div>
 </div>

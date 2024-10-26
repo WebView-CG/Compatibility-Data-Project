@@ -81,11 +81,31 @@ permalink: "/assets/js/compare.js"
 					checkbox.checked = false;
 				});
 			}
+
+			const savedCategoryString = this.getCategoryStorage();
+			if (savedCategoryString && savedCategoryString !== '') {
+				this.selectedCategories = JSON.parse(savedCategoryString);
+				const categorySection = document.querySelector('.category');
+
+				// TODO: The all category is a total hack and should be removed
+				// at some point. We should just deal with the category values
+				// the same way the other browsers work.
+				if (!this.selectedCategories.includes('all')) {
+					document.querySelector('.category').querySelectorAll('.category-filter').forEach(checkbox =>
+						checkbox.checked = false
+					);
+				
+					this.selectedCategories.forEach(category => {
+						const checkbox = categorySection.querySelector(`#filter-category-${category}`);
+						checkbox.checked = true;
+					});
+				}
+			}
 		}
 
 		addEventToCheckboxes() {
 
-			const checkboxes = this.panel.querySelectorAll('input[type="checkbox"]');
+			const checkboxes = this.panel.querySelector('#compare-form').querySelectorAll('input[type="checkbox"]');
 			checkboxes.forEach(checkbox => {
 				checkbox.addEventListener('click', e => {
 					if (checkbox.parentNode.className == 'compare-list-item') {
@@ -149,6 +169,7 @@ permalink: "/assets/js/compare.js"
 					checkbox.indeterminate = false;
 				});
 				button.setAttribute(dataAttributeChecked, !checkValue);
+				this.selectedCategories = checkValue ? ['all'] : [];
 
 				this.setLocalStorage();
 				this.refresh();
@@ -199,17 +220,16 @@ permalink: "/assets/js/compare.js"
 		}
 
 		addCategoryFilter() {
-			const categorySelect = document.querySelector('#category-filter');
-			categorySelect.addEventListener('change', (e) => {
-				this.selectedCategories = Array.from(e.target.options)
-					.filter(opt => opt.selected)
-					.map(opt => opt.value.slice("filter-category-".length));
+			const categorySelect = document.querySelectorAll('.category-filter');
+			categorySelect.forEach(checkbox =>
+					checkbox.addEventListener('change', (e) => {
+					this.selectedCategories = Array.from(categorySelect)
+						.filter(opt => opt.checked)
+						.map(opt => opt.id.slice("filter-category-".length));
 
-				// We don't bother saving for this for the moment.
-				// Just hacking this on to make it easier to compare
-				// baseline results ultimately.
-				this.refresh();
-			});
+					this.refresh();
+					this.setLocalStorage();
+				}));
 		}
 
 		loadJSONFile() {
@@ -441,14 +461,17 @@ permalink: "/assets/js/compare.js"
 		}
 
 		setLocalStorage() {
-
 			const data = this.getFormDataToString();
 			localStorage.setItem('compare', data);
+			localStorage.setItem('category', JSON.stringify(this.selectedCategories));
 		}
 
 		getLocalStorage() {
-
 			return localStorage.getItem('compare');
+		}
+
+		getCategoryStorage() {
+			return localStorage.getItem('category');
 		}
 	}
 

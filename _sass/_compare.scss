@@ -5,6 +5,16 @@
 	margin: 0 0 rem(16px);
 	color: #fff;
 
+	.filter {
+		@extend .post;
+		background: $color-blue-darker !important;
+
+		ul {
+			margin-left: unset;
+			list-style: none;
+		}
+	}
+
 	input[type="checkbox"] {
 		position: absolute;
 		opacity: 0;
@@ -57,43 +67,39 @@
 	}
 }
 
-.compare-title {
-	padding: 1rem;
-	font-size: 1.5rem;
-	width: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-
-	@media only screen and (max-width: rem(800px)) {
-		font-size: rem(20px);
-	}
-
-	@media only screen and (max-width: rem(375px)) {
-		font-size: rem(16px);
-	}
-
-	.button {
-		margin-left: 1ch;
-		vertical-align: middle;
-		font-size: rem(12px);
-		min-width: rem(100px);
-	}
-}
-
 .compare-options {
 	position: relative;
 	overflow: auto;
+
+	&.category {
+		display: flex;
+		gap: 1em;
+
+		ul {
+			flex-wrap: wrap;
+			margin-left: unset;
+		}
+	}
+}
+
+.compare-title {
+	@extend .settings-title;
+	display: block;
+	font-size: 1.2rem;
+
+	legend {
+		background: $color-blue;
+		padding: 0.2em 0.5em;
+	}
+
+	.compare-right {
+		float: right;
+	}
 }
 
 .compare-list {
 	display: flex;
 	list-style: none;
-
-	ul {
-		list-style: none;
-		margin-left: rem(24px);
-	}
 }
 
 .compare-child-list {
@@ -106,16 +112,7 @@
 	min-width: 9.5rem;
 	max-width: 12rem;
 	padding: 0.8rem;
-	border-top: 1px solid rgba(255, 255, 255, 0.25);
 	font-size: 1rem;
-
-	&:not(:last-child) {
-		border-right: 1px solid rgba(255, 255, 255, 0.25);
-	}
-
-	&:nth-child(2n) {
-		background-color: rgba(255, 255, 255, 0.05);
-	}
 }
 
 .compare-child-list-item {
