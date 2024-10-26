@@ -77,6 +77,11 @@
 
 		ul {
 			margin-left: unset;
+			flex-wrap: wrap;
+
+			@media screen and (max-width: $width-mobile) {
+				flex-wrap: nowrap;
+			}
 		}
 	}
 }
@@ -94,8 +99,10 @@
 	.compare-right {
 		float: right;
 
-		.button-group {
-			margin-bottom: 2em;
+		@media screen and (max-width: 495px) {
+			.button-group {
+				margin-bottom: 2em;
+			}
 		}
 	}
 }
