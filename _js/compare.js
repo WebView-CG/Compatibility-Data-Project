@@ -305,13 +305,6 @@ permalink: "/assets/js/compare.js"
 
 				let tbody = document.createElement('tbody');
 				featuresArray.forEach(feature => {
-					// The "All" category selected by default should let you filter to everything
-					// so we check against both that and the items category.
-					// If neither is selected, we should filter out the feature.
-					if (!['all', feature.category].some(c => this.selectedCategories.includes(c))) {
-						return;
-					}
-
 					let tr = document.createElement('tr');
 					let th = document.createElement('th');
 					th.setAttribute('scope', 'row');
@@ -399,6 +392,13 @@ permalink: "/assets/js/compare.js"
 			let featuresBySupport = { 'y': [], 'a': [], 'n': [], 'u': [], 'm': [] };
 			const formData = new FormData(this.form);
 			this.data.forEach(feature => {
+				// The "All" category selected by default should let you filter to everything
+				// so we check against both that and the items category.
+				// If neither is selected, we should filter out the feature.
+				if (!['all', feature.category].some(c => this.selectedCategories.includes(c))) {
+					return;
+				}
+
 				let averageSupportValue = null;
 				for (let key of formData.entries()) {
 					if (key[1].toLowerCase() !== 'on') {
