@@ -76,7 +76,6 @@
 		gap: 1em;
 
 		ul {
-			flex-wrap: wrap;
 			margin-left: unset;
 		}
 	}
@@ -94,6 +93,10 @@
 
 	.compare-right {
 		float: right;
+
+		.button-group {
+			margin-bottom: 2em;
+		}
 	}
 }
 
