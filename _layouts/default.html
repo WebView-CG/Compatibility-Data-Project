@@ -6,9 +6,12 @@
 	<title>Can I WebView… {{ page.title | remove: '`' | escape_once | markdownify | strip_html | strip }}</title>
 	<link rel="stylesheet" href="/assets/css/style.css" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	{%- if jekyll.environment == 'production' -%}
 	<link rel="shortcut icon" href="/assets/images/favicon.ico" />
+	{%- else -%}
+	<link rel="shortcut icon" href="/assets/images/favicon.ico" />
+	{%- endif -%}
 	<link rel="prefetch" href="/assets/js/features.json" />
-
 	{%- if page.collection == 'features' -%}
 	<meta property="og:title"
 		content="Can I WebView… {{ page.title | escape_once | markdownify | strip_html | strip }}" />
@@ -22,7 +25,6 @@
 		content="{{ page.title | remove: '`' | escape_once | markdownify | strip_html | strip }}" />
 	<meta property="og:image" content="https://www.caniwebview.com/assets/images/og.png" />
 	{%- endif -%}
-
 	<meta property="og:type" content="website" />
 	<meta property="og:url" content="{{ site.url }}{{ page.url }}" />
 	<link href="{{ site.url }}/feed.xml" rel="alternate" type="application/atom+xml" />
@@ -30,16 +32,14 @@
 </head>
 
 <body>
-	<div id="content" hx-boost="true" hx-target="#content" hx-select="#content" hx-swap="outerHTML show:window:top" id="content">
+	<div class="caniwebview{{ page.name | remove: '.html' | slugify | default: 'default' | prepend: ' page--' }}">
 		{% include header.html %}
-		<main class="main" role="main" id="main">
+		<main class="main" role="main">
 			{{ content }}
 		</main>
 		{% include footer.html %}
 	</div>
-
-	<script src="https://unpkg.com/htmx.org@2.0.3"></script>
-	<script src="/assets/js/index.js" defer></script>
+	<script src="/assets/js/caniwebview.js" defer></script>
 </body>
 
 </html>
