@@ -21,14 +21,16 @@ body {
 	flex-grow: 1;
 }
 
-.main {
-	display: flex;
-	flex-direction: column;
-	flex-grow: 1;
-	overflow-y: auto;
-	overflow-x: hidden;
-	overflow: hidden;
-	padding: rem(16px) rem(16px) 0;
+body {
+	.main {
+		display: flex;
+		flex-direction: column;
+		flex-grow: 1;
+		overflow-y: auto;
+		overflow-x: hidden;
+		overflow: hidden;
+		padding: rem(16px) rem(16px) 0;
+	}
 }
 
 .footer {

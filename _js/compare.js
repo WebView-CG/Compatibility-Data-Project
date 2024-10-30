@@ -2,6 +2,13 @@
 layout: null
 permalink: "/assets/js/compare.js"
 ---
+
+document.body.addEventListener("htmx:load", (e) => {
+	if (!window.location.pathname.includes("clients")) {
+		window.compare = null;
+		return;
+	}
+
 	class Compare {
 
 		constructor() {
@@ -437,6 +444,9 @@ permalink: "/assets/js/compare.js"
 		}
 
 		buildResultsContainer() {
+			// We use htmx to speed up page loads so it is possible this was already created on
+			// a previous navigation. In which case, we should just grab the existing container.
+			this.resultsContainer = document.querySelector('.main .compare-results');
 
 			if (document.querySelector('.main .compare-results') == null) {
 				let container = document.createElement('div');
@@ -475,6 +485,5 @@ permalink: "/assets/js/compare.js"
 		}
 	}
 
-document.addEventListener("DOMContentLoaded", () => {
 	window.compare = new Compare();
 });

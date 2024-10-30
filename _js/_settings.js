@@ -4,6 +4,7 @@ class Settings {
 
 		this.unchecked = false;
 		this.button = document.querySelector('.settings-button');
+		this.button.style.display = 'inline';
 		this.panel = document.querySelector('.settings');
 
 		if (this.panel && this.button) {
