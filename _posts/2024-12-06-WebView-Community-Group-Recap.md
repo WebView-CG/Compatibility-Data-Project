@@ -3,8 +3,6 @@ title:  "WebView Community Group Recap: 2024 and Beyond"
 date: 2024-12-06
 ---
 
-Hi everyone,
-
 As the year winds down, I wanted to take a moment to celebrate what we've achieved together in 2024 and share a bit about where we're headed next year. This year has been full of incredible milestones, and it's worth reflecting on how far we've come and what we can do next year.
 
 ## What We Accomplished in 2024
