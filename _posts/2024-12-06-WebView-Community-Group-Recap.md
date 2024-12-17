@@ -41,7 +41,7 @@ We plan to create a report to showcase where WebViews are today and where they�
 
 
 
-I'm pretty sure this doesn't cover everything we covered this year, but thanks for reading. None of this would be possible without the energy and creativity you bring to this community. I’m excited to see what we can achieve together in 2025!&#x20;
+I'm pretty sure this doesn't cover everything we did this year, but thanks for reading. None of this would be possible without the energy and creativity you bring to this community. I’m excited to see what we can achieve together in 2025!&#x20;
 
 The WebView Community Group chairs wish you all a happy holiday season and a wonderful new year.
 
