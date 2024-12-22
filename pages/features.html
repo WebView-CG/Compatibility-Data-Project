@@ -6,13 +6,15 @@ permalink: /features/
 
 <div class="post">
 	<div class="post-feature">
-		<h1 class="post-title">Behavioural</h1>
-		{% assign features-by-category = site.features | concat: site.generated_features | group_by:"category" %}
+		<h1 class="post-title">Web Platform</h1>
+		<h3>Automated compatability documentation about Web features and specific APIs</h3>
+		{% assign features-by-category = site.generated_features | group_by:"category" %}
 		{% include feature-list.html features=features-by-category %}
 	</div>
 	<div class="post-feature">
-		<h1 class="post-title">Web Platform</h1>
-		{% assign features-by-category = site.generated_features | group_by:"category" %}
+		<h1 class="post-title">Behavioural</h1>
+		<h3>Written documentation on WebView behaviors and differences</h3>
+		{% assign features-by-category = site.features | group_by:"category" %}
 		{% include feature-list.html features=features-by-category %}
 	</div>
 </div>
