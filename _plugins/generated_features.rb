@@ -47,6 +47,9 @@ module Generated
 
 	  def generate_bcd_from_section(site, section, timestamp, category, appended_title = "")
 		section.keys.each do |title|
+			# We skip potential special keys since we can iterate over sub sections
+			next unless title.index("__") != 0
+
 			feature = section[title]
 
 			title = "#{appended_title}#{title}"
@@ -66,7 +69,7 @@ module Generated
 			doc.data['last_test_date'] = timestamp
 			doc.data['notes'] = data_source
 			doc.data['links'] = feature["__compat"].key?("mdn_url") ? {
-			"MDN reference" => feature["__compat"]["mdn_url"]
+				"MDN reference" => feature["__compat"]["mdn_url"]
 			} : {}
 			doc.data['stats'] = {
 				"wkwebview" => {
@@ -123,6 +126,13 @@ module Generated
 				timestamp, "http", "HTTP header: ")
 		generate_bcd_from_section(site, parsed_bcd['http']['status'],
 				timestamp, "http", "HTTP status code: ")
+
+		# The css types can have sub fields so we iterate over these and then
+		# generate sections.
+		parsed_bcd['css']['types'].keys.each do |type|
+			generate_bcd_from_section(site, parsed_bcd['css']['types'][type],
+				timestamp, "css", "CSS type: #{type}: ")
+		end
 	  end
 
 	  def generate_baseline(site)
