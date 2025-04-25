@@ -261,6 +261,17 @@ class Search {
 			}
 		});
 
+		// sort to prioritize the web features
+		this.results.sort((a, b) => {
+			console.log(a, b);
+			if (a.baseline && a.baseline.baseline && !b.baseline) {
+				return -1;
+			}
+			if (b.baseline && b.baseline.baseline && !a.baseline) {
+				return 1;
+			}
+		});
+
 		for (let i = 0; i < this.results.length; i++) {
 			if (i >= maxCount) break;
 
