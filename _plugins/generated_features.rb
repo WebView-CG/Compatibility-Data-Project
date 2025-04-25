@@ -152,7 +152,7 @@ module Generated
 			# TODO:
 			data_source = "Support data provided by: [![BCD logo](/assets/images/mdn-bcd.svg)](https://github.com/mdn/browser-compat-data)"
 
-			doc.data['title'] = feature['title']
+			doc.data['title'] = "web-feature: " + feature['title']
 			doc.data['description'] = feature['description']
 			doc.data['slug'] = feature['slug']
 			doc.data['category'] = feature['category']
