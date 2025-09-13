@@ -35,6 +35,6 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           title-template: "BCD version update failed"
           body-template: | 
-            The BCD version update has failed check for new major versions and update manually.
+            The BCD version update has failed. Please check for new major versions and update manually.
             
             Please check the [logs](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}) for more details.
