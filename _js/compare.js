@@ -32,6 +32,11 @@ permalink: "/assets/js/compare.js"
 
 		setInitialValues() {
 
+			if (window.location.pathname === '/baseline/') {
+				this.selectWebFeaturesAndClients();
+				return;
+			}
+
 			const savedValuesString = this.getLocalStorage();
 			if (savedValuesString && savedValuesString !== '') {
 				const savedValues = savedValuesString.split('&');
@@ -217,6 +222,29 @@ permalink: "/assets/js/compare.js"
 				this.refresh();
 				this.setLocalStorage();
 			});
+		}
+
+		selectWebFeaturesAndClients() {
+			console.debug("Selecting baseline web features and clients");
+			this.selectedCategories = ['web_feature'];
+			const baselineCheckboxes = [
+				'filter-category-web_feature',
+				'compare-wkwebview-ios',
+				'compare-androidwebview-android',
+				'compare-chrome_android-android',
+				'compare-safari_ios-ios',
+			]
+
+			// Set the state of the family's checkboxes
+			const checkboxes = document.querySelectorAll('.filter input[type="checkbox"]');
+			checkboxes.forEach(checkbox => {
+				let is_selected = baselineCheckboxes.indexOf(checkbox.id) > -1;
+
+				checkbox.checked = is_selected;
+			});
+			// Save settings
+			this.refresh();
+			this.setLocalStorage();
 		}
 
 		addCategoryFilter() {
