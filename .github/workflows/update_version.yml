@@ -27,3 +27,13 @@ jobs:
           git add bcd_version
           git diff --quiet && git diff --staged --quiet || git commit -m "Update bcd version"
           git push
+      - name: Notify failed build
+        uses: jayqi/failed-build-issue-action@v1
+        if: failure() && github.event.pull_request == null
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          title-template: "BCD version update failed"
+          body-template: | 
+            The BCD version update has failed check for new major versions and update manually.
+            
+            Please check the [logs](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}) for more details.
