@@ -31,6 +31,8 @@ We are currently focused on improving support in
 [BCD](https://github.com/mdn/browser-compat-data) and
 [web features](https://github.com/web-platform-dx/web-features/tree/main).
 
+Web Features with Baseline status can quickly be checked with the [/baseline](https://caniwebview.com/baseline) page.
+
 ### WebView behavioral "Feature" data
 
 The goal of this work stream is to collate the various behavioral differences between WebViews that cannot be captured
