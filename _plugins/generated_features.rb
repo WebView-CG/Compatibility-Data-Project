@@ -116,7 +116,7 @@ module Generated
 				timestamp, "html", "HTML element: ")
 		generate_bcd_from_section(site, parsed_bcd['html']['global_attributes'],
 				timestamp, "html", "HTML attribute: ")
-		generate_bcd_from_section(site, parsed_bcd['html']['manifest'],
+		generate_bcd_from_section(site, parsed_bcd['manifests']['webapp'],
 				timestamp, "html", "HTML manifest: ")
 		generate_bcd_from_section(site, parsed_bcd['css']['selectors'],
 				timestamp, "css", "CSS selector: ")
