@@ -13,7 +13,7 @@ platform:
   macos: "macOS"
 support:
   supported: "Supported"
-  mitigated: "Workaround available"
+  mitigated: "Partial support"
   unsupported: "Not supported"
   unknown: "Support unknown"
 category:
