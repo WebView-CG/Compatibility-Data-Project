@@ -6,5 +6,7 @@
   link: /features/
 - name: News
   link: /news/
+- name: Apps
+  link: /apps/
 - name: Community
   link: https://github.com/WebView-CG/Compatibility-Data-Project/discussions
