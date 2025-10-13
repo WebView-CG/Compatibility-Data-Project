@@ -77,9 +77,6 @@ module Generated
 					"*" => "u"
 					},
 					"ios" => getVersions(feature, "webview_ios"),
-					"ipados" => {
-					"*" => "u"
-					}
 				},
 				"androidwebview" => {
 					"android" => getVersions(feature, "webview_android")

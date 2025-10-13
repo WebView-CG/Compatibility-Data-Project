@@ -1,5 +1,5 @@
 ---
-platforms: [macos, ios, ipados]
+platforms: [macos, ios]
 display_order: 11
 webview: false
 ---

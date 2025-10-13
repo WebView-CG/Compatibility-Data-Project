@@ -28,9 +28,6 @@ stats: {
         },
         ios: {
             "*": "a"
-        },
-        ipados: {
-            "*": "a"
         }
     },
     androidwebview: {
