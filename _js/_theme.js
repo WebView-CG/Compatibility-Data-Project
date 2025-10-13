@@ -80,8 +80,8 @@ class Theme {
 
 	updateAriaLabel(label, currentTheme) {
 		this.button.setAttribute('aria-label', label);
-		
-		const visuallyHiddenText = this.button.querySelector('.visually-hidden');
+
+		const visuallyHiddenText = this.button.querySelector('#theme-toggle-status');
 		if (visuallyHiddenText) {
 			visuallyHiddenText.textContent = `Current theme: ${currentTheme}`;
 		}
