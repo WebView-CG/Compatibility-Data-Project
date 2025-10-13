@@ -153,3 +153,68 @@ header > .search-wrapper {
 		bottom: 0;
 	}
 }
+
+// Theme toggle button
+.theme-toggle {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-left: rem(8px);
+	padding: 0.5em;
+	min-width: rem(40px);
+	min-height: rem(40px);
+	background-color: rgba(255, 255, 255, 0.1);
+	border: none;
+	border-radius: rem(4px);
+	cursor: pointer;
+	color: #fff;
+	font-size: rem(20px);
+	transition: background-color 0.2s, transform 0.1s;
+
+	&:hover {
+		background-color: $color-blue-dark;
+	}
+
+	&:focus {
+		background-color: $color-blue-dark;
+		outline: 2px solid #fff;
+		outline-offset: 2px;
+	}
+
+	&:active {
+		transform: scale(0.95);
+	}
+
+	// High contrast mode support
+	@media (prefers-contrast: high) {
+		border: 2px solid currentColor;
+	}
+
+	// Reduced motion support
+	@media (prefers-reduced-motion: reduce) {
+		transition: none;
+
+		&:active {
+			transform: none;
+		}
+	}
+
+	.theme-toggle-icon {
+		display: inline-block;
+		line-height: 1;
+		pointer-events: none;
+	}
+
+	body.light-mode & {
+		color: #333;
+
+		&:hover {
+			background-color: rgba(0, 0, 0, 0.2);
+		}
+
+		&:focus {
+			background-color: rgba(0, 0, 0, 0.2);
+			outline-color: #333;
+		}
+	}
+}

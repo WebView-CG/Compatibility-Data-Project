@@ -1,0 +1,97 @@
+// Light mode theme styles
+body.light-mode {
+	
+	// Links
+	a {
+		color: $color-blue;
+		
+		&:hover {
+			color: $color-blue-dark;
+		}
+	}
+
+	// Code blocks
+	p code {
+		background-color: rgba(0, 0, 0, 0.05);
+		color: $color-text-light;
+	}
+
+	// Focus states
+	a:active,
+	a:focus {
+		outline: 1px dotted rgba(0, 0, 0, 0.5);
+	}
+
+	a:focus:not(:active) {
+		outline: rem(3px) solid #333;
+	}
+
+	// Feature cards and containers
+	.feature,
+	.post,
+	.client {
+		background: $feature-color-light;
+		border: 1px solid #e0e0e0;
+	}
+
+	// Text colors
+	h1, h2, h3, h4, h5, h6 {
+		color: $color-text-light;
+	}
+
+	// Tables
+	table {
+		background: $feature-color-light;
+		border-color: #e0e0e0;
+		
+		th, td {
+			border-color: #e0e0e0;
+		}
+		
+		thead {
+			background: #f0f0f0;
+		}
+	}
+
+	// Header
+	.header {
+		background: $feature-color-light;
+		border-bottom: 1px solid #e0e0e0;
+	}
+
+	// Footer
+	.footer {
+		background: $feature-color-light;
+		border-top: 1px solid #e0e0e0;
+	}
+
+	// Search
+	.search-input {
+		background: $feature-color-light;
+		border: 1px solid #e0e0e0;
+		color: $color-text-light;
+
+		&::placeholder {
+			color: $color-text-secondary-light;
+		}
+	}
+
+	// Lists
+	.list-item {
+		background: $feature-color-light;
+		border: 1px solid #e0e0e0;
+	}
+
+	.main {
+		background: $feature-color-light;
+	}
+
+	// Tabs in light mode
+	.tab {
+		&.current,
+		&:not(.current):focus,
+		&:not(.current):hover {
+			color: #fff;
+		}
+	}
+}
