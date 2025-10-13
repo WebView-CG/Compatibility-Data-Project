@@ -5,6 +5,10 @@
 		{% include latest-post.html %}
 		<a href="/clients/" class="tab{% if page.url == '/clients/' %} current{% endif %}"><span
 				class="tab-longname">Compare </span>WebViews</a>
+		<button type="button" id="theme-toggle" class="theme-toggle" aria-label="Switch to dark mode" aria-live="polite">
+			<span class="theme-toggle-icon" aria-hidden="true">☀️</span>
+			<span class="visually-hidden">Current theme: Light mode</span>
+		</button>
 	</div>
 	<section class="search-wrapper">
 		{% include search.html %}

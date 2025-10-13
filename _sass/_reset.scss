@@ -6,6 +6,19 @@
 	box-sizing: border-box;
 }
 
+// Visually hidden utility class for screen readers
+.visually-hidden {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	padding: 0;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border-width: 0;
+}
+
 :root {
 	color-scheme: dark;
 }
@@ -23,6 +36,12 @@ body {
 	color: #b1b1b3;
 	background: $color-background;
 	scroll-behavior: smooth;
+
+	&.light-mode {
+		color-scheme: light;
+		color: $color-text-light;
+		background: $color-background-light;
+	}
 }
 
 a:active,

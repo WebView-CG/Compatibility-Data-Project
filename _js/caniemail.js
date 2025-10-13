@@ -2,6 +2,7 @@
 layout: null
 permalink: "/assets/js/caniwebview.js"
 ---
+{% include_relative _theme.js %}
 {% include_relative _search.js %}
 {% include_relative _settings.js %}
 {% include_relative _filters.js %}
@@ -11,6 +12,7 @@ permalink: "/assets/js/caniwebview.js"
 class Caniwebview {
 
 	constructor() {
+		this.theme = new Theme();
 		this.search = new Search();
 		this.settings = new Settings();
 		this.filters = new Filters();
