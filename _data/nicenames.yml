@@ -7,7 +7,6 @@ family:
   safari_ios: "Safari Browser"
 platform:
   ios: "iOS"
-  ipados: "iPadOS"
   android: "Android"
   windows: "Windows"
   macos: "macOS"

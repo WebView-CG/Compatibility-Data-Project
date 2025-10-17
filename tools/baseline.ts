@@ -39,9 +39,6 @@ fetch(`http://unpkg.com/@mdn/browser-compat-data@${bcdVersion}/data.json`)
 					},
 					ios: {
 						"*": "u"
-					},
-					ipados: {
-						"*": "u"
 					}
 				},
 				androidwebview: {

@@ -21,9 +21,6 @@ stats: {
         },
         ios: {
             "*": "y"
-        },
-        ipados: {
-            "*": "y"
         }
     },
     androidwebview: {
