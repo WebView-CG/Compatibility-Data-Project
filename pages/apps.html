@@ -5,64 +5,72 @@ permalink: /apps/
 ---
 <div class="post">
 	<section>
-		<h2>CanIAndroidWebView</h2>
-		<p>
-			CanIAndroidWebView is an open source app built to test your content inside Android WebViews.
-			You can try different configurations and see how your content behaves in the <a href="https://developer.android.com/reference/android/webkit/WebView">Android WebView</a>.
-			It's also useful to reproduce issues and report bugs.</p>
-		<p>The app is available on the <a href="https://play.google.com/store/apps/details?id=com.caniwebview.android">Google Play Store</a> and the source
-			code and issue tracker is available on <a href="https://github.com/WebView-CG/CanIAndroidWebView">GitHub</a>.
+		<h2>CanIWebView App</h2>
+		<p style="margin: 15px 0;">
+			<strong>CanIWebView</strong> distributes an open-source app, available on both the <a href="https://play.google.com/store/apps/details?id=com.caniwebview.android">Google Play Store</a> and Apple <a href="https://apps.apple.com/us/app/caniwebview/id6753594838">App Store</a>, that allows you to test your content within the platform's webview. Within the app, you can customize WebView configurations to observe how your content behaves differently.
 		</p>
 
-		<p>If you find a bug in the Android WebView you can submit an issue <a href="https://bugs.chromium.org/p/chromium/issues/entry?template=WebView%20Bug&labels=WebView">on the Chromium issue tracker</a>
-		or <a href="https://issuetracker.google.com/issues/new?component=460423&pli=1&template=1157790">on the Google issue tracker</a>.</p>
+		<p style="margin: 15px 0; padding: 0 0 0 10px; border-left: 2px solid yellow;">Since WebViews like <a href="https://developer.android.com/reference/android/webkit/WebView">Android WebView</a> and <a href="https://developer.apple.com/documentation/webkit/wkwebview">WKWebView on iOS</a> can behave very different, you should test in all environments.</p>
 
-		<a href="https://play.google.com/store/apps/details?id=com.caniwebview.android"
-			style="display: inline-block; padding-top: 20px">
-			<img alt="Get it on Google Play" src="/assets/images/googleplay.png" />
-		</a>
-		<a href="https://f-droid.org/packages/com.caniwebview.android/"
-			style="display: inline-block; padding-top: 20px">
-			<img alt="Get it on F-Droid" src="/assets/images/get-it-on.png"
-				style="width: 270px; height: 80px;" />
-		</a>
+		<p style="margin: 15px 0;">
+			This is especially useful for identifying whether an issue is reproducible, making it easier to share the necessary details when reporting bugs to the appropriate platform's issue tracker. If you discover a bug on either platform, you can submit it using the links below.
+		</p>
+
+		<ul style="margin: 15px 0; padding: 0 20px;">
+			<li>
+				<a href="https://bugs.chromium.org/p/chromium/issues/entry?template=WebView%20Bug&labels=WebView">Google Chromium Issue Tracker</a>
+			</li>
+			<li>
+				<a href="https://bugs.webkit.org/enter_bug.cgi?product=WebKit&component=WebKit%20iOS">WebKit Issue Tracker (Bugzilla)</a>
+			</li>
+		</ul>
+
+		<p style="margin: 15px 0;">
+			The source code and issue tracker for this application are available in the following GitHub repository:
+		</p>
+
+		<ul style="margin: 15px 0; padding: 0 20px;">
+			<li>
+				<a href="https://github.com/WebView-CG/CanIAndroidWebView">Android App Source Code</a>
+			</li>
+			<li>
+				<a href="https://github.com/WebView-CG/CanIWKWebView">iOS App Source Code</a>
+			</li>
+		</ul>
+
+		<div style="display: flex; flex-direction: row; align-items: center; flex-wrap: wrap; justify-content: center;">
+			<a href="https://play.google.com/store/apps/details?id=com.caniwebview.android"
+				style="display: inline-block; padding-top: 20px">
+				<img alt="Get it on Google Play"
+					src="/assets/images/googleplay.png"
+					style="height: 40px; width: auto; max-width: auto;" />
+			</a>
+			<a href="https://f-droid.org/packages/com.caniwebview.android/"
+				style="display: inline-block; padding-top: 20px">
+				<img alt="Get it on F-Droid"
+					src="/assets/images/get-it-on.png"
+					style="width: auto; height: 60px;" />
+			</a>
+
+			<a href="https://apps.apple.com/us/app/caniwebview/id6753594838?itscg=30200&itsct=apps_box_badge&mttnsubad=6753594838"
+				style="display: inline-block; padding-top: 20px">
+				<img src="/assets/images/appstore-black.svg"
+					alt="Download on the App Store"
+					style="width: auto; height: 40px;" />
+			</a>
+		</div>
+
+
 	</section>
 </div>
 
 <div class="post">
 	<section>
-		<h2>CanIWKWebView</h2>
-		<p>
-			CanIWKWebView is an open source app built to test your content inside iOS WebViews.
-			You can try different configurations and see how your content behaves in the <a href="https://developer.apple.com/documentation/webkit/wkwebview">iOS WebView</a>.
-			It's also useful to reproduce issues and report bugs.</p>
-		<p>The app is available on the <a href="https://apps.apple.com/us/app/caniwebview/id6753594838">App Store</a> and the source code and issue tracker is available on <a href="https://github.com/WebView-CG/CanIWKWebView">GitHub</a>.
-		</p>
-
-		<p>If you find a bug in the iOS WebView you can submit an issue <a href="https://developer.apple.com/bug-reporting/">on the Apple bug reporter</a> or 
-		WebKit issue tracker <a href="https://bugs.webkit.org/enter_bug.cgi?product=WebKit&component=WebKit%20iOS">Bugzilla</a>.</p>
-
-		<a href="https://apps.apple.com/us/app/caniwebview/id6753594838?itscg=30200&itsct=apps_box_badge&mttnsubad=6753594838"
-			style="display: inline-block; padding-top: 20px">
-			<img src="/assets/images/appstore-black.svg"
-				alt="Download on the App Store" style="width: 270px; height: 80px; vertical-align: middle; object-fit: contain;" />
-		</a>
-	</section>
-</div>
-
-<div class="post">
-	<section>
-		<h2>CanIWebView2</h2>
-		<p>
-			CanIWWebView2 is an open source app built to test your content inside WebView2.
-			It's also useful to reproduce issues and report bugs.</p>
-		<p>The source code and issue tracker is available on <a
-				href="https://github.com/WebView-CG/CanIWebView2">GitHub</a>.
-		</p>
-
-		<p>If you find a bug in the WebView you can submit an issue <a
-				href="https://github.com/MicrosoftEdge/WebView2Feedback">on the Microsoft Edge WebView2 Feedback repository on GitHub</a>.
-		</p>
+		<h2>Do you use Microsoft Edge's WebView2?</h2>
+		
+		<p>We do not have this app distributed on any marketplace, but the source code is made available to download and compile locally for testing against on WebView2.</p>
+		<p>You can find the source code and issue tracker at our <a href="https://github.com/WebView-CG/CanIWebView2">CanIWebView2</a> GitHub repository.</p>
+		<p>If you find a bug in the WebView you can submit an issue <a href="https://github.com/MicrosoftEdge/WebView2Feedback">on the Microsoft Edge WebView2 Feedback repository on GitHub</a>.</p>
 	</section>
 </div>
 
