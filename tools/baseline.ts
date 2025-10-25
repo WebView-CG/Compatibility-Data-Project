@@ -4,6 +4,7 @@ import { features } from "web-features";
 import { readFileSync } from 'fs';
 import fetch from 'node-fetch';
 import { stdout } from "process";
+import { FeatureData } from "web-features/types.quicktype";
 
 const bcdVersion = readFileSync("bcd_version").toString();
 
@@ -28,7 +29,18 @@ fetch(`http://unpkg.com/@mdn/browser-compat-data@${bcdVersion}/data.json`)
 		const failed = [];
 
 		for (const key in features) {
-			const feature = features[key];
+			let feature: FeatureData = features[key];
+
+			if (feature.kind === 'moved') {
+				//console.info('[Baseline] Feature has moved to following redirect.', key, feature.redirect_target);
+				feature = features[feature.redirect_target];
+			}
+
+			if (feature.kind == 'split') {
+				// Skip split features for now
+				continue
+			}
+
 			let webviewBaseline: WebViewStatus = "unknown";
 			// Default to today if unknown because that's when we "worked it out"
 			let last_test_date = new Date().toISOString().split('T')[0];
@@ -96,6 +108,7 @@ fetch(`http://unpkg.com/@mdn/browser-compat-data@${bcdVersion}/data.json`)
 				// fall back to "unknown".
 				// We should hunt down these cases and bring the
 				// list of impacted features down.
+				console.warn("[Baseline] Failed to compute baseline for", key, e);
 				failed.push(key);
 			}
 
