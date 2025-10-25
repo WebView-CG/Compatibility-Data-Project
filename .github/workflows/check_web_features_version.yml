@@ -91,3 +91,14 @@ jobs:
               });
               console.log(`Created issue #${issue.data.number}`);
             }
+
+      - name: Notify failed build
+        uses: jayqi/failed-build-issue-action@v1
+        if: failure() && github.event.pull_request == null
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          title-template: "web-features version check failed"
+          body-template: |
+            The web-features version check has failed. Please check the workflow for errors.
+
+            Please check the [logs](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}) for more details.
