@@ -200,6 +200,10 @@
 	background-color: #eda745 !important;
 }
 
+.partially-header {
+	color: #eda745 !important;
+}
+
 .score .mitigated {
 	background-image: repeating-linear-gradient(
 		-45deg,
@@ -675,6 +679,17 @@
 		top: rem(-4px);
 		bottom: rem(-4px);
 		background: rgba(255, 255, 255, 0.2);
+	}
+}
+
+.note-tags {
+	display: inline-flex;
+	flex-wrap: wrap;
+	gap: rem(4px);
+	margin-top: rem(4px);
+
+	.tag {
+		font-size: rem(14px);
 	}
 }
 

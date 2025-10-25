@@ -4,9 +4,9 @@
   },
   "dependencies": {
     "@types/node": "^22.7.5",
-    "compute-baseline": "^0.2.0-dev",
+    "compute-baseline": "^0.4.0",
     "node-fetch": "^3.3.2",
     "tsx": "^4.19.1",
-    "web-features": "^2.0.0"
+    "web-features": "^3.6.0"
   }
 }
