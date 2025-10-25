@@ -153,7 +153,7 @@ module Generated
 			doc.data['description'] = feature['description']
 			doc.data['slug'] = feature['slug']
 			doc.data['category'] = feature['category']
-			doc.data['keywords'] = 'todo'
+			doc.data['keywords'] = 'baseline'
 			doc.data['last_test_date'] = feature['last_test_date']
 			doc.data['notes'] = data_source
 			doc.data['links'] = feature['links']

@@ -1,4 +1,4 @@
-import { computeBaseline, coreBrowserSet } from "compute-baseline";
+import { computeBaseline, coreBrowserSet, getStatus } from "compute-baseline";
 import { Compat } from 'compute-baseline/browser-compat-data';
 import { features } from "web-features";
 import { readFileSync } from 'fs';
@@ -89,8 +89,33 @@ fetch(`http://unpkg.com/@mdn/browser-compat-data@${bcdVersion}/data.json`)
 							[support]: 'y'
 						};
 					} else {
-						stats[platform][sub] = {
-							'*': 'n'
+						// The feature is not fully baseline but some keys might not apply to baseline
+						// Therefore we check if any features are suported and then assume partial support
+						// We then show the list on the site for further review
+
+						// Use getStatus to check every key
+						let anySupported = false;
+						const supportedKeys = [];
+						const unsupportedKeys = [];
+						for (const compatKey of feature.compat_features as [string, ...string[]]) {
+							const status = getStatus(feature.name, compatKey, compat);
+							if (status.support && status.support["webview_" + sub]) {
+								anySupported = true;
+								supportedKeys.push(compatKey);
+							} else {
+								unsupportedKeys.push(compatKey);
+							}
+						}
+						if (anySupported) {
+							stats[platform][sub] = {
+								"partial": 'y',
+								"supported_keys": supportedKeys,
+								"unsupported_keys": unsupportedKeys
+							};
+						} else {
+							stats[platform][sub] = {
+								"u": 'n'
+							};
 						}
 					}
 				}
