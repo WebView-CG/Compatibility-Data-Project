@@ -22,7 +22,7 @@ jobs:
         with:
           python-version: "3.10"
 
-      - name: Check for new minor version
+      - name: Check for new version
         id: version_check
         run: |
           if python tools/check_web_features_version.py; then
@@ -41,7 +41,7 @@ jobs:
             fi
           fi
 
-      - name: Create issue for new minor version
+      - name: Create issue for new version
         if: steps.version_check.outputs.new_version == 'true'
         uses: actions/github-script@v7
         with:
@@ -49,9 +49,9 @@ jobs:
             const latestVersion = \
               '${{ steps.version_check.outputs.latest_version }}';
             const title = \
-              `New minor version of web-features available: ${latestVersion}`;
+              `New version of web-features available: ${latestVersion}`;
             const body = \
-              `A new minor version of the \`web-features\` npm package has been published.
+              `A new version of the \`web-features\` npm package has been published.
 
             **Latest version:** ${latestVersion}
 

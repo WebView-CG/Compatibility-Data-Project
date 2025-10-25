@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
 
 '''
-This script checks if a new minor version of the web-features npm package
+This script checks if a new major or minor version of the web-features npm package
 has been published. It compares the current version in package.json with
 the latest version from npm registry.
 
-The script only detects new minor versions (e.g., 2.1.0 -> 2.2.0), not
-major versions (e.g., 2.0.0 -> 3.0.0) or patch versions (e.g., 2.1.0 -> 2.1.1).
+The script detects new major or minor versions (e.g., 2.0.0 -> 3.0.0 or 2.0.0 -> 2.1.0),
+but not patch versions (e.g., 2.1.0 -> 2.1.1).
 
 Exit codes:
-  0 - No new minor version detected
-  1 - New minor version detected
+  0 - No new major or minor version detected
+  1 - New major or minor version detected
   2 - Error occurred
 '''
 
@@ -40,12 +40,13 @@ def parse_version(version_string):
         'patch': int(match.group(3))
     }
 
-def is_new_minor_version(current_version, latest_version):
+def is_new_version(current_version, latest_version):
     """
-    Check if latest_version is a new minor version compared to current_version.
-    Returns True only if:
-    - Major versions are the same
-    - Latest minor version is greater than current minor version
+    Check if latest_version is a new major or minor version compared to current_version.
+    Returns True if:
+    - Major version is greater (e.g., 2.0.0 -> 3.0.0)
+    - OR same major version but minor version is greater (e.g., 2.0.0 -> 2.1.0)
+    Returns False for patch-only updates (e.g., 2.0.0 -> 2.0.1)
     """
     current = parse_version(current_version)
     latest = parse_version(latest_version)
@@ -54,9 +55,10 @@ def is_new_minor_version(current_version, latest_version):
         print(f"Error: Invalid version format. Current: {current_version}, Latest: {latest_version}")
         return False
     
-    # Same major version and greater minor version
-    return (current['major'] == latest['major'] and 
-            latest['minor'] > current['minor'])
+    # Major version increase OR same major but minor version increase
+    return (latest['major'] > current['major'] or 
+            (current['major'] == latest['major'] and 
+             latest['minor'] > current['minor']))
 
 def get_latest_version():
     """Get the latest version of web-features from npm registry."""
@@ -90,11 +92,11 @@ def main():
     print(f"Latest version: {latest_version}")
     print(f"LATEST_VERSION={latest_version}")
     
-    if is_new_minor_version(current_version, latest_version):
-        print(f"New minor version detected: {latest_version}")
+    if is_new_version(current_version, latest_version):
+        print(f"New major or minor version detected: {latest_version}")
         sys.exit(1)
     else:
-        print("No new minor version detected")
+        print("No new major or minor version detected")
         sys.exit(0)
 
 if __name__ == "__main__":
