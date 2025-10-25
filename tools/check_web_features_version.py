@@ -27,7 +27,10 @@ def parse_version(version_string):
     # Remove any leading 'v' or '^' or '~' characters
     version_string = version_string.lstrip('v^~')
     
-    match = re.match(r'^(\d+)\.(\d+)\.(\d+)', version_string)
+    # Handle pre-release versions by splitting on '-' or '+'
+    base_version = version_string.split('-')[0].split('+')[0]
+    
+    match = re.match(r'^(\d+)\.(\d+)\.(\d+)', base_version)
     if not match:
         return None
     
@@ -85,6 +88,7 @@ def main():
     
     print(f"Current version: {current_version}")
     print(f"Latest version: {latest_version}")
+    print(f"LATEST_VERSION={latest_version}")
     
     if is_new_minor_version(current_version, latest_version):
         print(f"New minor version detected: {latest_version}")

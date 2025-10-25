@@ -31,9 +31,9 @@ jobs:
             EXIT_CODE=$?
             if [ $EXIT_CODE -eq 1 ]; then
               echo "new_version=true" >> $GITHUB_OUTPUT
-              # Extract the latest version for the issue
+              # Extract the latest version from the script output
               VERSION=$(python tools/check_web_features_version.py 2>&1 | \
-                grep "Latest version:" | cut -d' ' -f3)
+                grep "^LATEST_VERSION=" | cut -d'=' -f2)
               echo "latest_version=$VERSION" >> $GITHUB_OUTPUT
             else
               echo "Script error occurred"
@@ -76,7 +76,7 @@ jobs:
             });
 
             const existingIssue = issues.data.find(issue =>
-              issue.title.includes(latestVersion)
+              issue.title === title
             );
 
             if (existingIssue) {
