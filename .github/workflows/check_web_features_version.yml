@@ -23,82 +23,28 @@ jobs:
           python-version: "3.10"
 
       - name: Check for new version
-        id: version_check
         run: |
-          if python tools/check_web_features_version.py; then
-            echo "new_version=false" >> $GITHUB_OUTPUT
-          else
-            EXIT_CODE=$?
-            if [ $EXIT_CODE -eq 1 ]; then
-              echo "new_version=true" >> $GITHUB_OUTPUT
-              # Extract the latest version from the script output
-              VERSION=$(python tools/check_web_features_version.py 2>&1 | \
-                grep "^LATEST_VERSION=" | cut -d'=' -f2)
-              echo "latest_version=$VERSION" >> $GITHUB_OUTPUT
-            else
-              echo "Script error occurred"
-              exit 2
-            fi
-          fi
+          python tools/check_web_features_version.py
 
       - name: Create issue for new version
-        if: steps.version_check.outputs.new_version == 'true'
-        uses: actions/github-script@v7
+        uses: jayqi/failed-build-issue-action@v1
+        if: failure() && github.event.pull_request == null
         with:
-          script: |
-            const latestVersion = \
-              '${{ steps.version_check.outputs.latest_version }}';
-            const title = \
-              `New version of web-features available: ${latestVersion}`;
-            const body = \
-              `A new version of the \`web-features\` npm package has been published.
-
-            **Latest version:** ${latestVersion}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          title-template: "New version of web-features available"
+          body-template: |
+            A new version of the `web-features` npm package has been published.
 
             Please review the [changelog](https://github.com/web-platform-dx/web-features/releases) and consider updating the package.
 
             To update:
             1. Review the changes in the new version
-            2. Update the version in \`package.json\`
-            3. Run \`npm install\`
+            2. Update the version in `package.json`
+            3. Run `npm install`
             4. Test the changes
             5. Commit and push the updates
 
             ---
-            _This issue was automatically created by the [Check web-features version workflow](https://github.com/${{ github.repository }}/actions/workflows/check_web_features_version.yml)._`;
-
-            // Check if an issue already exists for this version
-            const issues = await github.rest.issues.listForRepo({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              state: 'open',
-              labels: ['dependencies', 'web-features']
-            });
-
-            const existingIssue = issues.data.find(issue =>
-              issue.title === title
-            );
-
-            if (existingIssue) {
-              console.log(`Issue already exists for version ${latestVersion}: #${existingIssue.number}`);
-            } else {
-              const issue = await github.rest.issues.create({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                title: title,
-                body: body,
-                labels: ['dependencies', 'web-features']
-              });
-              console.log(`Created issue #${issue.data.number}`);
-            }
-
-      - name: Notify failed build
-        uses: jayqi/failed-build-issue-action@v1
-        if: failure() && github.event.pull_request == null
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          title-template: "web-features version check failed"
-          body-template: |
-            The web-features version check has failed. Please check the workflow for errors.
-
-            Please check the [logs](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}) for more details.
+            _This issue was automatically created by the [Check web-features version workflow](https://github.com/${{ github.repository }}/actions/workflows/check_web_features_version.yml)._
+            
+            Please check the [logs](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}) for version details.
