@@ -1,0 +1,93 @@
+name: Check web-features version
+
+on:
+  workflow_dispatch:
+
+  schedule:
+    - cron: '0 0 * * 0'    # Run at 00:00 UTC every Sunday
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check_web_features:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Check for new minor version
+        id: version_check
+        run: |
+          if python tools/check_web_features_version.py; then
+            echo "new_version=false" >> $GITHUB_OUTPUT
+          else
+            EXIT_CODE=$?
+            if [ $EXIT_CODE -eq 1 ]; then
+              echo "new_version=true" >> $GITHUB_OUTPUT
+              # Extract the latest version for the issue
+              VERSION=$(python tools/check_web_features_version.py 2>&1 | \
+                grep "Latest version:" | cut -d' ' -f3)
+              echo "latest_version=$VERSION" >> $GITHUB_OUTPUT
+            else
+              echo "Script error occurred"
+              exit 2
+            fi
+          fi
+
+      - name: Create issue for new minor version
+        if: steps.version_check.outputs.new_version == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const latestVersion = \
+              '${{ steps.version_check.outputs.latest_version }}';
+            const title = \
+              `New minor version of web-features available: ${latestVersion}`;
+            const body = \
+              `A new minor version of the \`web-features\` npm package has been published.
+
+            **Latest version:** ${latestVersion}
+
+            Please review the [changelog](https://github.com/web-platform-dx/web-features/releases) and consider updating the package.
+
+            To update:
+            1. Review the changes in the new version
+            2. Update the version in \`package.json\`
+            3. Run \`npm install\`
+            4. Test the changes
+            5. Commit and push the updates
+
+            ---
+            _This issue was automatically created by the [Check web-features version workflow](https://github.com/${{ github.repository }}/actions/workflows/check_web_features_version.yml)._`;
+
+            // Check if an issue already exists for this version
+            const issues = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: ['dependencies', 'web-features']
+            });
+
+            const existingIssue = issues.data.find(issue =>
+              issue.title.includes(latestVersion)
+            );
+
+            if (existingIssue) {
+              console.log(`Issue already exists for version ${latestVersion}: #${existingIssue.number}`);
+            } else {
+              const issue = await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: title,
+                body: body,
+                labels: ['dependencies', 'web-features']
+              });
+              console.log(`Created issue #${issue.data.number}`);
+            }
