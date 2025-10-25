@@ -108,9 +108,9 @@ fetch(`http://unpkg.com/@mdn/browser-compat-data@${bcdVersion}/data.json`)
 						}
 						if (anySupported) {
 							stats[platform][sub] = {
-								"partial": 'y',
-								"supported_keys": supportedKeys,
-								"unsupported_keys": unsupportedKeys
+								"*": 'a',
+								//"supported_keys": supportedKeys,
+								//"unsupported_keys": unsupportedKeys
 							};
 						} else {
 							stats[platform][sub] = {
