@@ -74,6 +74,7 @@ fetch(`http://unpkg.com/@mdn/browser-compat-data@${bcdVersion}/data.json`)
 					}
 				}
 			};
+			const notes = {};
 
 			try {
 				const computed = computeBaseline({
@@ -109,9 +110,8 @@ fetch(`http://unpkg.com/@mdn/browser-compat-data@${bcdVersion}/data.json`)
 						if (anySupported) {
 							stats[platform][sub] = {
 								"*": 'a',
-								//"supported_keys": supportedKeys,
-								//"unsupported_keys": unsupportedKeys
 							};
+							notes[platform] = unsupportedKeys.join(', ');
 						} else {
 							stats[platform][sub] = {
 								"u": 'n'
@@ -142,9 +142,10 @@ fetch(`http://unpkg.com/@mdn/browser-compat-data@${bcdVersion}/data.json`)
 				slug: 'web-feature-' + key,
 				description: feature.description_html,
 				category: 'web_feature',
-				keywords: '',
+				keywords: 'web-feature',
 				last_test_date,
 				stats,
+				notes_by_num: notes,
 				links: {},
 				baseline: {
 					webviewBaseline,

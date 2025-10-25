@@ -158,6 +158,7 @@ module Generated
 			doc.data['notes'] = data_source
 			doc.data['links'] = feature['links']
 			doc.data['stats'] = feature['stats']
+			doc.data['notes_by_num'] = feature['notes_by_num']
 			doc.data['baseline'] = feature['baseline']
 
 			site.collections['generated_features'].docs << doc
