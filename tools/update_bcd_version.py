@@ -34,6 +34,8 @@ with urllib.request.urlopen(CDN_URL) as raw:
             file.seek(0)
             file.write(version)
             file.truncate()
+
+            # TODO update web features npm package
         else:
             # Exit with a non-zero code so that CI/CD can catch this.
             print("Major version change detected, not updating.")
