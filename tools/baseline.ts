@@ -1,5 +1,4 @@
 import { features, type FeatureDataPlusWebview } from "web-features-plus-webview";
-import { readFileSync } from "fs";
 import { stdout } from "process";
 
 type WebViewStatus = boolean | "high" | "low" | "unknown";
