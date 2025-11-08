@@ -9,16 +9,6 @@ const failed = [];
 for (const key in features) {
 	let feature: FeatureDataPlusWebview = features[key];
 
-	if (feature.kind === 'moved') {
-		//console.info('[Baseline] Feature has moved to following redirect.', key, feature.redirect_target);
-		feature = features[feature.redirect_target];
-	}
-
-	if (feature.kind == 'split') {
-		// Skip split features for now
-		continue
-	}
-
 	let webviewBaseline: WebViewStatus = "unknown";
 	// Default to today if unknown because that's when we "worked it out"
 	let last_test_date = new Date().toISOString().split('T')[0];
@@ -55,32 +45,52 @@ for (const key in features) {
 	const notes = {};
 
 	try {
-		webviewBaseline = feature.webview_support.all;
+		const fullStatus = feature.webview_support.all;
+
+		if (fullStatus === 'supported') {
+			webviewBaseline = true;
+		} else {
+			webviewBaseline = false;
+		}
+
+		const setVersionWebView = (platform, sub, support) => {
+			if (support === 'supported') {
+				stats[platform][sub] = {
+					"*": 'y'
+				};
+			} else {
+				// The feature is not fully baseline but some keys might not apply to baseline
+				const unsupportedKeys = feature.webview_support[`${sub}_unsupported_compat_features`];
+				if (support === 'partial') {
+					stats[platform][sub] = {
+						"*": 'a',
+					};
+					if (unsupportedKeys.length > 0) {
+						notes[platform] = unsupportedKeys.join(', ');
+					}
+				} else {
+					stats[platform][sub] = {
+						"*": 'n'
+					};
+				}
+			}
+		}
+
 		const setVersion = (platform, sub, support) => {
 			if (support) {
 				stats[platform][sub] = {
 					[support]: 'y'
 				};
 			} else {
-				// The feature is not fully baseline but some keys might not apply to baseline
-				let anySupported = false;
-				const unsupportedKeys = feature.webview_support[`${platform}_unsupported_compat_features`];
-				if (anySupported) {
-					stats[platform][sub] = {
-						"*": 'a',
-					};
-					notes[platform] = unsupportedKeys.join(', ');
-				} else {
-					stats[platform][sub] = {
-						"u": 'n'
-					};
+				stats[platform][sub] = {
+					'*': 'n'
 				}
 			}
 		}
 
-		setVersion('wkwebview', 'ios',
+		setVersionWebView('wkwebview', 'ios',
 			feature.webview_support.ios);
-		setVersion('androidwebview', 'android',
+		setVersionWebView('androidwebview', 'android',
 			feature.webview_support.android);
 		setVersion('chrome_android', 'android',
 			feature.status.support.chrome_android);
@@ -95,6 +105,11 @@ for (const key in features) {
 		failed.push(key);
 	}
 
+	if (!feature.name) {
+		console.warn("[Baseline] Missing name for", key);
+		continue;
+	}
+
 	baseline.push({
 		title: feature.name,
 		slug: 'web-feature-' + key,
@@ -107,7 +122,7 @@ for (const key in features) {
 		links: {},
 		baseline: {
 			webviewBaseline,
-			baseline: feature.status.baseline,
+			baseline: feature.status?.baseline,
 		}
 	});
 }
