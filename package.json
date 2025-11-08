@@ -3,6 +3,7 @@
     "baseline": "tsx tools/baseline.ts"
   },
   "dependencies": {
+    "@mdn/browser-compat-data": "^7.1.20",
     "@types/node": "^22.7.5",
     "tsx": "^4.19.1",
     "typescript": "^5.9.3",
