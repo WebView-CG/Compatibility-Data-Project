@@ -9,9 +9,6 @@ periodically update the version of this repository.
 '''
 
 import urllib.request, json
-import os
-import subprocess
-from pathlib import Path
 
 CDN_URL = "https://unpkg.com/web-features/package.json"
 VERSION_FILE = "bcd_version"
@@ -38,14 +35,7 @@ with urllib.request.urlopen(CDN_URL) as raw:
             file.write(version)
             file.truncate()
 
-            # Run `npm update web-features` at the repository root to refresh package-lock.json
-            try:
-                repo_root = Path(__file__).resolve().parent.parent
-                subprocess.run(["npm", "update", "web-features"], cwd=str(repo_root), check=True)
-            except Exception as e:
-                print(f"Warning: failed to run 'npm update web-features': {e}")
-                exit(1)
-            
+            # TODO update web features & bcd npm packages
         else:
             # Exit with a non-zero code so that CI/CD can catch this.
             print("Major version change detected, not updating.")
