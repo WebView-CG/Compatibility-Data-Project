@@ -3,10 +3,10 @@
     "baseline": "tsx tools/baseline.ts"
   },
   "dependencies": {
+    "@mdn/browser-compat-data": "^7.1.20",
     "@types/node": "^22.7.5",
-    "compute-baseline": "^0.2.0-dev",
-    "node-fetch": "^3.3.2",
     "tsx": "^4.19.1",
-    "web-features": "^2.0.0"
+    "typescript": "^5.9.3",
+    "web-features-plus-webview": "github:niklasmerz/web-features-plus-webview"
   }
 }

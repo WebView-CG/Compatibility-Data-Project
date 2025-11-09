@@ -176,19 +176,26 @@ layout: default
 		<div class="data-notes">
 			{% if has-page-notes == true or page.notes_by_num.size > 0 %}
 			<h2 class="list-title">Notes</h2>
-			{% if has-page-notes == true %}
-			{{ page.notes | markdownify }}
-			{% endif %}
 			{% if page.notes_by_num.size > 0 %}
+			<h3 class="list-subtitle">Unsupported keys in WebViews</h3>
 			<ul class="data-notes-list">
 				{% for note in page.notes_by_num %}
 				{% assign note-key = note | first %}
 				{% assign note-value = note | last %}
 				<li class="data-note" id="{{ page.slug }}-cite-note-{{ note-key | slugify }}">
-					<span class="data-note-key">{{ note-key }}</span> {{ note-value | markdownify }}
+					<b>{{ site.data.nicenames.family[note-key] }}:</b>
+					<div class="note-tags">
+						{% assign note-items = note-value | split: ',' %}
+						{% for item in note-items %}
+							<span class="tag unsupported">{{ item | strip }}</span>
+						{% endfor %}
+					</div>
 				</li>
 				{% endfor %}
 			</ul>
+			{% endif %}
+			{% if has-page-notes == true %}
+			{{ page.notes | markdownify }}
 			{% endif %}
 			{% endif %}
 			{% if page.links.size > 0 %}
