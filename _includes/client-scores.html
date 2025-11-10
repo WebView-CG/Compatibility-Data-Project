@@ -10,7 +10,7 @@ Building an array of the global score pour each client family.
 {% comment %}
 1. We go through each existing feature.
 {% endcomment %}
-{% assign features = site.features | concat: site.generated_features %}
+{% assign features = site.features | concat: site.generated_features | where: "category", "web_feature" %}
 {% for feature in features %}
 {% assign feature-stats = feature.stats %}
 {% comment %}
@@ -148,7 +148,7 @@ append:client-scores-families[i] %}
 {% endcomment %}
 <ul class="scoreboard">
 	{% assign client-scores-limit = include.limit | default: 999 %}
-	{% assign number-of-features = site.features.size | plus: site.generated_features.size | times: 1 %}
+	{% assign number-of-features = features.size | times: 1 %}
 	{% assign half-number-of-features = number-of-features | divided_by: 2 %}
 	{% for client in client-scores-families limit:client-scores-limit %}
 	{% assign i = forloop.index | minus:1 %}
@@ -162,6 +162,9 @@ append:client-scores-families[i] %}
 		{% assign client-scores-n-number = client-scores-n[i] | times: 1 %}
 		{% assign client-number-of-features = client-scores-y-number | plus: client-scores-a-number | plus:
 		client-scores-n-number %}
+		{% if client-number-of-features == 0 %}
+			{% continue %}
+		{% endif %}
 		{% assign client-scores-u-number = number-of-features | minus: client-number-of-features %}
 
 		{% assign client-scores-y-percent = client-scores-y[i] | times: 100 | divided_by: number-of-features | round: 2 %}
