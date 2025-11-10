@@ -1,0 +1,50 @@
+name: Check web-features version
+
+on:
+  workflow_dispatch:
+
+  schedule:
+    - cron: '0 0 * * 0'    # Run at 00:00 UTC every Sunday
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check_web_features:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Check for new version
+        run: |
+          python tools/check_web_features_version.py
+
+      - name: Create issue for new version
+        uses: jayqi/failed-build-issue-action@v1
+        if: failure() && github.event.pull_request == null
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          title-template: "New version of web-features available"
+          body-template: |
+            A new version of the `web-features` npm package has been published.
+
+            Please review the [changelog](https://github.com/web-platform-dx/web-features/releases) and consider updating the package.
+
+            To update:
+            1. Review the changes in the new version
+            2. Update the version in `package.json`
+            3. Run `npm install`
+            4. Test the changes
+            5. Commit and push the updates
+
+            ---
+            _This issue was automatically created by the [Check web-features version workflow](https://github.com/${{ github.repository }}/actions/workflows/check_web_features_version.yml)._
+            
+            Please check the [logs](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}) for version details.
