@@ -9,7 +9,10 @@ permalink: /scoreboard/
 		<p>
 			{% assign features = site.features | concat: site.generated_features | where: "category", "web_feature" %}
 			This page ranks WebViews based on their support among the <b>{{ features.size | default: "many" }}</b>
-			web-features in Baseline.
+			web-features in <a href="https://web.dev/baseline/">Baseline</a>.
+		</p>
+		<p>
+			The <a href="/baseline/">Baseline page</a> shows you support comparison for WebViews and the mobile browsers.
 		</p>
 	</div>
 	{% include client-scores.html %}
