@@ -10,7 +10,7 @@ periodically update the version of this repository.
 
 import urllib.request, json
 
-CDN_URL = "https://unpkg.com/web-features/package.json"
+CDN_URL = "https://unpkg.com/@mdn/browser-compat-data/data.json"
 VERSION_FILE = "bcd_version"
 
 # We are going to respect semantic versioning and only
@@ -27,7 +27,7 @@ def validateNotMajor(prevVersion, nextVersion):
 
 with urllib.request.urlopen(CDN_URL) as raw:
     data = json.load(raw)
-    version = data["version"]
+    version = data["__meta"]["version"]
 
     with open(VERSION_FILE, "r+") as file:
         if (validateNotMajor(file.read(), version)):
