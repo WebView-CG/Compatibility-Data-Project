@@ -8,7 +8,9 @@ We do this so that we can version lock the repo and rather
 periodically update the version of this repository.
 '''
 
-import urllib.request, json
+import urllib.request
+import json
+from version_utils import is_same_major_version
 
 CDN_URL = "https://unpkg.com/@mdn/browser-compat-data/data.json"
 VERSION_FILE = "bcd_version"
@@ -17,20 +19,14 @@ VERSION_FILE = "bcd_version"
 # auto update the version if it is not a major version increase.
 # This will help us avoid accidentally breaking the site
 # without any human intervention.
-def validateNotMajor(prevVersion, nextVersion):
-    prevVersion = prevVersion.split(".")
-    nextVersion = nextVersion.split(".")
-
-    return (len(prevVersion) == 3 and
-            len(nextVersion) == 3 and
-            prevVersion[0] == nextVersion[0])
 
 with urllib.request.urlopen(CDN_URL) as raw:
     data = json.load(raw)
     version = data["__meta"]["version"]
 
     with open(VERSION_FILE, "r+") as file:
-        if (validateNotMajor(file.read(), version)):
+        current_version = file.read()
+        if is_same_major_version(current_version, version):
             file.seek(0)
             file.write(version)
             file.truncate()
