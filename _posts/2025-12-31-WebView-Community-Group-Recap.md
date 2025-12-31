@@ -17,6 +17,12 @@ caniwebview\.com got many small usability improvements, new features, and data t
 
 The idea of building simple native apps for developers to test their content in WebViews came up a long time ago. With support from [NLnet's NGI Mobifree fund](https://nlnet.nl/project/W3CWebview-tooling/), we managed to build and publish [CanIWebView apps](https://caniwebview.com/apps) for Android and iOS. A version for WebView2 is available to build yourself. These apps allow you to test different configurations of WebViews and investigate possible issues. In the future, we might add automated testing capabilities to these apps to update our WebView support data in [BCD](https://developer.mozilla.org/en-US/docs/MDN/Writing_guidelines/Page_structures/Compatibility_tables).
 
+### Defining WebViews and user agents
+
+Although the community group has been working on this for some time now there never has been a perfect definition what a WebView is and how it relates to browsers and other user agents. We've had a [good discussion](https://lists.w3.org/Archives/Public/public-webview/2025May/0000.html) on possible ways of defining a WebView, but there is now consensus, yet. Maybe we'll find a good definition next year. 
+
+The [W3C Technical Architecture Group](https://tag.w3.org/) is working on draft finding about what an user agent is. WebViews again sit in a weird spot where they can be a user agent but not in every use case. We've contributed [feedback to the section about pieces of an application that can be a user agent](https://github.com/w3ctag/user-agents/pull/21).
+
 ### Lots of Opportunities at TPAC 2025 in Kobe
 
 I was fortunate to be at [TPAC](https://www.w3.org/2025/11/TPAC/) again in person and wrote about that in detail on my [blog](https://blog.merzlabs.com/posts/webview-tpac2025/).
