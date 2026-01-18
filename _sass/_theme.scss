@@ -39,6 +39,11 @@ body.light-mode {
 		color: $color-text-light;
 	}
 
+	// Keep filter section heading white (dark background)
+	.filter h2.settings-title {
+		color: #fff;
+	}
+
 	// Tables
 	table {
 		background: $feature-color-light;
@@ -76,6 +81,10 @@ body.light-mode {
 		}
 	}
 
+	.search-category-button {
+		background-color: $feature-color-light;
+	}
+
 	// Lists
 	.list-item {
 		background: $feature-color-light;
@@ -94,4 +103,33 @@ body.light-mode {
 			color: #fff;
 		}
 	}
+
+	// Comparison table
+
+	.clients-comparison-table {
+		tbody > tr > th {
+			background-color: $feature-color-light;
+			color: $color-text-light;
+
+			a {
+				color: $color-text-light;
+			}
+		}
+
+		tbody td,
+		thead td {
+			background-color: $feature-color-light;
+			color: $color-text-light;
+		}
+
+		.data-family-name{
+			color: $color-text-light;
+		}
+	}
+
+
+	.post--client .post-title .client-name {
+		color: #333333 !important;
+	}
+
 }
