@@ -5,6 +5,46 @@ module Generated
     class FeaturesGenerator < Jekyll::Generator
       safe true
 
+	  def getBugTrackerLabel(url)
+		if url.include?('crbug.com') || url.include?('bugs.chromium.org')
+			"Chromium issue tracker"
+		elsif url.include?('webkit.org') || url.include?('bugs.webkit.org')
+			"WebKit issue tracker"
+		elsif url.include?('bugzil.la') || url.include?('bugzilla.mozilla.org')
+			"Firefox issue tracker"
+		else
+			"Issue tracker"
+		end
+	  end
+
+	  def getImplUrls(feature)
+		platforms = ['webview_ios', 'webview_android', 'chrome_android', 'safari_ios']
+		urls = []
+
+		platforms.each do |platform|
+			next unless feature['__compat']['support'].key?(platform)
+			support = feature['__compat']['support'][platform]
+			entries = support.kind_of?(Array) ? support : [support]
+			entries.each do |entry|
+				next unless entry.kind_of?(Hash) && entry.key?('impl_url')
+				url_list = entry['impl_url'].kind_of?(Array) ? entry['impl_url'] : [entry['impl_url']]
+				urls.concat(url_list)
+			end
+		end
+
+		urls.uniq!
+		tracker_counts = Hash.new(0)
+		result = {}
+		urls.each do |url|
+			base_label = getBugTrackerLabel(url)
+			tracker_counts[base_label] += 1
+			count = tracker_counts[base_label]
+			label = count > 1 ? "#{base_label} (#{count})" : base_label
+			result[label] = url
+		end
+		result
+	  end
+
 	  def getVersions(feature, platform)
 		if !feature['__compat']["support"].key?(platform) then
 			return {
@@ -68,9 +108,12 @@ module Generated
 			doc.data['keywords'] = 'todo'
 			doc.data['last_test_date'] = timestamp
 			doc.data['notes'] = data_source
-			doc.data['links'] = feature["__compat"].key?("mdn_url") ? {
+			links = feature["__compat"].key?("mdn_url") ? {
 				"MDN reference" => feature["__compat"]["mdn_url"]
 			} : {}
+			impl_urls = getImplUrls(feature)
+			doc.data['links'] = links.merge(impl_urls)
+			doc.data['has_impl_urls'] = !impl_urls.empty?
 			doc.data['stats'] = {
 				"wkwebview" => {
 					"macos" => {
