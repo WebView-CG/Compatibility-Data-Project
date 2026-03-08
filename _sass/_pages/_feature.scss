@@ -531,6 +531,23 @@
 	}
 }
 
+.hint-tracker {
+	padding: rem(12px) rem(32px);
+	font-size: rem(14px);
+	line-height: 1.5;
+	color: rgba(255, 255, 255, 0.7);
+	border-top: 1px solid #3c3c3d;
+
+	a {
+		color: inherit;
+		text-decoration: underline;
+
+		&:hover, &:focus {
+			color: #fff;
+		}
+	}
+}
+
 .data-version-notes {
 	position: absolute;
 	left: 0;

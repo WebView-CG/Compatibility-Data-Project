@@ -66,6 +66,7 @@ layout: default
 			{% comment %}
 			4. Let's start the loop!
 			{% endcomment %}
+			{% assign has-unsupported = false -%}
 			{% for family in page-families-in-order %}
 			{% assign family-key = family -%}
 			{% assign family-values = page.stats[family] -%}
@@ -107,6 +108,7 @@ layout: default
 										{% assign stat-class-name = 'supported' -%}
 									{% when 'n' %}
 										{% assign stat-class-name = 'unsupported' -%}
+										{% assign has-unsupported = true -%}
 									{% when 'a' %}
 										{% assign stat-class-name = 'mitigated' -%}
 									{% when 'u' %}
@@ -167,6 +169,9 @@ layout: default
 			{% endfor %}
 		</div>
 	</div>
+	{% if has-unsupported and page.has_impl_urls %}
+	<p class="hint-tracker">Please check the <a href="#resources">resources section</a> for links to the issue tracker. They often provide a feature to upvote issues and show your support.</p>
+	{% endif %}
 	<footer class="feature-footer">
 		{% assign has-page-notes = false -%}
 		{% if page.notes != nil and page.notes != "" %}
@@ -199,7 +204,7 @@ layout: default
 			{% endif %}
 			{% endif %}
 			{% if page.links.size > 0 %}
-			<h2 class="list-title">Resources</h2>
+			<h2 class="list-title" id="resources">Resources</h2>
 			<ul class="list">
 				{% for link in page.links %}
 				{% assign link-title = link | first -%}
