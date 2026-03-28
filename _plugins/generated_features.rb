@@ -1,5 +1,6 @@
 require 'httparty'
 require 'json'
+require 'time'
 
 module Generated
     class FeaturesGenerator < Jekyll::Generator
@@ -110,6 +111,19 @@ module Generated
 		bcd_map
 	  end
 
+	  def extract_version_from_results(parsed, file_name)
+		# WPE format: testrun_timestamp_end (Unix seconds) in metadata
+		if parsed.is_a?(Hash) && parsed.key?('metadata') &&
+		   parsed['metadata'].key?('testrun_timestamp_end')
+			return Time.at(parsed['metadata']['testrun_timestamp_end']).utc.strftime('%Y-%m-%d')
+		end
+		# Date embedded in filename (e.g. latest-wpe...-2026-03-27T...)
+		if file_name =~ /(\d{4}-\d{2}-\d{2})/
+			return $1
+		end
+		nil
+	  end
+
 	  def try_fix_truncated_json(content)
 		# If a file is truncated mid-JSON, find the last complete entry (ends with },\n)
 		# and close the results object and root object after it.
@@ -139,10 +153,20 @@ module Generated
 					try_fix_truncated_json(content)
 				end
 				next unless parsed
+				version = extract_version_from_results(parsed, name) || 'latest'
+				source_url = file['html_url']
 				if name.start_with?('latest-wpewebkit')
-					results['wpe_minibrowser'] = parse_wpe_results(parsed)
+					results['wpe_minibrowser'] = {
+						'results' => parse_wpe_results(parsed),
+						'version' => version,
+						'source_url' => source_url,
+					}
 				elsif name.start_with?('latest-servo')
-					results['servo'] = parse_servo_results(parsed)
+					results['servo'] = {
+						'results' => parse_servo_results(parsed),
+						'version' => version,
+						'source_url' => source_url,
+					}
 				end
 			rescue => e
 				Jekyll.logger.warn "webview-bcd-results:", "Failed to process #{name}: #{e.message}"
@@ -206,10 +230,11 @@ module Generated
 					"ios" => getVersions(feature, "safari_ios")
 				},
 			}
-			latest_results.each do |client, result_map|
+			latest_results.each do |client, data|
 				platform = client == "wpe_minibrowser" ? "linux" : "android"
-				support = result_map.fetch(bcd_key, "u")
-				stats[client] = { platform => { "latest" => support } }
+				support = data['results'].fetch(bcd_key, "u")
+				version = data['version']
+				stats[client] = { platform => { version => support } }
 			end
 			doc.data['stats'] = stats
 
@@ -218,13 +243,22 @@ module Generated
 	  end
 
 	  def generate_bcd(site)
-		version = File.read("bcd_version")
+		version = File.read("bcd_version").strip
         bcd = HTTParty.get("http://unpkg.com/@mdn/browser-compat-data@#{version}/data.json").body
         parsed_bcd = JSON.parse(bcd)
 
 		timestamp = parsed_bcd['__meta']['timestamp']
+		site.data['bcd_version'] = version
 
 		latest_results = fetch_latest_webview_results()
+
+		site.data['bcd_test_meta'] = {}
+		latest_results.each do |client, data|
+			site.data['bcd_test_meta'][client] = {
+				'version' => data['version'],
+				'source_url' => data['source_url'],
+			}
+		end
 
 		generate_bcd_from_section(site, parsed_bcd['api'],
 				timestamp, "js", "", "api", latest_results)
