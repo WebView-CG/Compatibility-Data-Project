@@ -27,8 +27,14 @@ class Settings {
 		const settingsString = this.getLocalStorage();
 		if (settingsString && settingsString !== '') {
 			const settings = settingsString.split('&');
+			// Collect the client names that have an explicit saved state.
+			// Clients added after the settings were last saved will not be in this
+			// set and should keep their HTML defaults (checked if webview: true).
+			const savedNames = new Set(settings.map(s => s.split('=')[0]));
 			this.panel.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-				checkbox.checked = false;
+				if (savedNames.has(checkbox.name)) {
+					checkbox.checked = false;
+				}
 			});
 			if (settings.length > 0) {
 				settings.forEach(setting => {

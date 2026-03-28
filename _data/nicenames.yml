@@ -5,11 +5,14 @@ family:
   webview2: "WebView2"
   chrome_android: "Chrome Browser"
   safari_ios: "Safari Browser"
+  wpe_minibrowser: "WPE MiniBrowser"
+  servo: "Servo"
 platform:
   ios: "iOS"
   android: "Android"
   windows: "Windows"
   macos: "macOS"
+  linux: "Linux"
 support:
   supported: "Supported"
   mitigated: "Partial support"

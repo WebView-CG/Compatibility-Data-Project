@@ -85,14 +85,84 @@ module Generated
 		}
 	  end
 
-	  def generate_bcd_from_section(site, section, timestamp, category, appended_title = "")
-		section.keys.each do |title|
+	  def parse_wpe_results(parsed)
+		bcd_map = {}
+		return bcd_map unless parsed.key?('results')
+		parsed['results'].each do |bcd_key, data|
+			next unless data.kind_of?(Hash) && data.key?('pass')
+			bcd_map[bcd_key] = data['pass'].include?('Window') ? 'y' : 'n'
+		end
+		bcd_map
+	  end
+
+	  def parse_servo_results(parsed)
+		bcd_map = {}
+		return bcd_map unless parsed.key?('results')
+		parsed['results'].each do |_url, tests|
+			next unless tests.kind_of?(Array)
+			tests.each do |test|
+				next unless test['exposure'] == 'Window'
+				key = test['name']
+				next if bcd_map.key?(key)
+				bcd_map[key] = test['result'] == true ? 'y' : 'n'
+			end
+		end
+		bcd_map
+	  end
+
+	  def try_fix_truncated_json(content)
+		# If a file is truncated mid-JSON, find the last complete entry (ends with },\n)
+		# and close the results object and root object after it.
+		last_complete = content.rindex(/\},\s*\n/)
+		return nil unless last_complete
+		fixed = content[0...last_complete + 1] + "\n }\n}"
+		JSON.parse(fixed)
+	  rescue JSON::ParserError
+		nil
+	  end
+
+	  def fetch_latest_webview_results
+		api_url = "https://api.github.com/repos/WebView-CG/webview-bcd-results/contents/results"
+		response = HTTParty.get(api_url, headers: { "User-Agent" => "CanIWebView-build" })
+		files = JSON.parse(response.body)
+		results = {}
+		files.each do |file|
+			name = file['name']
+			next unless name.start_with?('latest-')
+			next if name == 'latest-android.json'
+			begin
+				content = HTTParty.get(file['download_url']).body
+				parsed = begin
+					JSON.parse(content)
+				rescue JSON::ParserError
+					Jekyll.logger.warn "webview-bcd-results:", "#{name} appears truncated, attempting partial parse"
+					try_fix_truncated_json(content)
+				end
+				next unless parsed
+				if name.start_with?('latest-wpewebkit')
+					results['wpe_minibrowser'] = parse_wpe_results(parsed)
+				elsif name.start_with?('latest-servo')
+					results['servo'] = parse_servo_results(parsed)
+				end
+			rescue => e
+				Jekyll.logger.warn "webview-bcd-results:", "Failed to process #{name}: #{e.message}"
+			end
+		end
+		results
+	  rescue => e
+		Jekyll.logger.warn "webview-bcd-results:", "Failed to fetch latest results: #{e.message}"
+		{}
+	  end
+
+	  def generate_bcd_from_section(site, section, timestamp, category, appended_title = "", bcd_prefix = "", latest_results = {})
+		section.keys.each do |key|
 			# We skip potential special keys since we can iterate over sub sections
-			next unless title.index("__") != 0
+			next unless key.index("__") != 0
 
-			feature = section[title]
+			feature = section[key]
 
-			title = "#{appended_title}#{title}"
+			bcd_key = bcd_prefix.empty? ? key : "#{bcd_prefix}.#{key}"
+			title = "#{appended_title}#{key}"
 			slug = "mdn-#{title.downcase.strip.gsub('-', '').gsub(/[\_|\s]/, '-').gsub(':', '')}"
 			path = site.in_source_dir("_generated_features/#{slug}.md")
 			doc = Jekyll::Document.new(path, {
@@ -114,7 +184,7 @@ module Generated
 			impl_urls = getImplUrls(feature)
 			doc.data['links'] = links.merge(impl_urls)
 			doc.data['has_impl_urls'] = !impl_urls.empty?
-			doc.data['stats'] = {
+			stats = {
 				"wkwebview" => {
 					"macos" => {
 					"*" => "u"
@@ -136,6 +206,12 @@ module Generated
 					"ios" => getVersions(feature, "safari_ios")
 				},
 			}
+			latest_results.each do |client, result_map|
+				platform = client == "wpe_minibrowser" ? "linux" : "android"
+				support = result_map.fetch(bcd_key, "u")
+				stats[client] = { platform => { "latest" => support } }
+			end
+			doc.data['stats'] = stats
 
 			site.collections['generated_features'].docs << doc
 		end
@@ -148,30 +224,32 @@ module Generated
 
 		timestamp = parsed_bcd['__meta']['timestamp']
 
+		latest_results = fetch_latest_webview_results()
+
 		generate_bcd_from_section(site, parsed_bcd['api'],
-				timestamp, "js")
+				timestamp, "js", "", "api", latest_results)
 		generate_bcd_from_section(site, parsed_bcd['javascript']['builtins'],
-				timestamp, "js", "JavaScript built-in: ")
+				timestamp, "js", "JavaScript built-in: ", "javascript.builtins", latest_results)
 		generate_bcd_from_section(site, parsed_bcd['html']['elements'],
-				timestamp, "html", "HTML element: ")
+				timestamp, "html", "HTML element: ", "html.elements", latest_results)
 		generate_bcd_from_section(site, parsed_bcd['html']['global_attributes'],
-				timestamp, "html", "HTML attribute: ")
+				timestamp, "html", "HTML attribute: ", "html.global_attributes", latest_results)
 		generate_bcd_from_section(site, parsed_bcd['manifests']['webapp'],
-				timestamp, "html", "HTML manifest: ")
+				timestamp, "html", "HTML manifest: ", "manifests.webapp", latest_results)
 		generate_bcd_from_section(site, parsed_bcd['css']['selectors'],
-				timestamp, "css", "CSS selector: ")
+				timestamp, "css", "CSS selector: ", "css.selectors", latest_results)
 		generate_bcd_from_section(site, parsed_bcd['css']['properties'],
-				timestamp, "css", "CSS property: ")
+				timestamp, "css", "CSS property: ", "css.properties", latest_results)
 		generate_bcd_from_section(site, parsed_bcd['http']['headers'],
-				timestamp, "http", "HTTP header: ")
+				timestamp, "http", "HTTP header: ", "http.headers", latest_results)
 		generate_bcd_from_section(site, parsed_bcd['http']['status'],
-				timestamp, "http", "HTTP status code: ")
+				timestamp, "http", "HTTP status code: ", "http.status", latest_results)
 
 		# The css types can have sub fields so we iterate over these and then
 		# generate sections.
 		parsed_bcd['css']['types'].keys.each do |type|
 			generate_bcd_from_section(site, parsed_bcd['css']['types'][type],
-				timestamp, "css", "CSS type: #{type}: ")
+				timestamp, "css", "CSS type: #{type}: ", "css.types.#{type}", latest_results)
 		end
 	  end
 
