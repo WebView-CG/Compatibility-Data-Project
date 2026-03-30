@@ -3,4 +3,4 @@ platforms: [android]
 display_order: 5
 webview: true
 ---
-Servo is an experimental browser engine written in Rust.
+Servo aims to empower developers with a lightweight, high-performance alternative for embedding web technologies in applications.
