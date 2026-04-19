@@ -83,6 +83,7 @@ layout: default
 						{% endif %}
 					</span>
 				</h3>
+				{% assign bcd-test-meta = site.data.bcd_test_meta[family-key] %}
 				<div class="data-client-list">
 					{% if family-values != nil %}
 					{% for platform in family-values %}
@@ -117,7 +118,14 @@ layout: default
 										{% assign stat-class-name = '' -%}
 								{% endcase %}
 								<div class="data-version {{ stat-class-name }}">
-									<span class="data-version-number">{{ version-key }}</span>
+									{% if bcd-test-meta %}
+									<a class="data-version-number" href="{{ bcd-test-meta.source_url }}"
+										title="Support data from automated BCD compatibility tests"
+										target="_blank" rel="noopener noreferrer">{{ version-key }}</a>
+									{% else %}
+									<span class="data-version-number"
+										{% if site.data.bcd_version %}title="From BCD package version {{ site.data.bcd_version }}"{% endif %}>{{ version-key }}</span>
+									{% endif %}
 									<span class="data-version-badge {{ stat-class-name }}"
 										aria-label="{{ site.data.nicenames.support[stat-class-name] }}"></span>
 									{% if version-notes.size > 0 %}
