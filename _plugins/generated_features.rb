@@ -126,17 +126,9 @@ module Generated
 		nil
 	  end
 
-	  def extract_version_from_results(parsed, file_name)
-		# WPE format: testrun_timestamp_end (Unix seconds) in metadata
-		if parsed.is_a?(Hash) && parsed.key?('metadata') &&
-		   parsed['metadata'].key?('testrun_timestamp_end')
-			return Time.at(parsed['metadata']['testrun_timestamp_end']).utc.strftime('%Y-%m-%d')
-		end
-		# Date embedded in filename (e.g. latest-wpe...-2026-03-27T...)
-		if file_name =~ /(\d{4}-\d{2}-\d{2})/
-			return $1
-		end
-		nil
+	  def extract_version_from_results(file_name)
+		# Date embedded in filename (e.g. latest-servo-2026-03-27.json)
+		file_name =~ /(\d{4}-\d{2}-\d{2})/ ? $1 : nil
 	  end
 
 	  def fetch_latest_webview_results
@@ -157,7 +149,7 @@ module Generated
 			begin
 				content = HTTParty.get(file['download_url']).body
 				parsed = JSON.parse(content)
-				version = extract_version_from_results(parsed, name) || 'latest'
+				version = extract_version_from_results(name) || 'latest'
 				results['servo'] = {
 					'results' => parse_bcd_collector_results(parsed),
 					'version' => version,
@@ -247,13 +239,7 @@ module Generated
 
 		latest_results = fetch_latest_webview_results()
 
-		site.data['bcd_test_meta'] = {}
-		latest_results.each do |client, data|
-			site.data['bcd_test_meta'][client] = {
-				'version' => data['version'],
-				'source_url' => data['source_url'],
-			}
-		end
+		site.data['bcd_test_meta'] = latest_results
 
 		generate_bcd_from_section(site, parsed_bcd['api'],
 				timestamp, "js", "", "api", latest_results)
