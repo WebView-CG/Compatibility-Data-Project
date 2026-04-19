@@ -86,17 +86,9 @@ module Generated
 		}
 	  end
 
-	  def parse_wpe_results(parsed)
-		bcd_map = {}
-		return bcd_map unless parsed.key?('results')
-		parsed['results'].each do |bcd_key, data|
-			next unless data.kind_of?(Hash) && data.key?('pass')
-			bcd_map[bcd_key] = data['pass'].include?('Window') ? 'y' : 'n'
-		end
-		bcd_map
-	  end
-
-	  def parse_servo_results(parsed)
+	  def parse_bcd_collector_results(parsed)
+		# Raw mdn-bcd-collector output: results is keyed by test URL → array of
+		# { exposure, name, result } entries. We only record Window-exposed results.
 		bcd_map = {}
 		return bcd_map unless parsed.key?('results')
 		parsed['results'].each do |_url, tests|
@@ -109,6 +101,29 @@ module Generated
 			end
 		end
 		bcd_map
+	  end
+
+	  def fetch_wpe_minibrowser_results
+		distilled_url = "https://wpewebkit.org/wptreport-distilled-data/bcd_results-wpewebkit_minibrowser-nightly-tot.json"
+		distilled = JSON.parse(HTTParty.get(distilled_url).body)
+		metadata = distilled['metadata'] || {}
+		source_urls = metadata['x_source_results_urls'] || []
+		collector_url = source_urls.first
+		return nil unless collector_url
+		collector = JSON.parse(HTTParty.get(collector_url).body)
+		version = if metadata['testrun_timestamp_end']
+			Time.at(metadata['testrun_timestamp_end']).utc.strftime('%Y-%m-%d')
+		else
+			'latest'
+		end
+		{
+			'results' => parse_bcd_collector_results(collector),
+			'version' => version,
+			'source_url' => 'https://wpewebkit.org/wpt-status/?src=BCD',
+		}
+	  rescue => e
+		Jekyll.logger.warn "webview-bcd-results:", "Failed to fetch WPE results: #{e.message}"
+		nil
 	  end
 
 	  def extract_version_from_results(parsed, file_name)
@@ -124,50 +139,30 @@ module Generated
 		nil
 	  end
 
-	  def try_fix_truncated_json(content)
-		# If a file is truncated mid-JSON, find the last complete entry (ends with },\n)
-		# and close the results object and root object after it.
-		last_complete = content.rindex(/\},\s*\n/)
-		return nil unless last_complete
-		fixed = content[0...last_complete + 1] + "\n }\n}"
-		JSON.parse(fixed)
-	  rescue JSON::ParserError
-		nil
-	  end
-
 	  def fetch_latest_webview_results
+		results = {}
+
+		# WPE MiniBrowser: fetch the distilled data published by the WPE project,
+		# then download the raw mdn-bcd-collector results it points to.
+		wpe = fetch_wpe_minibrowser_results
+		results['wpe_minibrowser'] = wpe if wpe
+
+		# Servo and any other latest-* files come from the WebView-CG repo.
 		api_url = "https://api.github.com/repos/WebView-CG/webview-bcd-results/contents/results"
 		response = HTTParty.get(api_url, headers: { "User-Agent" => "CanIWebView-build" })
 		files = JSON.parse(response.body)
-		results = {}
 		files.each do |file|
 			name = file['name']
-			next unless name.start_with?('latest-')
-			next if name == 'latest-android.json'
+			next unless name.start_with?('latest-servo')
 			begin
 				content = HTTParty.get(file['download_url']).body
-				parsed = begin
-					JSON.parse(content)
-				rescue JSON::ParserError
-					Jekyll.logger.warn "webview-bcd-results:", "#{name} appears truncated, attempting partial parse"
-					try_fix_truncated_json(content)
-				end
-				next unless parsed
+				parsed = JSON.parse(content)
 				version = extract_version_from_results(parsed, name) || 'latest'
-				source_url = file['html_url']
-				if name.start_with?('latest-wpewebkit')
-					results['wpe_minibrowser'] = {
-						'results' => parse_wpe_results(parsed),
-						'version' => version,
-						'source_url' => source_url,
-					}
-				elsif name.start_with?('latest-servo')
-					results['servo'] = {
-						'results' => parse_servo_results(parsed),
-						'version' => version,
-						'source_url' => source_url,
-					}
-				end
+				results['servo'] = {
+					'results' => parse_bcd_collector_results(parsed),
+					'version' => version,
+					'source_url' => file['html_url'],
+				}
 			rescue => e
 				Jekyll.logger.warn "webview-bcd-results:", "Failed to process #{name}: #{e.message}"
 			end
