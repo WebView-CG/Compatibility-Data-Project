@@ -4,6 +4,8 @@ The WebView Compatibility Data Project is an initiative driven by the [WebView C
 to [make machine-readable data more readily available for documentation platforms and other tools
 ](https://github.com/WebView-CG/charter/blob/04422d7cb3ecc80a7d0f6755135995a74deab64b/charter.md?plain=1#L26).
 
+![CanIWebView and other tools](https://webcompat.dev/assets/img/graphs/CanIWebView.svg)
+
 ## Development
 
 Prerequisites:
