@@ -16,14 +16,14 @@ permalink: /todo/
 			{% for feature in features %}
 				{% assign todo-platform = feature.stats.protonmail.android %}
 				{% if todo-platform.size == nil or todo-platform.size == 0 %}
-				<li><a href="{{ feature.url }}">{{ feature.title | escape_once }}</a></li>
+				<li><a href="{{ site.baseurl }}{{ feature.url }}">{{ feature.title | escape_once }}</a></li>
 				{% else %}
 					{% for version in todo-platform %}
 						{% if forloop.last == true %}
 							{% assign version-value = version | last | split: ' ' | first %}
 							{% if version-value == "u" %}
 							<li>
-							<a href="{{ feature.url }}">{{ feature.title | escape_once }}</a>
+							<a href="{{ site.baseurl }}{{ feature.url }}">{{ feature.title | escape_once }}</a>
 							</li>
 							{% endif %}
 						{% endif %}
@@ -37,7 +37,7 @@ permalink: /todo/
 			{% assign features = site.features | concat: site.generated_features %}
 			{% for feature in features %}
 				{% if feature.links.size == nil or feature.links.size == 0 %}
-			<li><a href="{{ feature.url }}">{{ feature.title | escape_once }}</a></li>
+			<li><a href="{{ site.baseurl }}{{ feature.url }}">{{ feature.title | escape_once }}</a></li>
 				{% endif %}
 			{% endfor %}
 		</ul>

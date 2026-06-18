@@ -6,7 +6,7 @@ See more in [usage and challenges](https://webview-cg.github.io/usage-and-challe
 category: webviewapi
 keywords: hybrid
 last_test_date: "2024-03-29"
-notes: "Behavior description based on experiene with the Apache Cordova app framework"
+notes: "Behavior description based on experience with the Apache Cordova app framework"
 links: {
     "Usage & Challenges report": "https://webview-cg.github.io/usage-and-challenges/#the-origin-in-a-webview-for-locally-hosted-content",
     "WKURLSchemehandler": "https://developer.apple.com/documentation/webkit/wkurlschemehandler",
@@ -15,7 +15,8 @@ links: {
 behaviour: {
     wkwebview: "",
     androidwebview: "",
-    webview2: "WebView2 has a variety of ways to work with local content - intercepting web resources as they're requested, mapping a hostname to a folder on the user's filesystem, or registering a custom URL scheme. You can find details on all of these in WebView2's documentation for [working with local content in WebView2 apps](https://learn.microsoft.com/microsoft-edge/webview2/concepts/working-with-local-content)."
+    webview2: "WebView2 has a variety of ways to work with local content - intercepting web resources as they're requested, mapping a hostname to a folder on the user's filesystem, or registering a custom URL scheme. You can find details on all of these in WebView2's documentation for [working with local content in WebView2 apps](https://learn.microsoft.com/microsoft-edge/webview2/concepts/working-with-local-content).",
+    arkweb: "Arkweb allows serving local resources through [`$rawfile()`](https://developer.huawei.com/consumer/en/doc/harmonyos-references/arkts-basic-components-web) mechanism and [`://rawfile/`](https://developer.huawei.com/consumer/en/doc/harmonyos-references/arkts-basic-components-web) protocol. The second method for providing local content is to intercept ArkWeb's network resource requests via the `onInterceptRequest` event. This event is triggered whenever ArkWeb needs to load a resource. The application can construct a `WebResourceResponse` using local resources and return it to ArkWeb, as described in [Customizing Page Request Responses](https://developer.huawei.com/consumer/en/doc/harmonyos-guides-V5/web-resource-interception-request-mgmt-V5)."
 }
 stats: {
     wkwebview: {
@@ -44,6 +45,11 @@ stats: {
     safari_ios: {
         ios: {
             "*": "u"
+        }
+    },
+    arkweb: {
+        harmonyos: {
+            "*": "y"
         }
     }
 }

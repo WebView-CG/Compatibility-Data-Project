@@ -7,12 +7,14 @@ family:
   safari_ios: "Safari Browser"
   wpe_minibrowser: "WPE MiniBrowser"
   servo: "Servo"
+  arkweb: "ArkWeb"
 platform:
   ios: "iOS"
   android: "Android"
   windows: "Windows"
   macos: "macOS"
   linux: "Linux"
+  harmonyos: "HarmonyOS"
 support:
   supported: "Supported"
   mitigated: "Partial support"

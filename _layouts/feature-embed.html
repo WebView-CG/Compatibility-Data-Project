@@ -5,7 +5,7 @@ layout: embed
 	<div class="feature-header">
 		<div class="feature-header-column">
 			<h1 class="feature-title">
-				<a href="https://www.caniemail.com/features/{{ page.slug | escape_once }}"
+				<a href="{{ site.baseurl }}/features/{{ page.slug | escape_once }}"
 					target="_blank" rel="noopener">{{ page.title | xml_escape }}</a>
 			</h1>
 			<span class="feature-category">{{ page.category | escape_once }}</span>
@@ -49,7 +49,7 @@ layout: embed
 					<span>
 						{% assign family-page = site.clients | where:"slug", client-family | first %}
 						{% if family-page != nil and family-page != "" %}
-						<a href="https://www.caniemail.com/clients/{{family-key}}/" target="_blank" rel="noopener">
+						<a href="{{ site.baseurl }}/clients/{{family-key}}/" target="_blank" rel="noopener">
 							{% endif %}
 							{{ site.data.nicenames.family[family-key] | default: family-key }}
 							{% if family-page != nil and family-page != "" %}
@@ -92,7 +92,7 @@ layout: embed
 							<div class="data-version {{ stat-class-name }}">
 								<span class="data-version-platform">
 									{% if family-page != nil and family-page != "" %}
-									<a href="https://www.caniemail.com/clients/{{family-key}}/#{{ platform-key | slugify }}"
+									<a href="{{ site.baseurl }}/clients/{{family-key}}/#{{ platform-key | slugify }}"
 										target="_blank" rel="noopener">
 										{% endif %}
 										{{ site.data.nicenames.platform[platform-key] | default: platform-key }}
@@ -115,7 +115,7 @@ layout: embed
 									{% assign version-notes-title-attribute = version-notes-title-attribute | append:
 									note-key-display | append: note-value-display %}
 									{% endfor %}
-									<a href="https://www.caniemail.com/features/{{ page.slug | escape_once }}#{{ page.title | slugify }}-cite-note-1"
+									<a href="{{ site.baseurl }}/features/{{ page.slug | escape_once }}#{{ page.title | slugify }}-cite-note-1"
 										target="_blank" title="{{ version-notes-title-attribute }}">?</a>
 								</div>
 								{% endif %}
@@ -239,7 +239,7 @@ layout: embed
 <footer class="footer" role="contentinfo">
 	<div class="footer-column">
 		<p>
-			Data from <a href="https://www.caniemail.com/features/{{ page.slug | escape_once }}" target="_blank"
+			Data from <a href="{{ site.baseurl }}/features/{{ page.slug | escape_once }}" target="_blank"
 				rel="noopener">caniemail.com</a>
 			{% if page.last_test_date != nil and page.last_test_date != "" %}
 			| <span class="footer-last-test-date">Last tested on {{ page.last_test_date | date: '%Y-%m-%d' }}</span>
@@ -262,4 +262,4 @@ layout: embed
 		</span>
 	</div>
 </footer>
-<script src="/assets/js/embed.js" defer></script>
+<script src="{{ site.baseurl }}/assets/js/embed.js" defer></script>

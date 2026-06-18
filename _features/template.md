@@ -42,6 +42,11 @@ stats: {
         ios: {
             "*": "u"
         }
+    },
+    arkweb: {
+        harmonyos: {
+            "*": "u"
+        }
     }
 }
 ---

@@ -4,14 +4,14 @@
 <head>
 	<meta charset="utf-8" />
 	<title>Can I WebView… {{ page.title | remove: '`' | escape_once | markdownify | strip_html | strip }}</title>
-	<link rel="stylesheet" href="/assets/css/style.css" />
+	<link rel="stylesheet" href="{{ site.baseurl }}/assets/css/style.css" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	{%- if jekyll.environment == 'production' -%}
-	<link rel="shortcut icon" href="/assets/images/favicon.ico" />
+	<link rel="shortcut icon" href="{{ site.baseurl }}/assets/images/favicon.ico" />
 	{%- else -%}
-	<link rel="shortcut icon" href="/assets/images/favicon.ico" />
+	<link rel="shortcut icon" href="{{ site.baseurl }}/assets/images/favicon.ico" />
 	{%- endif -%}
-	<link rel="prefetch" href="/assets/js/features.json" />
+	<link rel="prefetch" href="{{ site.baseurl }}/assets/js/features.json" />
 	{%- if page.collection == 'features' -%}
 	<meta property="og:title"
 		content="Can I WebView… {{ page.title | escape_once | markdownify | strip_html | strip }}" />
@@ -39,7 +39,7 @@
 		</main>
 		{% include footer.html %}
 	</div>
-	<script src="/assets/js/caniwebview.js" defer></script>
+	<script src="{{ site.baseurl }}/assets/js/caniwebview.js" defer></script>
 </body>
 
 </html>

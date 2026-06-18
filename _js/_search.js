@@ -304,7 +304,7 @@ class Search {
 					const baseline = container.lastChild.querySelector('.baseline');
 					baseline.innerHTML = `
 					<a href="https://developer.mozilla.org/en-US/docs/Glossary/Baseline/Compatibility">
-						<img width="35" height="20" src="/assets/images/baseline.svg" alt="baseline logo">
+						<img width="35" height="20" src="{{ site.baseurl }}/assets/images/baseline.svg" alt="baseline logo">
 						<strong>
 							Widely available ${!feature.baseline.webviewBaseline ? 'in browsers' : ''}
 						</strong>
