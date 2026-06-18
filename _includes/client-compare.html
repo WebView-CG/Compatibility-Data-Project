@@ -109,14 +109,14 @@
                     {% assign clients = site.clients | sort:"display_order" %}
                     {% for client in clients %}
                     <li>
-                        <a href="{{ client.url }}">{{ site.data.nicenames.family[client.slug] | default: client.slug |
+                        <a href="{{ site.baseurl }}{{ client.url }}">{{ site.data.nicenames.family[client.slug] | default: client.slug |
                             escape_once }}</a>
                         <small>
                             {% for platform in client.platforms %}
                             {%- if forloop.first == true -%}
                             (
                             {%- endif -%}
-                            <a href="{{ client.url }}#{{ platform }}">{{ site.data.nicenames.platform[platform] |
+                            <a href="{{ site.baseurl }}{{ client.url }}#{{ platform }}">{{ site.data.nicenames.platform[platform] |
                                 default:
                                 platform | escape_once }}</a>
                             {%- if forloop.last == true -%}

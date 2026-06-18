@@ -21,7 +21,7 @@ permalink: /search/
 		{% assign features = category.items | sort:'id' %}
 		{% for feature in features %}
 			<li>
-				<a href="{{ feature.url }}">{{ feature.title | escape_once }}</a>
+				<a href="{{ site.baseurl }}{{ feature.url }}">{{ feature.title | escape_once }}</a>
 				{% if feature.keywords != nil and feature.keywords != "" %}
 				({{ feature.keywords | escape_once }})
 				{% endif %}

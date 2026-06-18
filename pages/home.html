@@ -1,5 +1,5 @@
 ---
-title: Documentation for WebView capatibilities, limitations and features
+title: Documentation for WebView capabilities, limitations and features
 layout: default
 permalink: /
 ---
@@ -10,7 +10,7 @@ permalink: /
 		or explore by category below.
 	</p>
 	<h3>
-		<a href="/about" class="about-button">What is a WebView?</a>
+		<a href="{{ site.baseurl }}/about" class="about-button">What is a WebView?</a>
 	</h3>
 </div>
 
@@ -18,25 +18,25 @@ permalink: /
 	<h2 class="list-title">Explore by category</h2>
 	<ul class="explore-cards">
 		<li>
-			<a class="explore-card" href="/search/?cat=web_feature">
+			<a class="explore-card" href="{{ site.baseurl }}/search/?cat=web_feature">
 				<span class="explore-card-title">Web Features &amp; Baseline</span>
 				<span class="explore-card-text">Higher-level capabilities with Baseline status, from our own baseline computation.</span>
 			</a>
 		</li>
 		<li>
-			<a class="explore-card" href="/features/">
+			<a class="explore-card" href="{{ site.baseurl }}/features/">
 				<span class="explore-card-title">JS &middot; CSS &middot; HTML &middot; HTTP</span>
 				<span class="explore-card-text">Granular support for individual APIs, elements, properties and headers, from MDN BCD.</span>
 			</a>
 		</li>
 		<li>
-			<a class="explore-card" href="/features/#title-webapi">
+			<a class="explore-card" href="{{ site.baseurl }}/features/#title-webapi">
 				<span class="explore-card-title">WebView behaviours</span>
 				<span class="explore-card-text">Hand-written docs on WebView-specific quirks and differences, like cookies and autofill.</span>
 			</a>
 		</li>
 		<li>
-			<a class="explore-card" href="/clients/">
+			<a class="explore-card" href="{{ site.baseurl }}/clients/">
 				<span class="explore-card-title">Compare WebViews</span>
 				<span class="explore-card-text">See feature support side by side across the different WebViews.</span>
 			</a>
@@ -57,7 +57,7 @@ permalink: /
 	<div class="homepage">
 		<div class="block">
 
-			<h1 class="list-title"><a href="/features/">Latest features</a></h1>
+			<h1 class="list-title"><a href="{{ site.baseurl }}/features/">Latest features</a></h1>
 			<ol class="list">
 				{% assign latest-features = site.features | concat: site.generated_features | sort:"last_test_date" | reverse %}
 				{% for feature in latest-features limit:5 %}
@@ -70,25 +70,25 @@ permalink: /
 				{% endif %}
 				{% endif %}
 				<!-- , {{ feature.last_test_date | date: '%B %d, %Y' }} -->
-				<li><a href="{{ feature.url }}">{{ feature-category | default:'' }}{{ feature.title | escape_once }}</a>
+				<li><a href="{{ site.baseurl }}{{ feature.url }}">{{ feature-category | default:'' }}{{ feature.title | escape_once }}</a>
 				</li>
 				{% endfor %}
 			</ol>
-			<a href="/features/" class="button">View all features</a>
+			<a href="{{ site.baseurl }}/features/" class="button">View all features</a>
 		</div>
 		<div class="block">
-			<h1 class="list-title"><a href="/news/">Latest news</a></h1>
+			<h1 class="list-title"><a href="{{ site.baseurl }}/news/">Latest news</a></h1>
 			<ul class="list">
 				{% for post in site.posts limit:5 %}
 				<!-- , {{ post.date | date: '%B %d, %Y' }} -->
-				<li><a href="{{ post.url }}">{{ post.title | markdownify | remove: ' class="language-plaintext
+				<li><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title | markdownify | remove: ' class="language-plaintext
 						highlighter-rouge"' | remove: '<p>' | remove: '</p>' | strip }}</a></li>
 				{% endfor %}
 			</ul>
 			<!-- <a href="/news/" class="button">View all news</a> -->
 		</div>
 		<div class="block">
-			<h1 class="list-title"><a href="/scoreboard/">Baseline status</a></h1>
+			<h1 class="list-title"><a href="{{ site.baseurl }}/scoreboard/">Baseline status</a></h1>
 			{% include client-scores.html limit=5 %}
 			<!-- <a href="/scoreboard/" class="button">View the scoreboard</a> -->
 		</div>

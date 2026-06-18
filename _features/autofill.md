@@ -13,7 +13,8 @@ behaviour: {
     androidwebview: "Android WebView relies on the Android autofill framework. Users can choose a default auto fill service, which will be
 responsible for responding to autofill requests. Android WebView is responsible for detecting what fields in a web page
 may need to be auto filled, and is responsible for sending autofill requests to the autofill framework.",
-    webview2: "Will autofill any fields that Microsoft Edge will, such as names, street, email addresses, phone numbers, passwords, etc. Developers can control this in their application using the `CoreWebView2Settings.IsGeneralAutofillEnabled` and `CoreWebView2Settings.IsPasswordAutosaveEnabled` properties."
+    webview2: "Will autofill any fields that Microsoft Edge will, such as names, street, email addresses, phone numbers, passwords, etc. Developers can control this in their application using the `CoreWebView2Settings.IsGeneralAutofillEnabled` and `CoreWebView2Settings.IsPasswordAutosaveEnabled` properties.",
+    arkweb: "The [`autoFillManager` module](https://developer.huawei.com/consumer/en/doc/harmonyos-references/js-apis-app-ability-autofillmanager) provides auto-fill capabilities for user information."
 }
 stats: {
     wkwebview: {
@@ -42,6 +43,11 @@ stats: {
     safari_ios: {
         ios: {
             "*": "u"
+        }
+    },
+    arkweb: {
+        harmonyos: {
+            "*": "y"
         }
     }
 }

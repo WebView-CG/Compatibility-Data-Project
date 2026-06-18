@@ -12,7 +12,8 @@ links: {
 behaviour: {
     wkwebview: "",
     androidwebview: "",
-    webview2: ""
+    webview2: "",
+    arkweb: "ArkWeb enables script injection through the [`Webview.runJavascript()`](https://developer.huawei.com/consumer/en/doc/harmonyos-references-V5/js-apis-webview-V5#runjavascript) and [`Webview.runJavaScriptExt()`](https://developer.huawei.com/consumer/en/doc/harmonyos-references-V5/js-apis-webview-V5#runjavascriptext10) methods. It also includes [`JavaScriptProxy`](https://developer.huawei.com/consumer/en/doc/harmonyos-references-V5/ts-basic-components-web-V5#javascriptproxy12) to include objects accessible from the WebView. See [example](https://developer.huawei.com/consumer/en/doc/harmonyos-guides-V5/web-in-app-frontend-page-function-invoking-V5)."    
 }
 stats: {
     wkwebview: {
@@ -41,6 +42,11 @@ stats: {
     safari_ios: {
         ios: {
             "*": "u"
+        }
+    },
+    arkweb: {
+        harmonyos: {
+            "*": "y"
         }
     }
 }
