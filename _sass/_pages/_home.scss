@@ -32,3 +32,82 @@
 	color: white;
 	cursor: pointer;
 }
+
+// Homepage intro
+.intro-tagline {
+	max-width: rem(704px);
+	margin: 0 auto rem(16px);
+	text-align: center;
+	font-size: rem(18px);
+	font-weight: 300;
+}
+
+// "Explore by category" section
+.explore {
+	margin: rem(32px) 0;
+}
+
+.explore-cards {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-gap: rem(16px);
+
+	@media (min-width: rem(512px)) {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	@media (min-width: rem(960px)) {
+		grid-template-columns: repeat(4, 1fr);
+	}
+}
+
+.explore-card {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	padding: rem(20px);
+	border: 1px solid #3c3c3d;
+	background: $feature-color;
+	border-radius: rem(4px);
+	color: inherit;
+	text-decoration: none;
+	transition: border-color 0.15s ease, transform 0.15s ease;
+
+	&:focus,
+	&:hover {
+		border-color: $color-blue-light;
+		transform: translateY(rem(-2px));
+	}
+}
+
+.explore-card-title {
+	display: block;
+	margin-bottom: rem(8px);
+	font-size: rem(18px);
+	font-weight: 400;
+	color: $color-blue-light;
+}
+
+.explore-card-text {
+	display: block;
+	font-size: rem(15px);
+	line-height: 1.4;
+}
+
+.recent {
+	margin-top: rem(32px);
+}
+
+body.light-mode {
+	.explore-card {
+		background: $feature-color-light;
+		border-color: #e0e0e0;
+	}
+
+	.explore-card-title {
+		color: $color-blue;
+	}
+}
