@@ -282,8 +282,7 @@ module Generated
 				:collection => site.collections['generated_features'],
 			})
 
-			# TODO:
-			data_source = "Support data provided by: [![BCD logo](/assets/images/mdn-bcd.svg)](https://github.com/mdn/browser-compat-data)"
+			data_source = "WebViews are not part of [Baseline](https://web-platform-dx.github.io/baseline/) [![Baseline logo](/assets/images/baseline.svg)](https://github.com/NiklasMerz/web-features-plus-webview) We do web-features computation using [web-features-plus-webview](https://github.com/NiklasMerz/web-features-plus-webview)"
 
 			doc.data['title'] = "web-feature: " + feature['title']
 			doc.data['description'] = feature['description']
