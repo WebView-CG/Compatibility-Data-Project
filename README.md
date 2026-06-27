@@ -16,6 +16,12 @@ Setup:
 - `npm install`
 - `bundle install`
 
+## Updates
+
+**BCD** gets updated automatically but an issue is created on major updates. Someone needs to check for breaking changes and update manually in the ``bcd_version` file.
+
+**web-features** are maintained manually in our own package for now.
+
 Run the project:
 - `bundle exec jekyll serve --baseurl=""`
 
