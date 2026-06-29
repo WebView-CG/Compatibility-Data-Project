@@ -13,7 +13,7 @@ behaviour: {
     wkwebview: "",
     androidwebview: "",
     webview2: "",
-    arkweb: "ArkWeb allows injecting scripts into web pages for execution via the `WebviewController.runJavaScript()` and WebviewController.runJavaScriptExt() interfaces. It also supports configuring scripts to run at specific events in the web page loading lifecycle using the `runJavaScriptOnDocumentStart`, `runJavaScriptOnDocumentEnd`, and `runJavaScriptOnHeadEnd` properties. Furthermore, developers can register script objects that can be accessed by web pages through the `javaScriptProxy` property or the `WebviewController.registerJavaScriptProxy` method. See [example](https://developer.huawei.com/consumer/en/doc/harmonyos-guides-V5/web-in-app-frontend-page-function-invoking-V5)."    
+    arkweb: "ArkWeb allows injecting scripts into web documents for execution via the `WebviewController.runJavaScript()` and WebviewController.runJavaScriptExt() interfaces. It also supports configuring scripts to run at specific events in the web page loading lifecycle using the `runJavaScriptOnDocumentStart`, `runJavaScriptOnDocumentEnd`, and `runJavaScriptOnHeadEnd` properties. Furthermore, developers can register script objects that can be accessed by web pages through the `javaScriptProxy` property or the `WebviewController.registerJavaScriptProxy` method. See [example](https://developer.huawei.com/consumer/en/doc/harmonyos-guides-V5/web-in-app-frontend-page-function-invoking-V5)."    
 }
 stats: {
     wkwebview: {
