@@ -68,7 +68,7 @@
 	6. We display the data.
 {% endcomment %}
 <div class="feature-support">
-	<p class="feature-support-title">Estimated Support <a href="/support/">About</a></p>
+	<p class="feature-support-title">Estimated Support <a href="{{ site.baseurl }}/support/">About</a></p>
 	<div class="score">
 		{% if support-scores-y != 0 %}
 			{% assign support-scores-names-y-string = support-scores-y | append: '% ' | append: site.data.nicenames.support['supported'] | downcase %}

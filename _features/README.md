@@ -11,6 +11,7 @@
 - Windows: [WebView2](https://developer.microsoft.com/en-us/microsoft-edge/webview2/)
 - MacOS & iOS: [WKWebView](https://developer.apple.com/documentation/webkit/wkwebview)
 - Android: [WebView](https://developer.android.com/reference/android/webkit/WebView)
+- OpenHarmony: [ArkWeb](https://docs.openharmony.cn/pages/v6.0/en/application-dev/web/web-component-overview.md) 
 - TODO: Any others?
 
 ## Project Timeline

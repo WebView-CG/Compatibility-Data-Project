@@ -203,7 +203,7 @@ append:client-scores-families[i] %}
 				<span class="score-name">
 					
 					{% if family-page != nil and family-page != "" %}
-					<a href="/clients/{{client-family}}/#{{ client-platform | slugify }}">
+					<a href="{{ site.baseurl }}/clients/{{client-family}}/#{{ client-platform | slugify }}">
 						{% endif %}
 						{{ site.data.nicenames.family[client-family] | default: client-family }}
 						({{ site.data.nicenames.platform[client-platform] | default: client-platform }})

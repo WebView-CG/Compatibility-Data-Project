@@ -14,7 +14,8 @@ behaviour: {
     androidwebview: "In Android WebView, it is not possible to inspect cookie scopes. You can retrieve cookie names and values, but without knowing other attributes it is impossible to override them properly
 
 Android WebView does not provide APIs to manage localStorage/sessionStorage.",
-    webview2: ""
+    webview2: "",
+    arkweb: "ArkWeb provides APIs to manage [local and session storage](https://developer.huawei.com/consumer/en/doc/harmonyos-guides-V5/web-cookie-and-data-storage-mgmt-V5), developers must [enable it](https://developer.huawei.com/consumer/en/doc/harmonyos-references-V5/ts-basic-components-web-V5#domstorageaccess) explicitly. No selective and granular options available."    
 }
 stats: {
     wkwebview: {
@@ -43,6 +44,11 @@ stats: {
     safari_ios: {
         ios: {
             "*": "u"
+        }
+    },
+    arkweb: {
+        harmonyos: {
+            "*": "y"
         }
     }
 }

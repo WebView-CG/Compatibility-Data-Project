@@ -40,6 +40,11 @@ for (const key in features) {
 			ios: {
 				"*": "u"
 			}
+		},
+		arkweb: {
+			harmonyos: {
+				"*": "u"
+			}
 		}
 	};
 	const notes = {};

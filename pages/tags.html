@@ -10,7 +10,7 @@ permalink: /tags/
 	{% assign features-by-tag = site.features | concat: site.generated_features | where:"tags", tag %}
 	<ul class="list list--features">
 		{% for feature in features-by-tag %}
-			<li><a href="{{ feature.url }}">{{ feature.title | escape_once }}</a></li>
+			<li><a href="{{ site.baseurl }}{{ feature.url }}">{{ feature.title | escape_once }}</a></li>
 		{% endfor %}
 	</ul>
 {% endfor %}

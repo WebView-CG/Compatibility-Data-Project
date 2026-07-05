@@ -11,7 +11,7 @@ layout: default
 			<span class="baseline">
 				{% if page.baseline and page.baseline.baseline %}
 					<a href="https://developer.mozilla.org/en-US/docs/Glossary/Baseline/Compatibility">
-						<img width="35" height="20" src="/assets/images/baseline.svg" alt="baseline logo">
+						<img width="35" height="20" src="{{ site.baseurl }}/assets/images/baseline.svg" alt="baseline logo">
 						<strong>
 							Widely available {% unless page.baseline.webviewBaseline %}in browsers{% endunless %}
 						</strong>
@@ -75,7 +75,7 @@ layout: default
 					<span>
 						{% assign family-page = site.clients | where:"slug", family-key | first -%}
 						{% if family-page != nil and family-page != "" %}
-						<a href="/clients/{{family-key}}/">
+						<a href="{{ site.baseurl }}/clients/{{family-key}}/">
 							{% endif %}
 							{{ site.data.nicenames.family[family-key] | default: family-key }}
 							{% if family-page != nil and family-page != "" %}
@@ -92,7 +92,7 @@ layout: default
 					<div class="data-client data-client--{{ platform-key | slugify }}">
 						<h4 class="data-platform-name">
 							{% if family-page != nil and family-page != "" %}
-							<a href="/clients/{{family-key}}/#{{ platform-key | slugify }}">
+							<a href="{{ site.baseurl }}/clients/{{family-key}}/#{{ platform-key | slugify }}">
 								{% endif %}
 								{{ site.data.nicenames.platform[platform-key] | default: platform-key }}
 								{% if family-page != nil and family-page != "" %}
