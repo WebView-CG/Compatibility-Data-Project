@@ -7,3 +7,9 @@
 		word-wrap: break-word;
 	}
 }
+
+.light-mode .page--clients {
+	.post .list li > a {
+		color: #005A9C;
+	}
+}
