@@ -4,6 +4,10 @@
 <head>
 	<meta charset="utf-8" />
 	<title>Can I WebView… {{ page.title | remove: '`' | escape_once | markdownify | strip_html | strip }}</title>
+	{%- if page.redirect_to -%}
+	<meta http-equiv="refresh" content="0; url={{ page.redirect_to }}" />
+	<link rel="canonical" href="{{ site.url }}{{ page.redirect_to }}" />
+	{%- endif -%}
 	<link rel="stylesheet" href="{{ site.baseurl }}/assets/css/style.css" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	{%- if jekyll.environment == 'production' -%}
