@@ -326,11 +326,17 @@ class Search {
 					if(featureContainer != null) {
 						featureContainer.classList.remove('feature--placeholder');
 						featureContainer.classList.remove('loading');
-						featureContainer.querySelector('.data-details').innerHTML = div.querySelector('.data-details').innerHTML;
-						if(window.caniwebview && window.caniwebview.settings && window.caniwebview.settings.unchecked) {
-							featureContainer.querySelector('.data-details').appendChild(window.caniwebview.settings.getEmptyDataMessageElement());
+						const dataDetails = div.querySelector('.data-details');
+						if (dataDetails != null) {
+							featureContainer.querySelector('.data-details').innerHTML = dataDetails.innerHTML;
+							if(window.caniwebview && window.caniwebview.settings && window.caniwebview.settings.unchecked) {
+								featureContainer.querySelector('.data-details').appendChild(window.caniwebview.settings.getEmptyDataMessageElement());
+							}
 						}
-						featureContainer.querySelector('.feature-footer').innerHTML = div.querySelector('.feature-footer').innerHTML;
+						const featureFooter = div.querySelector('.feature-footer');
+						if (featureFooter != null) {
+							featureContainer.querySelector('.feature-footer').innerHTML = featureFooter.innerHTML;
+						}
 						const featureDescription = div.querySelector('.feature-description');
 						if (featureDescription != null) {
 							featureContainer.querySelector('.feature-header-column:nth-child(1)').innerHTML += featureDescription.outerHTML;
