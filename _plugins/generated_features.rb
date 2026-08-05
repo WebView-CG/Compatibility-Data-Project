@@ -193,6 +193,7 @@ module Generated
 
 			doc.data['title'] = title
 			doc.data['slug'] = slug
+			doc.data['layout'] = 'feature'
 			doc.data['category'] = category
 			doc.data['keywords'] = 'todo'
 			doc.data['last_test_date'] = timestamp
@@ -296,6 +297,7 @@ module Generated
 			doc.data['title'] = "web-feature: " + feature['title']
 			doc.data['description'] = feature['description']
 			doc.data['slug'] = feature['slug']
+			doc.data['layout'] = 'feature'
 			doc.data['category'] = feature['category']
 			doc.data['keywords'] = 'baseline'
 			doc.data['last_test_date'] = feature['last_test_date']
