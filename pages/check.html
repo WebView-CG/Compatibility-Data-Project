@@ -1,0 +1,44 @@
+---
+layout: default
+title: WebView Check
+permalink: /check/
+---
+<link rel="stylesheet" href="{{ site.baseurl }}/assets/css/check.css" />
+
+<div class="check-page">
+	<header class="check-page-header">
+		<h1>WebView Check</h1>
+		<p>
+			This page runs a set of in-browser checks to see whether it is being displayed inside a
+			native app's WebView, and whether that WebView is configured in a way that weakens the
+			security guarantees a normal browser tab provides. The checks are based on the
+			<a href="https://webview-cg.github.io/webview-security/" target="_blank" rel="noopener">Security Considerations for WebViews</a>
+			and
+			<a href="https://webview-cg.github.io/usage-and-challenges/" target="_blank" rel="noopener">WebView: Usage Scenarios and Challenges</a>
+			reports from the W3C WebView Community Group.
+		</p>
+	</header>
+
+	<div id="verdict-banner" class="verdict-banner" role="status">
+		<h2>Running checks…</h2>
+	</div>
+
+	<div class="actions">
+		<button id="copy-report" type="button">Copy report</button>
+	</div>
+
+	<div id="report" aria-live="polite"></div>
+
+	<footer class="check-page-footer">
+		<p>
+			These are heuristics, not a security guarantee. A missing warning does not mean an
+			environment is safe, and a warning does not always mean malicious intent — some checks
+			(e.g. lack of visible browser chrome) also fire in legitimate popups or installed PWAs.
+		</p>
+		<p>
+			<a href="https://github.com/webview-cg" target="_blank" rel="noopener">W3C WebView Community Group</a>
+		</p>
+	</footer>
+</div>
+
+<script type="module" src="{{ site.baseurl }}/assets/js/check/main.js"></script>

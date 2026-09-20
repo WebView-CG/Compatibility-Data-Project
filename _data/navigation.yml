@@ -8,5 +8,7 @@
   link: /news/
 - name: Apps
   link: /apps/
+- name: Check
+  link: /check/
 - name: Community
   link: https://github.com/WebView-CG/Compatibility-Data-Project/discussions
