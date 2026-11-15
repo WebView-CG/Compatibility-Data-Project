@@ -1,0 +1,56 @@
+---
+layout: post
+title: The WebView Basics Guide
+permalink: /guide/
+---
+
+**WebViews** are software components that can be used to render Web content directly
+within a native application without having to switch to the system-wide Web browser. 
+For users and developers alike, WebViews require some additional considerations on **accessibility**, **compatibility** and **security** compared to regular web browsers.
+
+# WebViews for users
+
+Many apps, social media apps in particular, use WebViews to display web content within the app itself. 
+This allows users to view web pages without leaving the app, providing a more seamless experience.
+
+Depending on the [type of WebView](/about) and its configuration, the host app has control over the web content. 
+WebViews like Android WebView and iOS WKWebView allow the host app to inject JavaScript, CSS, intercept network requests, and control navigation within the WebView. 
+This means the app can manipulate the web content or track user interactions. 
+In most cases apps open links with the dedicated browser-like WebViews provided by the platform, such as Android Custom Tabs or iOS SFSafariViewController 
+that are built to provide a more secure and consistent browsing experience within the app.
+
+**User advice:** If a link opens within a WebView, be cautious about entering sensitive information and consider opening the link in your trusted browser.
+This makes sure the app you are clicking links in is not able to intercept or manipulate the website and you're also logged in to your accounts.
+Typically there should be an option to open the link in your default browser, either through a menu or a long-press action on the link.
+
+# WebViews for web developers
+
+WebViews behave like the browser they are based on except when they don't. For the most part, content developed for the Web is working fine in WebViews.
+But sometimes web features are not available in WebViews or something behaves slightly differently than the browser.
+
+On [caniwebview.com](/clients) you can check the compatibility of various WebViews and their mobile browser counterparts. 
+For browsers, [Baseline](https://web-platform-dx.github.io/baseline/) provides a reference for what is supported and CanIWebView brings that to WebViews.
+Many subtle rendering inconsistencies and feature gaps between WebViews and browsers are not captured by automated tools and require manual testing to identify and address.
+For security and privacy, be aware that WebViews are different from standard browsers because the app implementing the WebView can use WebView capabilities or configurations to alternate behavior or content within the WebView.
+
+**Web developer advice:** Test your web content in the WebViews used by your target audience. 
+With [testing apps](/apps) you can load sites in WebViews on different platforms and devices to ensure compatibility and identify any issues specific to certain WebViews.
+Think about how accessibility, security and privacy considerations might differ when your content is loaded in a WebView compared to a standard browser.
+
+# WebViews for app developers
+
+WebViews are very important for many native or hybrid apps. Native apps can leverage WebViews to display web content within the app for either external websites or first-party web-based interfaces.
+Hybrid apps often rely on WebViews to provide the main interface of the app using web technologies, allowing for cross-platform development and easier updates.
+
+You can check out the security guidance provided by the platform or framework you are using to understand the best
+practices for securing WebViews.
+The WebView Community Group is also working on [security guidance](https://webview-cg.github.io/webview-security/) and
+best practices for WebView implementations.
+
+**App developer advice:** When integrating WebViews into your app make sure to use the correct type of WebView for your use cases and configure your WebViews to be as secure as possible.
+You can disable JavaScript execution, restrict network access, and control navigation within the WebView to enhance security. 
+If you are using more advanced WebView features, such as JavaScript injection or custom network handling, ensure that you implement proper security measures to prevent potential vulnerabilities and protect user data.
+
+# WebViews for browser engineers
+
+If you are shipping a feature for browser also consider how it will land in WebViews. Users expect all web features available in browsers to work consistently in WebViews as well.
