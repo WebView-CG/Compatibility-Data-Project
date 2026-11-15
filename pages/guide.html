@@ -13,9 +13,9 @@ For users and developers alike, WebViews require some additional considerations 
 Many apps, social media apps in particular, use WebViews to display web content within the app itself. 
 This allows users to view web pages without leaving the app, providing a more seamless experience.
 
-Depending on the [type of WebView](/about) and configuration the host app has control over the web content. 
+Depending on the [type of WebView](/about) and its configuration, the host app has control over the web content. 
 WebViews like Android WebView and iOS WKWebView allow the host app to inject JavaScript, CSS, intercept network requests, and control navigation within the WebView. 
-This means the app can potentially manipulate the web content or track user interactions. 
+This means the app can manipulate the web content or track user interactions. 
 In most cases apps open links with the dedicated browser-like WebViews provided by the platform, such as Android Custom Tabs or iOS SFSafariViewController 
 that are built to provide a more secure and consistent browsing experience within the app.
 
@@ -29,8 +29,8 @@ WebViews behave like the browser they are based on except when they don't. For t
 But sometimes web features are not available in WebViews or something behaves slightly differently than the browser.
 
 On [caniwebview.com](/clients) you can check the compatibility of various WebViews and their mobile browser counterparts. 
-For browsers [Baseline](https://web-platform-dx.github.io/baseline/) provides a reference for what is supported and CanIWebView brings that to WebViews.
-Many subtle rendering inconsistencies and feature gaps between WebViews and browser are not captured by automated tools and require manual testing to identify and address.
+For browsers, [Baseline](https://web-platform-dx.github.io/baseline/) provides a reference for what is supported and CanIWebView brings that to WebViews.
+Many subtle rendering inconsistencies and feature gaps between WebViews and browsers are not captured by automated tools and require manual testing to identify and address.
 For security and privacy, be aware that WebViews are different from standard browsers because the app implementing the WebView can use WebView capabilities or configurations to alternate behavior or content within the WebView.
 
 **Web developer advice:** Test your web content in the WebViews used by your target audience. 
